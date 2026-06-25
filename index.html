@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Balance Condarco — Ingresar</title>
-    <link rel="stylesheet" href="css/style.css?v=6">
+    <link rel="stylesheet" href="css/style.css?v=7">
 </head>
 <body>
 <div class="login-page">
     <div class="login-card">
         <h1 class="login-title">Balance Condarco</h1>
-        <p class="login-subtitle">IngresÃ¡ con tu cuenta</p>
+        <p class="login-subtitle">Ingresá con tu cuenta</p>
         <div class="error-msg" id="error-msg"></div>
         <form id="login-form">
             <div class="form-group">
@@ -18,8 +18,8 @@
                 <input type="email" id="email" placeholder="nombre@ejemplo.com" required autofocus>
             </div>
             <div class="form-group">
-                <label for="password">ContraseÃ±a</label>
-                <input type="password" id="password" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢" required>
+                <label for="password">Contraseña</label>
+                <input type="password" id="password" placeholder="••••••••" required>
             </div>
             <button type="submit" class="btn btn-primary" style="width:100%;margin-top:.5rem" id="btn-login">
                 Ingresar
@@ -51,7 +51,7 @@ document.getElementById('login-form').addEventListener('submit', async (e) => {
     });
 
     if (error) {
-        errorEl.textContent = 'Email o contraseÃ±a incorrectos.';
+        errorEl.textContent = 'Email o contraseña incorrectos.';
         errorEl.style.display = 'block';
         btn.disabled = false;
         btn.textContent = 'Ingresar';
