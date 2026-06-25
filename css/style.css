@@ -141,18 +141,17 @@ textarea { resize: vertical; min-height: 70px; }
 .savings-amount.negative { color: var(--danger); }
 .savings-neto .savings-amount { font-size: 1.5rem; }
 
-/* RESPONSIVE — tablet */
-@media (max-width: 768px) {
-    .container { padding: 1rem; }
-
+/* RESPONSIVE — tablet ancho (≤1024px) */
+@media (max-width: 1024px) {
     .cards-grid { grid-template-columns: 1fr 1fr; gap: .75rem; }
     .card { padding: 1rem; }
-    .card-amount { font-size: 1.2rem; }
-    .card-net .card-amount { font-size: 1.6rem; }
+    .card-amount { font-size: 1.25rem; }
+    .card-net .card-amount { font-size: 1.7rem; }
+}
 
-    .chart-top { flex-direction: column; align-items: flex-start; gap: .5rem; }
-    .chart-toggle { width: 100%; }
-    .chart-toggle .btn { flex: 1; justify-content: center; }
+/* RESPONSIVE — tablet / celular grande (≤768px) */
+@media (max-width: 768px) {
+    .container { padding: 1rem; }
 
     .table-wrapper { overflow-x: auto; }
     th, td { padding: .5rem .65rem; white-space: nowrap; }
@@ -160,16 +159,16 @@ textarea { resize: vertical; min-height: 70px; }
     .page-header { flex-direction: column; align-items: flex-start; }
     .page-header > div { width: 100%; }
 
-    .modal { padding: 1.25rem; }
+    .chart-top { flex-direction: column; align-items: flex-start; gap: .5rem; }
+    .chart-toggle { width: 100%; }
+    .chart-toggle .btn { flex: 1; justify-content: center; }
 
-    .savings-label { font-size: .7rem; }
-    .savings-amount { font-size: 1.1rem; }
-    .savings-neto .savings-amount { font-size: 1.3rem; }
+    .modal { padding: 1.25rem; }
 }
 
-/* RESPONSIVE — celular */
-@media (max-width: 480px) {
-    nav { flex-direction: column; align-items: flex-start; padding: .6rem 1rem; gap: .4rem; }
+/* RESPONSIVE — celular (≤640px) */
+@media (max-width: 640px) {
+    nav { flex-direction: column; align-items: flex-start; padding: .65rem 1rem; gap: .4rem; }
     .nav-links { gap: .5rem; flex-wrap: wrap; }
     nav a { font-size: .9rem; }
     .nav-brand { font-size: 1.05rem; }
@@ -177,7 +176,6 @@ textarea { resize: vertical; min-height: 70px; }
 
     .container { padding: .85rem; }
 
-    /* 1 columna para que los montos sean legibles */
     .cards-grid { grid-template-columns: 1fr; gap: .75rem; }
     .card { padding: 1.1rem 1.25rem; }
     .card-amount { font-size: 1.5rem; }
@@ -192,8 +190,9 @@ textarea { resize: vertical; min-height: 70px; }
 
     .chart-toggle .btn { font-size: .8rem; padding: .28rem .55rem; }
 
+    .savings-label { font-size: .72rem; }
     .savings-amount { font-size: 1.3rem; }
     .savings-neto .savings-amount { font-size: 1.6rem; }
 
-    th, td { font-size: .88rem; }
+    th, td { font-size: .9rem; }
 }
