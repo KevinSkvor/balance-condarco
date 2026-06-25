@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categorías — Balance Condarco</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<nav>
+    <a href="dashboard.html" class="nav-brand">Balance Condarco</a>
+    <div class="nav-links">
+        <a href="dashboard.html">Dashboard</a>
+        <a href="movements.html">Movimientos</a>
+        <a href="categories.html" class="active admin-only">Categorías</a>
+        <span class="nav-user-info">
+            <span id="nav-user"></span>
+            <span id="nav-badge" class="badge"></span>
+        </span>
+        <button class="btn-logout" id="btn-logout">Salir</button>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="page-header">
+        <h1 class="page-title">Categorías</h1>
+        <button class="btn btn-primary" id="btn-nueva">+ Nueva categoría</button>
+    </div>
+    <div id="categories-container"></div>
+</div>
+
+<div class="modal-overlay" id="modal-overlay">
+    <div class="modal">
+        <div class="modal-header">
+            <h2 class="modal-title" id="modal-title">Nueva categoría</h2>
+            <button class="modal-close" id="modal-close">&times;</button>
+        </div>
+        <div class="error-msg" id="form-error"></div>
+        <form id="cat-form">
+            <input type="hidden" id="cat-id">
+            <div class="form-group">
+                <label for="cat-name">Nombre</label>
+                <input type="text" id="cat-name" placeholder="Ej: Combustible" required>
+            </div>
+            <div class="form-group">
+                <label for="cat-block">Bloque</label>
+                <select id="cat-block" required>
+                    <option value="">Seleccioná...</option>
+                    <option value="ingreso">Ingresos</option>
+                    <option value="ingreso_extra">Ingresos Extras</option>
+                    <option value="blanco">Gastos en Blanco</option>
+                    <option value="negro">Gastos en Negro</option>
+                    <option value="personal">Gastos Personales de Familia</option>
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline" id="modal-cancel">Cancelar</button>
+                <button type="submit" class="btn btn-primary">Guardar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-client.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/categories.js"></script>
+</body>
+</html>

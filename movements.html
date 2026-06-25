@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movimientos — Balance Condarco</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<nav>
+    <a href="dashboard.html" class="nav-brand">Balance Condarco</a>
+    <div class="nav-links">
+        <a href="dashboard.html">Dashboard</a>
+        <a href="movements.html" class="active">Movimientos</a>
+        <a href="categories.html" class="admin-only">Categorías</a>
+        <span class="nav-user-info">
+            <span id="nav-user"></span>
+            <span id="nav-badge" class="badge"></span>
+        </span>
+        <button class="btn-logout" id="btn-logout">Salir</button>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="page-header">
+        <h1 class="page-title">Movimientos</h1>
+        <div style="display:flex;gap:.75rem;align-items:center;flex-wrap:wrap">
+            <div class="period-selector">
+                <button class="period-btn" id="btn-prev">&#8249;</button>
+                <select id="sel-mes"></select>
+                <select id="sel-anio"></select>
+                <button class="period-btn" id="btn-next">&#8250;</button>
+            </div>
+            <button class="btn btn-primary" id="btn-agregar">+ Agregar</button>
+        </div>
+    </div>
+    <div id="movements-container"></div>
+</div>
+
+<!-- Modal agregar/editar -->
+<div class="modal-overlay" id="modal-overlay">
+    <div class="modal">
+        <div class="modal-header">
+            <h2 class="modal-title" id="modal-title">Agregar movimiento</h2>
+            <button class="modal-close" id="modal-close">&times;</button>
+        </div>
+        <div class="error-msg" id="form-error"></div>
+        <form id="movement-form">
+            <input type="hidden" id="mv-id">
+            <div class="form-group">
+                <label for="mv-block">Bloque</label>
+                <select id="mv-block" required>
+                    <option value="">Seleccioná un bloque...</option>
+                    <option value="ingreso">Ingresos</option>
+                    <option value="ingreso_extra">Ingresos Extras</option>
+                    <option value="blanco">Gastos en Blanco</option>
+                    <option value="negro">Gastos en Negro</option>
+                    <option value="personal">Gastos Personales de Familia</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="mv-category">Categoría</label>
+                <select id="mv-category" required>
+                    <option value="">Primero elegí un bloque</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="mv-amount">Monto ($)</label>
+                <input type="number" id="mv-amount" placeholder="0.00" min="0.01" step="0.01" required>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem">
+                <div class="form-group">
+                    <label for="mv-mes">Mes</label>
+                    <select id="mv-mes" required></select>
+                </div>
+                <div class="form-group">
+                    <label for="mv-anio">Año</label>
+                    <select id="mv-anio" required></select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="mv-desc">Descripción (opcional)</label>
+                <textarea id="mv-desc" placeholder="Aclaración, referencia, etc."></textarea>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline" id="modal-cancel">Cancelar</button>
+                <button type="submit" class="btn btn-primary" id="btn-save">Guardar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-client.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/movements.js"></script>
+</body>
+</html>

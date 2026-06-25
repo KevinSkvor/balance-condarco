@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard — Balance Condarco</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<nav>
+    <a href="dashboard.html" class="nav-brand">Balance Condarco</a>
+    <div class="nav-links">
+        <a href="dashboard.html" class="active">Dashboard</a>
+        <a href="movements.html">Movimientos</a>
+        <a href="categories.html" class="admin-only">Categorías</a>
+        <span class="nav-user-info">
+            <span id="nav-user"></span>
+            <span id="nav-badge" class="badge"></span>
+        </span>
+        <button class="btn-logout" id="btn-logout">Salir</button>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="page-header">
+        <h1 class="page-title" id="titulo-periodo">Dashboard</h1>
+        <div style="display:flex;gap:.75rem;align-items:center;flex-wrap:wrap">
+            <div class="period-selector">
+                <button class="period-btn" id="btn-prev">&#8249;</button>
+                <select id="sel-mes"></select>
+                <select id="sel-anio"></select>
+                <button class="period-btn" id="btn-next">&#8250;</button>
+            </div>
+            <a href="movements.html" class="btn btn-primary" id="link-agregar">+ Agregar movimiento</a>
+        </div>
+    </div>
+
+    <div class="cards-grid">
+        <div class="card">
+            <div class="card-label">Ingresos</div>
+            <div class="card-amount positive" id="total-ingresos">$0</div>
+        </div>
+        <div class="card">
+            <div class="card-label">Gastos en Blanco</div>
+            <div class="card-amount" id="total-blanco">$0</div>
+        </div>
+        <div class="card">
+            <div class="card-label">Gastos en Negro</div>
+            <div class="card-amount" id="total-negro">$0</div>
+        </div>
+        <div class="card">
+            <div class="card-label">Gastos Personales</div>
+            <div class="card-amount" id="total-personal">$0</div>
+        </div>
+        <div class="card card-net">
+            <div class="card-label">Resultado del mes</div>
+            <div class="card-amount" id="total-neto">$0</div>
+        </div>
+    </div>
+
+    <div class="chart-wrapper">
+        <div class="chart-title">Evolución mensual — últimos 12 meses</div>
+        <canvas id="chart-evolucion" height="80"></canvas>
+    </div>
+
+    <div id="section-desglose"></div>
+</div>
+
+<script src="config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+<script src="js/supabase-client.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/dashboard.js"></script>
+</body>
+</html>
