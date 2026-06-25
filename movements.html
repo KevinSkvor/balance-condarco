@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Movimientos — Balance Condarco</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css?v=2">
 </head>
 <body>
 <nav>
@@ -12,7 +12,7 @@
     <div class="nav-links">
         <a href="dashboard.html">Dashboard</a>
         <a href="movements.html" class="active">Movimientos</a>
-        <a href="categories.html" class="admin-only">Categorías</a>
+        <a href="categories.html" class="admin-only">CategorÃ­as</a>
         <span class="nav-user-info">
             <span id="nav-user"></span>
             <span id="nav-badge" class="badge"></span>
@@ -50,7 +50,7 @@
             <div class="form-group">
                 <label for="mv-block">Bloque</label>
                 <select id="mv-block" required>
-                    <option value="">Seleccioná un bloque...</option>
+                    <option value="">SeleccionÃ¡ un bloque...</option>
                     <option value="ingreso">Ingresos</option>
                     <option value="ingreso_extra">Ingresos Extras</option>
                     <option value="blanco">Gastos en Blanco</option>
@@ -59,9 +59,9 @@
                 </select>
             </div>
             <div class="form-group">
-                <label for="mv-category">Categoría</label>
+                <label for="mv-category">CategorÃ­a</label>
                 <select id="mv-category" required>
-                    <option value="">Primero elegí un bloque</option>
+                    <option value="">Primero elegÃ­ un bloque</option>
                 </select>
             </div>
             <div class="form-group">
@@ -74,13 +74,13 @@
                     <select id="mv-mes" required></select>
                 </div>
                 <div class="form-group">
-                    <label for="mv-anio">Año</label>
+                    <label for="mv-anio">AÃ±o</label>
                     <select id="mv-anio" required></select>
                 </div>
             </div>
             <div class="form-group">
-                <label for="mv-desc">Descripción (opcional)</label>
-                <textarea id="mv-desc" placeholder="Aclaración, referencia, etc."></textarea>
+                <label for="mv-desc">DescripciÃ³n (opcional)</label>
+                <textarea id="mv-desc" placeholder="AclaraciÃ³n, referencia, etc."></textarea>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline" id="modal-cancel">Cancelar</button>

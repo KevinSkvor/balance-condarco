@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Categorías — Balance Condarco</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css?v=2">
 </head>
 <body>
 <nav>
@@ -12,7 +12,7 @@
     <div class="nav-links">
         <a href="dashboard.html">Dashboard</a>
         <a href="movements.html">Movimientos</a>
-        <a href="categories.html" class="active admin-only">Categorías</a>
+        <a href="categories.html" class="active admin-only">CategorÃ­as</a>
         <span class="nav-user-info">
             <span id="nav-user"></span>
             <span id="nav-badge" class="badge"></span>
@@ -23,8 +23,8 @@
 
 <div class="container">
     <div class="page-header">
-        <h1 class="page-title">Categorías</h1>
-        <button class="btn btn-primary" id="btn-nueva">+ Nueva categoría</button>
+        <h1 class="page-title">CategorÃ­as</h1>
+        <button class="btn btn-primary" id="btn-nueva">+ Nueva categorÃ­a</button>
     </div>
     <div id="categories-container"></div>
 </div>
@@ -32,7 +32,7 @@
 <div class="modal-overlay" id="modal-overlay">
     <div class="modal">
         <div class="modal-header">
-            <h2 class="modal-title" id="modal-title">Nueva categoría</h2>
+            <h2 class="modal-title" id="modal-title">Nueva categorÃ­a</h2>
             <button class="modal-close" id="modal-close">&times;</button>
         </div>
         <div class="error-msg" id="form-error"></div>
@@ -45,7 +45,7 @@
             <div class="form-group">
                 <label for="cat-block">Bloque</label>
                 <select id="cat-block" required>
-                    <option value="">Seleccioná...</option>
+                    <option value="">SeleccionÃ¡...</option>
                     <option value="ingreso">Ingresos</option>
                     <option value="ingreso_extra">Ingresos Extras</option>
                     <option value="blanco">Gastos en Blanco</option>

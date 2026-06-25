@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard — Balance Condarco</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css?v=2">
 </head>
 <body>
 <nav>
@@ -62,26 +62,26 @@
         <div class="chart-top">
             <div class="chart-title" style="margin-bottom:0">Evolución mensual — últimos 12 meses</div>
             <div class="chart-toggle">
-                <button class="btn btn-outline btn-sm active" id="btn-chart-linea">📈 Evolución</button>
-                <button class="btn btn-outline btn-sm" id="btn-chart-barras">📊 Comparación</button>
+                <button class="btn btn-outline btn-sm active" id="btn-chart-linea">Evolución</button>
+                <button class="btn btn-outline btn-sm" id="btn-chart-barras">Comparación</button>
             </div>
         </div>
         <canvas id="chart-evolucion" height="80"></canvas>
     </div>
 
     <div class="card" style="margin-bottom:1.5rem">
-        <div class="savings-header">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:.75rem;flex-wrap:wrap;margin-bottom:1.25rem">
             <div class="card-label" style="margin-bottom:0">Ahorro acumulado en el período</div>
-            <div class="savings-period">
-                <span class="savings-period-label">Desde</span>
-                <select id="sav-from-mes" class="savings-select"></select>
-                <select id="sav-from-anio" class="savings-select"></select>
-                <span class="savings-period-label">Hasta</span>
-                <select id="sav-to-mes" class="savings-select"></select>
-                <select id="sav-to-anio" class="savings-select"></select>
+            <div style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap">
+                <span style="font-size:.78rem;color:var(--muted)">Desde</span>
+                <select id="sav-from-mes" style="width:auto;padding:.3rem .5rem;font-size:.82rem"></select>
+                <select id="sav-from-anio" style="width:auto;padding:.3rem .5rem;font-size:.82rem"></select>
+                <span style="font-size:.78rem;color:var(--muted)">Hasta</span>
+                <select id="sav-to-mes" style="width:auto;padding:.3rem .5rem;font-size:.82rem"></select>
+                <select id="sav-to-anio" style="width:auto;padding:.3rem .5rem;font-size:.82rem"></select>
             </div>
         </div>
-        <div class="savings-values">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem">
             <div>
                 <div class="savings-label">Ingresos del período</div>
                 <div class="savings-amount positive" id="sav-ingresos">$ 0</div>
