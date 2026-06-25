@@ -141,15 +141,13 @@ textarea { resize: vertical; min-height: 70px; }
 .savings-amount.negative { color: var(--danger); }
 .savings-neto .savings-amount { font-size: 1.5rem; }
 
-/* RESPONSIVE — tablet ancho (≤1024px): solo cambia columnas, no tamaño de fuente */
-@media (max-width: 1024px) {
-    .cards-grid { grid-template-columns: 1fr 1fr; gap: .75rem; }
-    .card { padding: 1rem; }
-}
-
-/* RESPONSIVE — tablet / celular grande (≤768px) */
-@media (max-width: 768px) {
+/* RESPONSIVE — tablet (≤900px) */
+@media (max-width: 900px) {
     .container { padding: 1rem; }
+    .cards-grid { grid-template-columns: 1fr 1fr; gap: .75rem; }
+    .card { padding: 1rem 1.1rem; }
+    .card-amount { font-size: 1.3rem; }
+    .card-net .card-amount { font-size: 1.75rem; }
 
     .table-wrapper { overflow-x: auto; }
     th, td { padding: .5rem .65rem; white-space: nowrap; }
