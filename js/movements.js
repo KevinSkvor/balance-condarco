@@ -14,69 +14,92 @@ async function loadMovements(mes, anio) {
     const { data: movements, error } = await supabase
         .from('movements')
         .select('*, categories(name)')
-        .eq('month', mes).eq('year', anio)
-        .order('created_at', { ascending: false });
+        .eq('month', mes).eq('year', anio);
 
     if (error) {
         container.innerHTML = '<p class="text-muted" style="text-align:center;padding:2rem">Error al cargar.</p>';
         return;
     }
-    if (!movements.length) {
-        container.innerHTML = '<p class="text-muted" style="text-align:center;padding:2rem">No hay movimientos en este período.</p>';
-        return;
-    }
 
     const isAdmin = _profile?.role === 'admin';
-
     let profileNames = {};
-    if (isAdmin) {
+    if (isAdmin && movements?.length) {
         const ids = [...new Set(movements.map(m => m.created_by))];
         const { data: profiles } = await supabase.from('profiles').select('id, full_name').in('id', ids);
         for (const p of (profiles || [])) profileNames[p.id] = p.full_name || p.id;
     }
 
+    const movByCategory = {};
+    for (const m of (movements || [])) movByCategory[m.category_id] = m;
+
     const bloques = ['ingreso', 'ingreso_extra', 'blanco', 'negro', 'personal'];
     let html = '';
 
     for (const bloque of bloques) {
-        const movs = movements.filter(m => m.block === bloque);
-        if (!movs.length) continue;
-        const total = movs.reduce((s, m) => s + parseFloat(m.amount), 0);
+        const cats = allCategories.filter(c => c.block === bloque);
+        if (!cats.length) continue;
+
+        const blockTotal = cats.reduce((s, c) => {
+            const m = movByCategory[c.id];
+            return s + (m ? parseFloat(m.amount) : 0);
+        }, 0);
+        const doneCount = cats.filter(c => movByCategory[c.id]).length;
 
         html += `
         <div class="table-wrapper">
             <div class="section-header">
-                <span class="section-title"><span class="dot dot-${bloque}"></span>${BLOQUES_LABEL[bloque]}</span>
-                <span class="section-total">${formatARS(total)}</span>
+                <span class="section-title">
+                    <span class="dot dot-${bloque}"></span>${BLOQUES_LABEL[bloque]}
+                    <span style="font-weight:400;font-size:.76rem;color:var(--muted);margin-left:.4rem">${doneCount}/${cats.length}</span>
+                </span>
+                <span class="section-total">${blockTotal > 0 ? formatARS(blockTotal) : '—'}</span>
             </div>
             <table>
                 <thead><tr>
-                    <th>Categoría</th><th>Descripción</th>
+                    <th style="width:1.5rem;padding-right:.25rem"></th>
+                    <th>Categoría</th>
+                    <th>Descripción</th>
                     ${isAdmin ? '<th>Cargado por</th>' : ''}
-                    <th class="amount-header">Monto</th><th></th>
+                    <th class="amount-header">Monto</th>
+                    <th></th>
                 </tr></thead>
                 <tbody>
-                ${movs.map(m => {
-                    const puedo = isAdmin || m.created_by === _profile?.id;
-                    return `<tr>
-                        <td>${m.categories?.name || '—'}</td>
-                        <td class="text-muted">${m.description || '—'}</td>
-                        ${isAdmin ? `<td class="text-muted">${profileNames[m.created_by] || '—'}</td>` : ''}
-                        <td class="amount">${formatARS(m.amount)}</td>
-                        <td style="text-align:right;white-space:nowrap">
-                            ${puedo ? `
-                                <button class="btn btn-outline btn-sm" onclick="openEdit('${m.id}')">Editar</button>
-                                <button class="btn btn-danger btn-sm" style="margin-left:.3rem" onclick="deleteMovement('${m.id}')">Borrar</button>
-                            ` : ''}
-                        </td>
-                    </tr>`;
+                ${cats.map(cat => {
+                    const m = movByCategory[cat.id];
+                    if (m) {
+                        const puedo = isAdmin || m.created_by === _profile?.id;
+                        return `<tr style="background:#f0fdf4">
+                            <td style="color:var(--success);font-weight:700;padding-right:.25rem">✓</td>
+                            <td>${cat.name}</td>
+                            <td class="text-muted">${m.description || '—'}</td>
+                            ${isAdmin ? `<td class="text-muted">${profileNames[m.created_by] || '—'}</td>` : ''}
+                            <td class="amount">${formatARS(m.amount)}</td>
+                            <td style="text-align:right;white-space:nowrap">
+                                ${puedo ? `
+                                    <button class="btn btn-outline btn-sm" onclick="openEdit('${m.id}')">Editar</button>
+                                    <button class="btn btn-danger btn-sm" style="margin-left:.3rem" onclick="deleteMovement('${m.id}')">Borrar</button>
+                                ` : ''}
+                            </td>
+                        </tr>`;
+                    } else {
+                        return `<tr>
+                            <td style="color:#cbd5e1;padding-right:.25rem">○</td>
+                            <td class="text-muted">${cat.name}</td>
+                            <td></td>
+                            ${isAdmin ? '<td></td>' : ''}
+                            <td></td>
+                            <td style="text-align:right">
+                                <button class="btn btn-outline btn-sm" onclick="openAddWithCategory('${cat.id}','${bloque}')">+ Registrar</button>
+                            </td>
+                        </tr>`;
+                    }
                 }).join('')}
                 </tbody>
             </table>
         </div>`;
     }
 
-    container.innerHTML = html;
+    container.innerHTML = html || '<p class="text-muted" style="text-align:center;padding:2rem">No hay categorías activas.</p>';
 }
 
 // ── Modal ─────────────────────────────────────────────────────────────────
@@ -98,6 +121,15 @@ function openAdd() {
     document.getElementById('mv-mes').value  = currentMes;
     document.getElementById('mv-anio').value = currentAnio;
     openModal('Agregar movimiento');
+}
+
+function openAddWithCategory(categoryId, block) {
+    closeModal();
+    document.getElementById('mv-mes').value   = currentMes;
+    document.getElementById('mv-anio').value  = currentAnio;
+    document.getElementById('mv-block').value = block;
+    populateCategorySelect(block, categoryId);
+    openModal('Registrar movimiento');
 }
 
 async function openEdit(id) {
@@ -150,7 +182,14 @@ document.getElementById('movement-form').addEventListener('submit', async (e) =>
 
     btn.disabled = false; btn.textContent = 'Guardar';
 
-    if (error) { showError('form-error', 'Error al guardar. Revisá los datos.'); return; }
+    if (error) {
+        if (error.code === '23505') {
+            showError('form-error', 'Esta categoría ya tiene un registro para este mes.');
+        } else {
+            showError('form-error', 'Error al guardar. Revisá los datos.');
+        }
+        return;
+    }
     closeModal();
     loadMovements(currentMes, currentAnio);
 });

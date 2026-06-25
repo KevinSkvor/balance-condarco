@@ -123,6 +123,24 @@ textarea { resize: vertical; min-height: 70px; }
 .cat-item.inactive { opacity: .45; }
 .cat-actions { display: flex; gap: .5rem; flex-shrink: 0; }
 
+/* CHART TOGGLE */
+.chart-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; gap: .75rem; flex-wrap: wrap; }
+.chart-toggle { display: flex; gap: .35rem; }
+.chart-toggle .btn { font-size: .78rem; padding: .25rem .65rem; }
+.chart-toggle .active { background: var(--primary); color: #fff; border-color: var(--primary); }
+
+/* SAVINGS */
+.savings-header { display: flex; align-items: center; justify-content: space-between; gap: .75rem; flex-wrap: wrap; margin-bottom: 1.25rem; }
+.savings-period { display: flex; align-items: center; gap: .4rem; flex-wrap: wrap; }
+.savings-period-label { font-size: .78rem; color: var(--muted); white-space: nowrap; }
+.savings-select { width: auto !important; padding: .3rem .5rem !important; font-size: .82rem !important; }
+.savings-values { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1rem; }
+.savings-label { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); margin-bottom: .3rem; }
+.savings-amount { font-size: 1.25rem; font-weight: 700; }
+.savings-amount.positive { color: var(--success); }
+.savings-amount.negative { color: var(--danger); }
+.savings-neto .savings-amount { font-size: 1.5rem; }
+
 /* RESPONSIVE */
 @media (max-width: 600px) {
     .cards-grid { grid-template-columns: 1fr 1fr; }

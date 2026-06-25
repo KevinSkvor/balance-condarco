@@ -59,8 +59,42 @@
     </div>
 
     <div class="chart-wrapper">
-        <div class="chart-title">Evolución mensual — últimos 12 meses</div>
+        <div class="chart-top">
+            <div class="chart-title" style="margin-bottom:0">Evolución mensual — últimos 12 meses</div>
+            <div class="chart-toggle">
+                <button class="btn btn-outline btn-sm active" id="btn-chart-linea">📈 Evolución</button>
+                <button class="btn btn-outline btn-sm" id="btn-chart-barras">📊 Comparación</button>
+            </div>
+        </div>
         <canvas id="chart-evolucion" height="80"></canvas>
+    </div>
+
+    <div class="card" style="margin-bottom:1.5rem">
+        <div class="savings-header">
+            <div class="card-label" style="margin-bottom:0">Ahorro acumulado en el período</div>
+            <div class="savings-period">
+                <span class="savings-period-label">Desde</span>
+                <select id="sav-from-mes" class="savings-select"></select>
+                <select id="sav-from-anio" class="savings-select"></select>
+                <span class="savings-period-label">Hasta</span>
+                <select id="sav-to-mes" class="savings-select"></select>
+                <select id="sav-to-anio" class="savings-select"></select>
+            </div>
+        </div>
+        <div class="savings-values">
+            <div>
+                <div class="savings-label">Ingresos del período</div>
+                <div class="savings-amount positive" id="sav-ingresos">$ 0</div>
+            </div>
+            <div>
+                <div class="savings-label">Gastos del período</div>
+                <div class="savings-amount" id="sav-gastos">$ 0</div>
+            </div>
+            <div class="savings-neto">
+                <div class="savings-label">Ahorro acumulado</div>
+                <div class="savings-amount" id="sav-neto">$ 0</div>
+            </div>
+        </div>
     </div>
 
     <div id="section-desglose"></div>

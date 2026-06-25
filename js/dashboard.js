@@ -1,6 +1,9 @@
 let chartInstance = null;
+let chartMode = 'line';
+let chartMes, chartAnio;
 
 async function loadDashboard(mes, anio) {
+    chartMes = mes; chartAnio = anio;
     document.getElementById('titulo-periodo').textContent = `${MESES[mes - 1]} ${anio}`;
     document.getElementById('link-agregar').href = `movements.html?mes=${mes}&anio=${anio}`;
 
@@ -50,54 +53,121 @@ async function loadChart(mesActual, anioActual) {
 
     const movs   = allMovs || [];
     const labels = periodos.map(p => `${MESES[p.mes - 1].slice(0, 3)} ${p.anio}`);
-    const values = periodos.map(({ mes, anio }) => {
-        let ing = 0, gast = 0;
-        for (const mv of movs.filter(mv => mv.month === mes && mv.year === anio)) {
-            const amt = parseFloat(mv.amount);
-            if (mv.block === 'ingreso' || mv.block === 'ingreso_extra') ing += amt;
-            else gast += amt;
-        }
-        return ing - gast;
-    });
 
     const ctx = document.getElementById('chart-evolucion').getContext('2d');
     if (chartInstance) chartInstance.destroy();
 
-    chartInstance = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels,
-            datasets: [{
-                label: 'Resultado neto',
-                data: values,
-                borderColor: '#2563eb',
-                backgroundColor: 'rgba(37,99,235,.08)',
-                fill: true,
-                tension: .35,
-                pointRadius: 5,
-                pointHoverRadius: 7
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: { display: false },
-                tooltip: { callbacks: { label: c => formatARS(c.raw) } }
-            },
-            scales: {
-                y: {
-                    ticks: {
-                        callback: v => {
-                            const abs = Math.abs(v);
-                            if (abs >= 1000000) return `$${(v / 1000000).toFixed(1)}M`;
-                            if (abs >= 1000)    return `$${(v / 1000).toFixed(0)}K`;
-                            return `$${v}`;
-                        }
-                    }
-                }
+    const tickCallback = v => {
+        const abs = Math.abs(v);
+        if (abs >= 1000000) return `$${(v / 1000000).toFixed(1)}M`;
+        if (abs >= 1000)    return `$${(v / 1000).toFixed(0)}K`;
+        return `$${v}`;
+    };
+
+    if (chartMode === 'line') {
+        const values = periodos.map(({ mes, anio }) => {
+            let ing = 0, gast = 0;
+            for (const mv of movs.filter(mv => mv.month === mes && mv.year === anio)) {
+                const amt = parseFloat(mv.amount);
+                if (mv.block === 'ingreso' || mv.block === 'ingreso_extra') ing += amt;
+                else gast += amt;
             }
-        }
-    });
+            return ing - gast;
+        });
+
+        chartInstance = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels,
+                datasets: [{
+                    label: 'Resultado neto',
+                    data: values,
+                    borderColor: '#2563eb',
+                    backgroundColor: 'rgba(37,99,235,.08)',
+                    fill: true,
+                    tension: .35,
+                    pointRadius: 5,
+                    pointHoverRadius: 7
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: { callbacks: { label: c => formatARS(c.raw) } }
+                },
+                scales: { y: { ticks: { callback: tickCallback } } }
+            }
+        });
+    } else {
+        const getBlock = (bl) => periodos.map(({ mes, anio }) =>
+            movs.filter(mv => mv.month === mes && mv.year === anio && mv.block === bl)
+                .reduce((s, mv) => s + parseFloat(mv.amount), 0)
+        );
+
+        chartInstance = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels,
+                datasets: [
+                    {
+                        label: 'Ingresos',
+                        data: periodos.map(({ mes, anio }) =>
+                            movs.filter(mv => mv.month === mes && mv.year === anio && (mv.block === 'ingreso' || mv.block === 'ingreso_extra'))
+                                .reduce((s, mv) => s + parseFloat(mv.amount), 0)
+                        ),
+                        backgroundColor: 'rgba(22,163,74,.75)', borderColor: '#16a34a', borderWidth: 1
+                    },
+                    { label: 'Gastos en Blanco',  data: getBlock('blanco'),   backgroundColor: 'rgba(37,99,235,.75)',  borderColor: '#2563eb', borderWidth: 1 },
+                    { label: 'Gastos en Negro',   data: getBlock('negro'),    backgroundColor: 'rgba(51,65,85,.75)',   borderColor: '#334155', borderWidth: 1 },
+                    { label: 'Gastos Personales', data: getBlock('personal'), backgroundColor: 'rgba(124,58,237,.75)', borderColor: '#7c3aed', borderWidth: 1 }
+                ]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } },
+                    tooltip: { callbacks: { label: c => `${c.dataset.label}: ${formatARS(c.raw)}` } }
+                },
+                scales: { y: { ticks: { callback: tickCallback } } }
+            }
+        });
+    }
+}
+
+async function loadSavings() {
+    const fromMes  = parseInt(document.getElementById('sav-from-mes').value);
+    const fromAnio = parseInt(document.getElementById('sav-from-anio').value);
+    const toMes    = parseInt(document.getElementById('sav-to-mes').value);
+    const toAnio   = parseInt(document.getElementById('sav-to-anio').value);
+
+    const fromVal = fromAnio * 12 + fromMes;
+    const toVal   = toAnio  * 12 + toMes;
+    if (fromVal > toVal) return;
+
+    const years = [];
+    for (let y = fromAnio; y <= toAnio; y++) years.push(y);
+
+    const { data } = await supabase
+        .from('movements')
+        .select('amount, block, month, year')
+        .in('year', years);
+
+    let ing = 0, gast = 0;
+    for (const mv of (data || [])) {
+        const val = mv.year * 12 + mv.month;
+        if (val < fromVal || val > toVal) continue;
+        const amt = parseFloat(mv.amount);
+        if (mv.block === 'ingreso' || mv.block === 'ingreso_extra') ing += amt;
+        else gast += amt;
+    }
+
+    const neto = ing - gast;
+    document.getElementById('sav-ingresos').textContent = formatARS(ing);
+    document.getElementById('sav-gastos').textContent   = formatARS(gast);
+    const netoEl = document.getElementById('sav-neto');
+    netoEl.textContent = formatARS(neto);
+    netoEl.className   = `savings-amount ${neto >= 0 ? 'positive' : 'negative'}`;
 }
 
 function renderDesglose(movements) {
@@ -172,5 +242,51 @@ function renderDesglose(movements) {
         selMes.value = mes; selAnio.value = anio; refresh();
     });
 
+    // Chart toggle
+    document.getElementById('btn-chart-linea').addEventListener('click', function() {
+        chartMode = 'line';
+        this.classList.add('active');
+        document.getElementById('btn-chart-barras').classList.remove('active');
+        if (chartMes) loadChart(chartMes, chartAnio);
+    });
+    document.getElementById('btn-chart-barras').addEventListener('click', function() {
+        chartMode = 'bar';
+        this.classList.add('active');
+        document.getElementById('btn-chart-linea').classList.remove('active');
+        if (chartMes) loadChart(chartMes, chartAnio);
+    });
+
+    // Savings period selectors
+    const savFromMes  = document.getElementById('sav-from-mes');
+    const savFromAnio = document.getElementById('sav-from-anio');
+    const savToMes    = document.getElementById('sav-to-mes');
+    const savToAnio   = document.getElementById('sav-to-anio');
+
+    MESES.forEach((nombre, i) => {
+        [savFromMes, savToMes].forEach(sel => {
+            const opt = document.createElement('option');
+            opt.value = i + 1; opt.textContent = nombre;
+            sel.appendChild(opt);
+        });
+    });
+
+    for (let y = getAnioActual() + 1; y >= 2020; y--) {
+        [savFromAnio, savToAnio].forEach(sel => {
+            const opt = document.createElement('option');
+            opt.value = y; opt.textContent = y;
+            sel.appendChild(opt);
+        });
+    }
+
+    savFromMes.value  = 1;
+    savFromAnio.value = getAnioActual();
+    savToMes.value    = getMesActual();
+    savToAnio.value   = getAnioActual();
+
+    [savFromMes, savFromAnio, savToMes, savToAnio].forEach(sel => {
+        sel.addEventListener('change', loadSavings);
+    });
+
     await loadDashboard(mes, anio);
+    loadSavings();
 })();

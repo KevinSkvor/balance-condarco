@@ -13,7 +13,8 @@ const BLOQUES_LABEL = {
 
 function formatARS(n) {
     return new Intl.NumberFormat('es-AR', {
-        style: 'currency', currency: 'ARS', minimumFractionDigits: 2
+        style: 'currency', currency: 'ARS',
+        minimumFractionDigits: 0, maximumFractionDigits: 0
     }).format(n || 0);
 }
 
