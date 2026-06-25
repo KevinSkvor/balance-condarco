@@ -171,22 +171,25 @@ textarea { resize: vertical; min-height: 70px; }
 @media (max-width: 480px) {
     nav { flex-direction: column; align-items: flex-start; padding: .6rem 1rem; gap: .4rem; }
     .nav-links { gap: .5rem; flex-wrap: wrap; }
-    nav a { font-size: .82rem; }
+    nav a { font-size: .85rem; }
     .nav-brand { font-size: 1rem; }
-    .btn-logout { padding: .25rem .55rem; font-size: .78rem; }
+    .btn-logout { padding: .25rem .55rem; font-size: .8rem; }
 
     .container { padding: .75rem; }
-    .cards-grid { grid-template-columns: 1fr 1fr; gap: .5rem; }
-    .card { padding: .85rem .9rem; }
-    .card-amount { font-size: 1rem; }
-    .card-net .card-amount { font-size: 1.3rem; }
-    .card-label { font-size: .72rem; }
+    .cards-grid { grid-template-columns: 1fr 1fr; gap: .6rem; }
+    .card { padding: .9rem 1rem; }
+    .card-amount { font-size: 1.15rem; }
+    .card-net .card-amount { font-size: 1.5rem; }
+    .card-label { font-size: .73rem; }
 
     .period-selector { flex: 1; justify-content: space-between; }
-    .page-title { font-size: 1.15rem; }
+    .page-title { font-size: 1.2rem; }
 
     .modal-overlay { padding: .25rem; align-items: flex-end; }
     .modal { border-radius: .75rem .75rem 0 0; max-height: 88vh; overflow-y: auto; }
 
-    .chart-toggle .btn { font-size: .74rem; padding: .22rem .5rem; }
+    .chart-toggle .btn { font-size: .78rem; padding: .25rem .5rem; }
+
+    .savings-amount { font-size: 1.2rem; }
+    .savings-neto .savings-amount { font-size: 1.4rem; }
 }

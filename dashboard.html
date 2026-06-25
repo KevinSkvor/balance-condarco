@@ -22,6 +22,37 @@
 </nav>
 
 <div class="container">
+
+    <!-- Ahorro acumulado — siempre visible arriba -->
+    <div class="card" style="margin-bottom:1.5rem">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:.75rem;flex-wrap:wrap;margin-bottom:1.25rem">
+            <div class="card-label" style="margin-bottom:0">Ahorro acumulado en el período</div>
+            <div style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap">
+                <span style="font-size:.78rem;color:var(--muted)">Desde</span>
+                <select id="sav-from-mes" style="width:auto;padding:.3rem .5rem;font-size:.82rem"></select>
+                <select id="sav-from-anio" style="width:auto;padding:.3rem .5rem;font-size:.82rem"></select>
+                <span style="font-size:.78rem;color:var(--muted)">Hasta</span>
+                <select id="sav-to-mes" style="width:auto;padding:.3rem .5rem;font-size:.82rem"></select>
+                <select id="sav-to-anio" style="width:auto;padding:.3rem .5rem;font-size:.82rem"></select>
+            </div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem">
+            <div>
+                <div class="savings-label">Ingresos del período</div>
+                <div class="savings-amount positive" id="sav-ingresos">$ 0</div>
+            </div>
+            <div>
+                <div class="savings-label">Gastos del período</div>
+                <div class="savings-amount" id="sav-gastos">$ 0</div>
+            </div>
+            <div class="savings-neto">
+                <div class="savings-label">Ahorro acumulado</div>
+                <div class="savings-amount" id="sav-neto">$ 0</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Detalle mensual -->
     <div class="page-header">
         <h1 class="page-title" id="titulo-periodo">Dashboard</h1>
         <div style="display:flex;gap:.75rem;align-items:center;flex-wrap:wrap">
@@ -67,34 +98,6 @@
             </div>
         </div>
         <canvas id="chart-evolucion" height="80"></canvas>
-    </div>
-
-    <div class="card" style="margin-bottom:1.5rem">
-        <div style="display:flex;align-items:center;justify-content:space-between;gap:.75rem;flex-wrap:wrap;margin-bottom:1.25rem">
-            <div class="card-label" style="margin-bottom:0">Ahorro acumulado en el período</div>
-            <div style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap">
-                <span style="font-size:.78rem;color:var(--muted)">Desde</span>
-                <select id="sav-from-mes" style="width:auto;padding:.3rem .5rem;font-size:.82rem"></select>
-                <select id="sav-from-anio" style="width:auto;padding:.3rem .5rem;font-size:.82rem"></select>
-                <span style="font-size:.78rem;color:var(--muted)">Hasta</span>
-                <select id="sav-to-mes" style="width:auto;padding:.3rem .5rem;font-size:.82rem"></select>
-                <select id="sav-to-anio" style="width:auto;padding:.3rem .5rem;font-size:.82rem"></select>
-            </div>
-        </div>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem">
-            <div>
-                <div class="savings-label">Ingresos del período</div>
-                <div class="savings-amount positive" id="sav-ingresos">$ 0</div>
-            </div>
-            <div>
-                <div class="savings-label">Gastos del período</div>
-                <div class="savings-amount" id="sav-gastos">$ 0</div>
-            </div>
-            <div class="savings-neto">
-                <div class="savings-label">Ahorro acumulado</div>
-                <div class="savings-amount" id="sav-neto">$ 0</div>
-            </div>
-        </div>
     </div>
 
     <div id="section-desglose"></div>
