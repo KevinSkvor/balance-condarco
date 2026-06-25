@@ -54,8 +54,8 @@ nav a.active { font-weight: 600; }
 /* CARDS */
 .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
 .card { background: var(--surface); border-radius: .65rem; padding: 1.25rem; border: 1.5px solid var(--border); min-width: 0; display: flex; flex-direction: column; }
-.card-label { font-size: .78rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); margin-bottom: .5rem; min-height: 2.4rem; }
-.card-amount { font-size: 1.5rem; font-weight: 700; white-space: nowrap; overflow: hidden; }
+.card-label { font-size: .78rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); margin-bottom: .5rem; }
+.card-amount { font-size: 1.5rem; font-weight: 700; white-space: nowrap; overflow: hidden; margin-top: auto; }
 .card-amount.positive { color: var(--success); }
 .card-amount.negative { color: var(--danger); }
 .card-net { border-color: transparent; background: linear-gradient(135deg, #0f172a, #1e3a5f); color: #fff; grid-column: 1 / -1; }
