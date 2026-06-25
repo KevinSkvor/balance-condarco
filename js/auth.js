@@ -4,10 +4,13 @@ async function initPage(requireAdmin = false) {
     const { data: { session } } = await supabase.auth.getSession();
     if (!session) { window.location.href = 'index.html'; return null; }
 
-    const { data: profile } = await supabase
+    const { data: profile, error: profileError } = await supabase
         .from('profiles').select('*').eq('id', session.user.id).single();
 
+    if (profileError) console.error('Error al cargar perfil:', profileError);
+
     if (!profile) {
+        console.error('No se encontró perfil para el usuario:', session.user.id);
         await supabase.auth.signOut();
         window.location.href = 'index.html';
         return null;
