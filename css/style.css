@@ -55,7 +55,7 @@ nav a.active { font-weight: 600; }
 .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
 .card { background: var(--surface); border-radius: .65rem; padding: 1.25rem; border: 1.5px solid var(--border); }
 .card-label { font-size: .78rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); margin-bottom: .5rem; }
-.card-amount { font-size: 1.5rem; font-weight: 700; }
+.card-amount { font-size: 1.5rem; font-weight: 700; overflow-wrap: break-word; }
 .card-amount.positive { color: var(--success); }
 .card-amount.negative { color: var(--danger); }
 .card-net { border-color: transparent; background: linear-gradient(135deg, #0f172a, #1e3a5f); color: #fff; grid-column: 1 / -1; }
@@ -141,9 +141,52 @@ textarea { resize: vertical; min-height: 70px; }
 .savings-amount.negative { color: var(--danger); }
 .savings-neto .savings-amount { font-size: 1.5rem; }
 
-/* RESPONSIVE */
-@media (max-width: 600px) {
-    .cards-grid { grid-template-columns: 1fr 1fr; }
-    th, td { padding: .55rem .75rem; }
+/* RESPONSIVE — tablet */
+@media (max-width: 768px) {
+    .container { padding: 1rem; }
+
+    .cards-grid { grid-template-columns: 1fr 1fr; gap: .75rem; }
+    .card { padding: 1rem; }
+    .card-amount { font-size: 1.2rem; }
+    .card-net .card-amount { font-size: 1.6rem; }
+
+    .chart-top { flex-direction: column; align-items: flex-start; gap: .5rem; }
+    .chart-toggle { width: 100%; }
+    .chart-toggle .btn { flex: 1; justify-content: center; }
+
+    .table-wrapper { overflow-x: auto; }
+    th, td { padding: .5rem .65rem; white-space: nowrap; }
+
     .page-header { flex-direction: column; align-items: flex-start; }
+    .page-header > div { width: 100%; }
+
+    .modal { padding: 1.25rem; }
+
+    .savings-label { font-size: .7rem; }
+    .savings-amount { font-size: 1.1rem; }
+    .savings-neto .savings-amount { font-size: 1.3rem; }
+}
+
+/* RESPONSIVE — celular */
+@media (max-width: 480px) {
+    nav { flex-direction: column; align-items: flex-start; padding: .6rem 1rem; gap: .4rem; }
+    .nav-links { gap: .5rem; flex-wrap: wrap; }
+    nav a { font-size: .82rem; }
+    .nav-brand { font-size: 1rem; }
+    .btn-logout { padding: .25rem .55rem; font-size: .78rem; }
+
+    .container { padding: .75rem; }
+    .cards-grid { grid-template-columns: 1fr 1fr; gap: .5rem; }
+    .card { padding: .85rem .9rem; }
+    .card-amount { font-size: 1rem; }
+    .card-net .card-amount { font-size: 1.3rem; }
+    .card-label { font-size: .72rem; }
+
+    .period-selector { flex: 1; justify-content: space-between; }
+    .page-title { font-size: 1.15rem; }
+
+    .modal-overlay { padding: .25rem; align-items: flex-end; }
+    .modal { border-radius: .75rem .75rem 0 0; max-height: 88vh; overflow-y: auto; }
+
+    .chart-toggle .btn { font-size: .74rem; padding: .22rem .5rem; }
 }
