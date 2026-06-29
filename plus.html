@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PLUS — Balance Condarco</title>
+    <link rel="stylesheet" href="css/style.css?v=10">
+    <style>
+        @media print {
+            nav, .container { display: none !important; }
+            #comprobante-wrapper { display: block !important; font-family: system-ui, sans-serif; }
+            .comprobante-page { padding: 2.5rem; page-break-after: always; }
+            .comp-header { text-align: center; border-bottom: 2px solid #000; padding-bottom: 1.25rem; margin-bottom: 1.75rem; }
+            .comp-header h1 { font-size: 1.6rem; margin-bottom: .25rem; }
+            .comp-header h2 { font-size: 1.1rem; font-weight: 400; color: #444; }
+            .comp-header p  { font-size: .9rem; color: #666; margin-top: .5rem; }
+            .comp-info { width: 100%; border-collapse: collapse; margin-bottom: 1.75rem; }
+            .comp-info th, .comp-info td { padding: .5rem .75rem; border: 1px solid #ccc; text-align: left; font-size: .92rem; }
+            .comp-info th { background: #f5f5f5; width: 160px; }
+            .comp-detalle { width: 100%; border-collapse: collapse; margin-bottom: 1.75rem; }
+            .comp-detalle th, .comp-detalle td { padding: .5rem .75rem; border: 1px solid #ccc; font-size: .92rem; }
+            .comp-detalle thead th { background: #f5f5f5; font-weight: 700; }
+            .comp-detalle tfoot th { font-weight: 700; }
+            .comp-total { text-align: right; }
+            .comp-sello { margin-top: 3rem; display: flex; justify-content: flex-end; }
+            .comp-sello-box { text-align: center; }
+            .comp-sello-box p { font-size: .82rem; color: #555; margin-bottom: .5rem; }
+            .comp-sello-rect { width: 180px; height: 90px; border: 1px solid #999; }
+        }
+    </style>
+</head>
+<body>
+<nav>
+    <a href="dashboard.html" class="nav-brand">Balance Condarco</a>
+    <div class="nav-links">
+        <a href="dashboard.html">Dashboard</a>
+        <a href="movements.html">Movimientos</a>
+        <a href="plus.html" class="active admin-only">PLUS</a>
+        <a href="categories.html" class="admin-only">Categorías</a>
+        <span class="nav-user-info">
+            <span id="nav-user"></span>
+            <span id="nav-badge" class="badge"></span>
+        </span>
+        <button class="btn-logout" id="btn-logout">Salir</button>
+    </div>
+</nav>
+
+<div class="container">
+
+    <div class="page-header">
+        <h1 class="page-title">PLUS — Presentismo</h1>
+        <div style="display:flex;gap:.5rem;flex-wrap:wrap;align-items:center">
+            <button class="btn btn-outline" id="btn-ajuste" disabled>Ajuste masivo</button>
+            <button class="btn btn-primary" id="btn-pagar" disabled>Pagar seleccionados</button>
+            <button class="btn btn-primary" id="btn-nuevo-docente">+ Docente</button>
+        </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="cards-grid" style="grid-template-columns:repeat(3,1fr);margin-bottom:1.25rem">
+        <div class="card">
+            <div class="card-label">Docentes activos</div>
+            <div class="card-amount" id="stat-activos">0</div>
+        </div>
+        <div class="card">
+            <div class="card-label">Pendiente del mes</div>
+            <div class="card-amount" id="stat-pendiente">$ 0</div>
+        </div>
+        <div class="card">
+            <div class="card-label">Pagado del mes</div>
+            <div class="card-amount positive" id="stat-pagado">$ 0</div>
+        </div>
+    </div>
+
+    <!-- Filtros -->
+    <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:1rem;flex-wrap:wrap">
+        <div class="period-selector">
+            <button class="period-btn" id="btn-prev-mes">&#8249;</button>
+            <select id="sel-mes-plus"></select>
+            <select id="sel-anio-plus"></select>
+            <button class="period-btn" id="btn-next-mes">&#8250;</button>
+        </div>
+        <button class="btn btn-outline btn-sm" id="btn-generar-mes">Generar mes</button>
+        <input type="search" id="buscador" placeholder="Buscar docente…"
+               style="flex:1;min-width:180px;max-width:280px">
+        <label style="font-size:.82rem;display:flex;align-items:center;gap:.35rem;cursor:pointer;color:var(--muted)">
+            <input type="checkbox" id="show-inactivos"> Mostrar inactivos
+        </label>
+    </div>
+
+    <!-- Tabla -->
+    <div class="table-wrapper">
+        <div class="section-header">
+            <span class="section-title">Docentes</span>
+            <label style="font-size:.82rem;display:flex;align-items:center;gap:.35rem;cursor:pointer">
+                <input type="checkbox" id="check-all"> Seleccionar todos
+            </label>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th style="width:2rem"></th>
+                    <th>Nombre</th>
+                    <th>Monto base</th>
+                    <th>Estado del mes</th>
+                    <th>Pendiente acumulado</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="plus-tbody"></tbody>
+        </table>
+    </div>
+</div>
+
+<!-- MODAL: Nuevo/Editar docente -->
+<div class="modal-overlay" id="modal-docente">
+    <div class="modal">
+        <div class="modal-header">
+            <h2 class="modal-title" id="modal-docente-title">Nuevo docente</h2>
+            <button class="modal-close" onclick="closeModal('modal-docente')">&times;</button>
+        </div>
+        <div class="error-msg" id="docente-error"></div>
+        <form id="form-docente">
+            <input type="hidden" id="doc-id">
+            <div class="form-group">
+                <label for="doc-nombre">Nombre completo</label>
+                <input type="text" id="doc-nombre" required placeholder="Ej: María García">
+            </div>
+            <div class="form-group">
+                <label for="doc-monto">Monto base mensual ($)</label>
+                <input type="number" id="doc-monto" required min="0" step="1" placeholder="50000">
+            </div>
+            <div class="form-group">
+                <label for="doc-fecha-alta">Fecha de alta</label>
+                <input type="date" id="doc-fecha-alta" required>
+            </div>
+            <div class="form-group" id="activo-group" style="display:none">
+                <label style="display:flex;align-items:center;gap:.5rem;cursor:pointer;font-weight:400;font-size:.9rem">
+                    <input type="checkbox" id="doc-activo" checked> Docente activo
+                </label>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline" onclick="closeModal('modal-docente')">Cancelar</button>
+                <button type="submit" class="btn btn-primary" id="btn-guardar-docente">Guardar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- MODAL: Detalle docente -->
+<div class="modal-overlay" id="modal-detalle">
+    <div class="modal" style="max-width:660px">
+        <div class="modal-header">
+            <h2 class="modal-title" id="detalle-nombre">Detalle</h2>
+            <button class="modal-close" onclick="closeModal('modal-detalle')">&times;</button>
+        </div>
+        <div id="detalle-body" style="max-height:60vh;overflow-y:auto"></div>
+        <div class="modal-footer" style="justify-content:flex-start;gap:.5rem">
+            <button class="btn btn-outline btn-sm" id="btn-ausencia-detalle">+ Registrar ausencia</button>
+            <button class="btn btn-primary btn-sm" id="btn-pagar-detalle">Registrar pago</button>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL: Registrar ausencia -->
+<div class="modal-overlay" id="modal-ausencia">
+    <div class="modal">
+        <div class="modal-header">
+            <h2 class="modal-title">Registrar ausencia</h2>
+            <button class="modal-close" onclick="closeModal('modal-ausencia')">&times;</button>
+        </div>
+        <div class="error-msg" id="ausencia-error"></div>
+        <p id="ausencia-nombre" style="font-weight:600;margin-bottom:1rem;color:var(--text)"></p>
+        <form id="form-ausencia">
+            <input type="hidden" id="ausencia-docente-id">
+            <div class="form-group">
+                <label for="ausencia-fecha">Fecha de ausencia</label>
+                <input type="date" id="ausencia-fecha" required>
+            </div>
+            <p style="font-size:.82rem;color:var(--muted);margin-top:-.5rem;margin-bottom:1rem">
+                El presentismo del mes correspondiente será marcado como anulado.
+            </p>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline" onclick="closeModal('modal-ausencia')">Cancelar</button>
+                <button type="submit" class="btn btn-danger">Registrar y anular mes</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- MODAL: Ajuste masivo -->
+<div class="modal-overlay" id="modal-ajuste">
+    <div class="modal">
+        <div class="modal-header">
+            <h2 class="modal-title">Ajuste masivo de monto</h2>
+            <button class="modal-close" onclick="closeModal('modal-ajuste')">&times;</button>
+        </div>
+        <div class="error-msg" id="ajuste-error"></div>
+        <p id="ajuste-info" style="margin-bottom:1rem;font-size:.88rem;color:var(--muted)"></p>
+        <form id="form-ajuste">
+            <div class="form-group">
+                <label for="ajuste-pct">Porcentaje de aumento (%)</label>
+                <input type="number" id="ajuste-pct" required min="0.1" step="0.01" placeholder="4">
+            </div>
+            <div class="form-group">
+                <label>Aplicar desde</label>
+                <div style="display:flex;gap:.5rem">
+                    <select id="ajuste-desde-mes" style="flex:1"></select>
+                    <select id="ajuste-desde-anio" style="flex:1"></select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline" onclick="closeModal('modal-ajuste')">Cancelar</button>
+                <button type="submit" class="btn btn-primary">Aplicar ajuste</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- MODAL: Registrar pago -->
+<div class="modal-overlay" id="modal-pago">
+    <div class="modal" style="max-width:560px">
+        <div class="modal-header">
+            <h2 class="modal-title" id="pago-titulo">Registrar pago</h2>
+            <button class="modal-close" onclick="closeModal('modal-pago')">&times;</button>
+        </div>
+        <div class="error-msg" id="pago-error"></div>
+        <div id="pago-body" style="max-height:55vh;overflow-y:auto"></div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline" onclick="closeModal('modal-pago')">Cancelar</button>
+            <button class="btn btn-primary" id="btn-confirmar-pago">Confirmar y generar comprobante</button>
+        </div>
+    </div>
+</div>
+
+<!-- Comprobante (solo visible al imprimir) -->
+<div id="comprobante-wrapper" style="display:none">
+    <div id="comprobante-content"></div>
+</div>
+
+<script src="config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-client.js?v=3"></script>
+<script src="js/utils.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/plus.js"></script>
+</body>
+</html>
