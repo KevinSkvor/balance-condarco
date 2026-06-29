@@ -255,7 +255,7 @@ async function openDetalle(id) {
                 ${totalPend > 0 ? `<span style="font-size:.82rem;color:var(--danger);font-weight:600">Pendiente: ${formatARS(totalPend)}</span>` : ''}
             </div>
             <table>
-                <thead><tr><th>Período</th><th>Monto</th><th>Estado</th><th>Fecha pago</th></tr></thead>
+                <thead><tr><th>Período</th><th>Monto</th><th>Estado</th><th>Fecha pago</th><th></th></tr></thead>
                 <tbody>
                 ${historial.map(p => `
                     <tr>
@@ -263,6 +263,7 @@ async function openDetalle(id) {
                         <td>${formatARS(p.monto)}</td>
                         <td>${estadoBadge(p.estado)}</td>
                         <td class="text-muted">${p.fecha_pago || '—'}</td>
+                        <td>${p.estado === 'pagado' ? `<button class="btn btn-outline btn-sm" style="font-size:.72rem" onclick="revertirPago('${p.id}','${id}')">Revertir</button>` : ''}</td>
                     </tr>`).join('')}
                 </tbody>
             </table>
@@ -275,12 +276,47 @@ async function openDetalle(id) {
         html += `<p style="font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-bottom:.5rem">Ausencias registradas</p>`;
         html += `<div style="display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:.5rem">` +
             ausencias.map(a =>
-                `<span style="background:#fef2f2;border:1px solid #fecaca;border-radius:.35rem;padding:.2rem .6rem;font-size:.82rem">${a.fecha}</span>`
+                `<span style="background:#fef2f2;border:1px solid #fecaca;border-radius:.35rem;padding:.2rem .5rem .2rem .6rem;font-size:.82rem;display:inline-flex;align-items:center;gap:.3rem">
+                    ${a.fecha}
+                    <button onclick="deleteAusencia('${a.id}','${a.docente_id}',${a.mes},${a.anio})"
+                        style="background:none;border:none;cursor:pointer;color:#b91c1c;font-size:1rem;padding:0;line-height:1;font-weight:700"
+                        title="Eliminar ausencia">&times;</button>
+                </span>`
             ).join('') + `</div>`;
     }
 
     document.getElementById('detalle-body').innerHTML = html;
     openModal('modal-detalle');
+}
+
+async function deleteAusencia(ausenciaId, docenteId, mes, anio) {
+    if (!confirm('¿Eliminar esta ausencia?')) return;
+
+    await supabase.from('plus_ausencias').delete().eq('id', ausenciaId);
+
+    // Si no quedan más ausencias en ese mes, revertir presentismo a pendiente
+    const { data: restantes } = await supabase.from('plus_ausencias')
+        .select('id').eq('docente_id', docenteId).eq('mes', mes).eq('anio', anio);
+
+    if (!restantes?.length) {
+        await supabase.from('plus_presentismo')
+            .update({ estado: 'pendiente' })
+            .eq('docente_id', docenteId).eq('mes', mes).eq('anio', anio).eq('estado', 'anulado');
+    }
+
+    await loadAll();
+    await openDetalle(detalleDocenteId);
+}
+
+async function revertirPago(presId, docenteId) {
+    if (!confirm('¿Revertir este pago? El mes volverá a estado Pendiente.')) return;
+
+    await supabase.from('plus_presentismo')
+        .update({ estado: 'pendiente', fecha_pago: null, pago_id: null })
+        .eq('id', presId);
+
+    await loadAll();
+    await openDetalle(docenteId);
 }
 
 document.getElementById('btn-ausencia-detalle').addEventListener('click', () => {
@@ -301,22 +337,29 @@ function openAusencia(docenteId) {
     document.getElementById('ausencia-nombre').textContent = d?.nombre || '';
     document.getElementById('ausencia-desde').value = hoy;
     document.getElementById('ausencia-hasta').value = hoy;
+    document.getElementById('ausencia-es-periodo').checked = false;
+    document.getElementById('ausencia-hasta-group').style.display = 'none';
     document.getElementById('ausencia-error').style.display = 'none';
     openModal('modal-ausencia');
 }
 
+document.getElementById('ausencia-es-periodo').addEventListener('change', function () {
+    document.getElementById('ausencia-hasta-group').style.display = this.checked ? '' : 'none';
+    document.getElementById('ausencia-hasta').required = this.checked;
+});
+
 document.getElementById('form-ausencia').addEventListener('submit', async (e) => {
     e.preventDefault();
-    const docenteId = document.getElementById('ausencia-docente-id').value;
-    const desde     = document.getElementById('ausencia-desde').value;
-    const hasta     = document.getElementById('ausencia-hasta').value;
+    const docenteId  = document.getElementById('ausencia-docente-id').value;
+    const desde      = document.getElementById('ausencia-desde').value;
+    const esPeriodo  = document.getElementById('ausencia-es-periodo').checked;
+    const hasta      = esPeriodo ? document.getElementById('ausencia-hasta').value : desde;
 
     if (hasta < desde) {
         showError('ausencia-error', '"Hasta" debe ser igual o posterior a "Desde".');
         return;
     }
 
-    // Generar todas las fechas del rango
     const fechas = [];
     const cur = new Date(desde + 'T12:00:00');
     const end = new Date(hasta + 'T12:00:00');
@@ -325,17 +368,16 @@ document.getElementById('form-ausencia').addEventListener('submit', async (e) =>
         cur.setDate(cur.getDate() + 1);
     }
 
-    // Meses únicos afectados
     const mesesMap = new Map();
     for (const f of fechas) {
         const [a, m] = f.split('-');
-        const key = `${m}-${a}`;
-        mesesMap.set(key, { mes: parseInt(m), anio: parseInt(a) });
+        mesesMap.set(`${m}-${a}`, { mes: parseInt(m), anio: parseInt(a) });
     }
     const mesesAfectados = [...mesesMap.values()];
     const mesesStr = mesesAfectados.map(m => `${MESES[m.mes-1]} ${m.anio}`).join(', ');
+    const label = fechas.length === 1 ? `el ${desde}` : `${fechas.length} días (${desde} → ${hasta})`;
 
-    if (!confirm(`¿Registrar ${fechas.length} día(s) de ausencia y anular el presentismo de: ${mesesStr}?`)) return;
+    if (!confirm(`¿Registrar ausencia ${label} y anular el presentismo de: ${mesesStr}?`)) return;
 
     const records = fechas.map(f => {
         const [a, m] = f.split('-');
@@ -344,10 +386,7 @@ document.getElementById('form-ausencia').addEventListener('submit', async (e) =>
 
     const { error: errAus } = await supabase.from('plus_ausencias')
         .upsert(records, { onConflict: 'docente_id,fecha', ignoreDuplicates: true });
-    if (errAus) {
-        showError('ausencia-error', 'Error al registrar: ' + errAus.message);
-        return;
-    }
+    if (errAus) { showError('ausencia-error', 'Error al registrar: ' + errAus.message); return; }
 
     const d = docentes.find(x => x.id === docenteId);
     for (const { mes, anio } of mesesAfectados) {

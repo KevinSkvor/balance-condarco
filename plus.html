@@ -174,18 +174,19 @@
         <p id="ausencia-nombre" style="font-weight:600;margin-bottom:1rem;color:var(--text)"></p>
         <form id="form-ausencia">
             <input type="hidden" id="ausencia-docente-id">
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem">
-                <div class="form-group">
-                    <label for="ausencia-desde">Desde</label>
-                    <input type="date" id="ausencia-desde" required>
-                </div>
-                <div class="form-group">
-                    <label for="ausencia-hasta">Hasta</label>
-                    <input type="date" id="ausencia-hasta" required>
-                </div>
+            <div class="form-group">
+                <label for="ausencia-desde">Fecha de ausencia</label>
+                <input type="date" id="ausencia-desde" required>
+            </div>
+            <label style="display:flex;align-items:center;gap:.5rem;cursor:pointer;font-size:.85rem;margin-bottom:.85rem;color:var(--muted)">
+                <input type="checkbox" id="ausencia-es-periodo"> Registrar como período (varios días)
+            </label>
+            <div id="ausencia-hasta-group" style="display:none" class="form-group">
+                <label for="ausencia-hasta">Hasta</label>
+                <input type="date" id="ausencia-hasta">
             </div>
             <p style="font-size:.82rem;color:var(--muted);margin-top:-.5rem;margin-bottom:1rem">
-                Los meses afectados por el período serán marcados como anulados.
+                Los meses afectados serán marcados como anulados.
             </p>
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline" onclick="closeModal('modal-ausencia')">Cancelar</button>
