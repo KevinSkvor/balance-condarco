@@ -183,7 +183,7 @@ function openEditDocente(id) {
     document.getElementById('doc-activo').checked    = d.activo;
     document.getElementById('modal-docente-title').textContent = 'Editar docente';
     document.getElementById('activo-group').style.display = '';
-    document.getElementById('btn-eliminar-docente').style.display = '';
+    document.getElementById('btn-eliminar-docente').style.display = 'inline-flex';
     document.getElementById('docente-error').style.display = 'none';
     openModal('modal-docente');
 }
