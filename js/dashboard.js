@@ -23,11 +23,10 @@ async function loadDashboard(mes, anio) {
         .eq('month', mes)
         .eq('year', anio);
 
-    const { desde, hasta } = mesRange(mes, anio);
     const { data: plusData } = await supabase
-        .from('plus_pagos').select('monto_total')
-        .gte('fecha_pago', desde).lt('fecha_pago', hasta);
-    const plusMes = (plusData || []).reduce((s, p) => s + parseFloat(p.monto_total), 0);
+        .from('plus_presentismo').select('monto')
+        .eq('mes', mes).eq('anio', anio).eq('estado', 'pagado');
+    const plusMes = (plusData || []).reduce((s, p) => s + parseFloat(p.monto), 0);
 
     const totals = { ingreso: 0, ingreso_extra: 0, blanco: 0, negro: 0, personal: 0 };
     for (const m of (movements || [])) {
@@ -68,18 +67,14 @@ async function loadChart(mesActual, anioActual) {
         .select('amount, block, month, year')
         .in('year', years);
 
-    const { desde: desdeChart } = mesRange(periodos[0].mes, periodos[0].anio);
-    const { hasta: hastaChart  } = mesRange(periodos[periodos.length - 1].mes, periodos[periodos.length - 1].anio);
     const { data: allPlus } = await supabase
-        .from('plus_pagos').select('monto_total, fecha_pago')
-        .gte('fecha_pago', desdeChart).lt('fecha_pago', hastaChart);
+        .from('plus_presentismo').select('mes, anio, monto')
+        .in('anio', years).eq('estado', 'pagado');
 
-    const plusPorMes = (mes, anio) => {
-        const { desde, hasta } = mesRange(mes, anio);
-        return (allPlus || [])
-            .filter(p => p.fecha_pago >= desde && p.fecha_pago < hasta)
-            .reduce((s, p) => s + parseFloat(p.monto_total), 0);
-    };
+    const plusPorMes = (mes, anio) =>
+        (allPlus || [])
+            .filter(p => p.mes === mes && p.anio === anio)
+            .reduce((s, p) => s + parseFloat(p.monto), 0);
 
     const movs   = allMovs || [];
     const labels = periodos.map(p => `${MESES[p.mes - 1].slice(0, 3)} ${p.anio}`);
@@ -187,12 +182,13 @@ async function loadSavings() {
         .select('amount, block, month, year')
         .in('year', years);
 
-    const pad = n => String(n).padStart(2, '0');
     const { data: plusRango } = await supabase
-        .from('plus_pagos').select('monto_total')
-        .gte('fecha_pago', `${fromAnio}-${pad(fromMes)}-01`)
-        .lt('fecha_pago', mesRange(toMes, toAnio).hasta);
-    const plusAcum = (plusRango || []).reduce((s, p) => s + parseFloat(p.monto_total), 0);
+        .from('plus_presentismo').select('mes, anio, monto')
+        .in('anio', years).eq('estado', 'pagado');
+    const plusAcum = (plusRango || []).filter(p => {
+        const val = p.anio * 12 + p.mes;
+        return val >= fromVal && val <= toVal;
+    }).reduce((s, p) => s + parseFloat(p.monto), 0);
 
     let ing = 0, gast = 0;
     for (const mv of (data || [])) {
