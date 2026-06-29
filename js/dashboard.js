@@ -2,6 +2,16 @@ let chartInstance = null;
 let chartMode = 'line';
 let chartMes, chartAnio;
 
+function mesRange(mes, anio) {
+    const pad = n => String(n).padStart(2, '0');
+    const sigMes  = mes === 12 ? 1  : mes + 1;
+    const sigAnio = mes === 12 ? anio + 1 : anio;
+    return {
+        desde: `${anio}-${pad(mes)}-01`,
+        hasta: `${sigAnio}-${pad(sigMes)}-01`
+    };
+}
+
 async function loadDashboard(mes, anio) {
     chartMes = mes; chartAnio = anio;
     document.getElementById('titulo-periodo').textContent = `${MESES[mes - 1]} ${anio}`;
@@ -13,10 +23,17 @@ async function loadDashboard(mes, anio) {
         .eq('month', mes)
         .eq('year', anio);
 
+    const { desde, hasta } = mesRange(mes, anio);
+    const { data: plusData } = await supabase
+        .from('plus_pagos').select('monto_total')
+        .gte('fecha_pago', desde).lt('fecha_pago', hasta);
+    const plusMes = (plusData || []).reduce((s, p) => s + parseFloat(p.monto_total), 0);
+
     const totals = { ingreso: 0, ingreso_extra: 0, blanco: 0, negro: 0, personal: 0 };
     for (const m of (movements || [])) {
         totals[m.block] = (totals[m.block] || 0) + parseFloat(m.amount);
     }
+    totals.negro += plusMes;
 
     const totalIngresos = totals.ingreso + totals.ingreso_extra;
     const totalGastos   = totals.blanco + totals.negro + totals.personal;
@@ -33,7 +50,7 @@ async function loadDashboard(mes, anio) {
 
     await loadChart(mes, anio);
 
-    if (_profile?.role === 'admin') renderDesglose(movements || []);
+    if (_profile?.role === 'admin') renderDesglose(movements || [], plusMes);
 }
 
 async function loadChart(mesActual, anioActual) {
@@ -50,6 +67,19 @@ async function loadChart(mesActual, anioActual) {
         .from('movements')
         .select('amount, block, month, year')
         .in('year', years);
+
+    const { desde: desdeChart } = mesRange(periodos[0].mes, periodos[0].anio);
+    const { hasta: hastaChart  } = mesRange(periodos[periodos.length - 1].mes, periodos[periodos.length - 1].anio);
+    const { data: allPlus } = await supabase
+        .from('plus_pagos').select('monto_total, fecha_pago')
+        .gte('fecha_pago', desdeChart).lt('fecha_pago', hastaChart);
+
+    const plusPorMes = (mes, anio) => {
+        const { desde, hasta } = mesRange(mes, anio);
+        return (allPlus || [])
+            .filter(p => p.fecha_pago >= desde && p.fecha_pago < hasta)
+            .reduce((s, p) => s + parseFloat(p.monto_total), 0);
+    };
 
     const movs   = allMovs || [];
     const labels = periodos.map(p => `${MESES[p.mes - 1].slice(0, 3)} ${p.anio}`);
@@ -72,6 +102,7 @@ async function loadChart(mesActual, anioActual) {
                 if (mv.block === 'ingreso' || mv.block === 'ingreso_extra') ing += amt;
                 else gast += amt;
             }
+            gast += plusPorMes(mes, anio);
             return ing - gast;
         });
 
@@ -119,7 +150,10 @@ async function loadChart(mesActual, anioActual) {
                         backgroundColor: 'rgba(22,163,74,.75)', borderColor: '#16a34a', borderWidth: 1
                     },
                     { label: 'Gastos en Blanco',  data: getBlock('blanco'),   backgroundColor: 'rgba(37,99,235,.75)',  borderColor: '#2563eb', borderWidth: 1 },
-                    { label: 'Gastos en Negro',   data: getBlock('negro'),    backgroundColor: 'rgba(51,65,85,.75)',   borderColor: '#334155', borderWidth: 1 },
+                    { label: 'Gastos en Negro',   data: periodos.map(({ mes, anio }) =>
+                            movs.filter(mv => mv.month === mes && mv.year === anio && mv.block === 'negro')
+                                .reduce((s, mv) => s + parseFloat(mv.amount), 0) + plusPorMes(mes, anio)),
+                        backgroundColor: 'rgba(51,65,85,.75)', borderColor: '#334155', borderWidth: 1 },
                     { label: 'Gastos Personales', data: getBlock('personal'), backgroundColor: 'rgba(124,58,237,.75)', borderColor: '#7c3aed', borderWidth: 1 }
                 ]
             },
@@ -153,6 +187,13 @@ async function loadSavings() {
         .select('amount, block, month, year')
         .in('year', years);
 
+    const pad = n => String(n).padStart(2, '0');
+    const { data: plusRango } = await supabase
+        .from('plus_pagos').select('monto_total')
+        .gte('fecha_pago', `${fromAnio}-${pad(fromMes)}-01`)
+        .lt('fecha_pago', mesRange(toMes, toAnio).hasta);
+    const plusAcum = (plusRango || []).reduce((s, p) => s + parseFloat(p.monto_total), 0);
+
     let ing = 0, gast = 0;
     for (const mv of (data || [])) {
         const val = mv.year * 12 + mv.month;
@@ -161,6 +202,7 @@ async function loadSavings() {
         if (mv.block === 'ingreso' || mv.block === 'ingreso_extra') ing += amt;
         else gast += amt;
     }
+    gast += plusAcum;
 
     const neto = ing - gast;
     document.getElementById('sav-ingresos').textContent = formatARS(ing);
@@ -170,14 +212,24 @@ async function loadSavings() {
     netoEl.className   = `savings-amount ${neto >= 0 ? 'positive' : 'negative'}`;
 }
 
-function renderDesglose(movements) {
+function renderDesglose(movements, plusMes) {
     const bloques = ['ingreso', 'ingreso_extra', 'blanco', 'negro', 'personal'];
     let html = '';
 
     for (const bloque of bloques) {
         const movs = movements.filter(m => m.block === bloque);
-        if (!movs.length) continue;
-        const total = movs.reduce((s, m) => s + parseFloat(m.amount), 0);
+        const esNegro = bloque === 'negro';
+        if (!movs.length && !(esNegro && plusMes > 0)) continue;
+
+        const total = movs.reduce((s, m) => s + parseFloat(m.amount), 0) + (esNegro ? plusMes : 0);
+
+        const filaPlus = esNegro && plusMes > 0
+            ? `<tr>
+                <td style="font-weight:600">PLUS — Presentismo</td>
+                <td class="text-muted">Pago automático desde PLUS</td>
+                <td class="amount">${formatARS(plusMes)}</td>
+               </tr>`
+            : '';
 
         html += `
         <div class="table-wrapper">
@@ -194,6 +246,7 @@ function renderDesglose(movements) {
                         <td class="text-muted">${m.description || '—'}</td>
                         <td class="amount">${formatARS(m.amount)}</td>
                     </tr>`).join('')}
+                ${filaPlus}
                 </tbody>
             </table>
         </div>`;
