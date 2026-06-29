@@ -168,6 +168,7 @@ document.getElementById('btn-nuevo-docente').addEventListener('click', () => {
     document.getElementById('doc-fecha-alta').value = new Date().toISOString().split('T')[0];
     document.getElementById('doc-activo').checked = true;
     document.getElementById('activo-group').style.display = 'none';
+    document.getElementById('btn-eliminar-docente').style.display = 'none';
     document.getElementById('docente-error').style.display = 'none';
     openModal('modal-docente');
 });
@@ -182,8 +183,26 @@ function openEditDocente(id) {
     document.getElementById('doc-activo').checked    = d.activo;
     document.getElementById('modal-docente-title').textContent = 'Editar docente';
     document.getElementById('activo-group').style.display = '';
+    document.getElementById('btn-eliminar-docente').style.display = '';
     document.getElementById('docente-error').style.display = 'none';
     openModal('modal-docente');
+}
+
+async function deleteDocente() {
+    const id = document.getElementById('doc-id').value;
+    const nombre = document.getElementById('doc-nombre').value;
+    if (!confirm(`¿Eliminar a "${nombre}" y TODOS sus registros (presentismo, pagos, ausencias)?\n\nEsta acción no se puede deshacer.`)) return;
+
+    // 1. Desligar presentismo de sus pagos (FK pago_id → plus_pagos)
+    await supabase.from('plus_presentismo').update({ pago_id: null }).eq('docente_id', id);
+    // 2. Eliminar pagos
+    await supabase.from('plus_pagos').delete().eq('docente_id', id);
+    // 3. Eliminar docente (CASCADE borra presentismo y ausencias)
+    const { error } = await supabase.from('plus_docentes').delete().eq('id', id);
+
+    if (error) { showError('docente-error', 'Error al eliminar: ' + error.message); return; }
+    closeModal('modal-docente');
+    await loadAll();
 }
 
 document.getElementById('form-docente').addEventListener('submit', async (e) => {
