@@ -204,7 +204,11 @@ document.getElementById('form-docente').addEventListener('submit', async (e) => 
         : await supabase.from('plus_docentes').insert(payload);
 
     btn.disabled = false;
-    if (error) { showError('docente-error', 'Error al guardar.'); return; }
+    if (error) {
+        console.error('Error al guardar docente:', error);
+        showError('docente-error', error.message || 'Error al guardar.');
+        return;
+    }
     closeModal('modal-docente');
     await loadAll();
 });
