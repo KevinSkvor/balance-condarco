@@ -31,14 +31,14 @@
       "id": "b1",
       "file": "b1_inscripciones.wav",
       "at": 16,
-      "onset": 0.3,
+      "onset": 0.07,
       "text": "Inscripciones abiertas en el Instituto Álvarez Condarco."
     },
     {
       "id": "b2",
       "file": "b2_niveles.wav",
-      "at": 160,
-      "onset": 0.3,
+      "at": 154,
+      "onset": 0.12,
       "text": "Para Jardín, Primaria y Secundaria. Tres niveles, un mismo colegio."
     },
     {
@@ -78,9 +78,9 @@
     }
   ],
   "cards": [
-    168,
-    198,
-    228
+    158,
+    180,
+    203
   ],
   "step1": 390,
   "urlTypeStart": 420,
