@@ -1,7 +1,7 @@
 import React from 'react';
 import {AbsoluteFill, Easing, Img, interpolate, staticFile, useCurrentFrame} from 'remotion';
 import {C, NIVELES, SANS, T, clamp, sp} from '../lib';
-import {Titulo, Volanta} from '../ui';
+import {Titulo} from '../ui';
 
 /** 5–10 s · "Para Jardín, Primaria y Secundaria. Tres niveles, un mismo colegio." */
 export const Niveles: React.FC = () => {
@@ -10,8 +10,7 @@ export const Niveles: React.FC = () => {
 
 	return (
 		<AbsoluteFill>
-			<div style={{position: 'absolute', top: 250, left: 64, right: 64, display: 'flex', flexDirection: 'column', gap: 20}}>
-				<Volanta at={start + 4}>PARA TODOS LOS NIVELES</Volanta>
+			<div style={{position: 'absolute', top: 300, left: 64, right: 64, display: 'flex', flexDirection: 'column', gap: 20}}>
 				<Titulo at={start + 8} parts={['Tres niveles, un mismo ', 'colegio']} size={96} stagger={3} />
 			</div>
 
