@@ -1,0 +1,23 @@
+{
+  "fps": 30,
+  "durationInFrames": 300,
+  "width": 1920,
+  "height": 1080,
+  "bpm": 120,
+  "burst": 30,
+  "beatStart": 45,
+  "beatEnd": 255,
+  "logoIn": 40,
+  "typeStart": 66,
+  "typeText": "Hola, soy Claude",
+  "charFrames": 2,
+  "skillsIn": 118,
+  "cards": [135, 150, 165, 180],
+  "bounceIn": 208,
+  "bounceStart": 210,
+  "contacts": [225, 237, 247],
+  "ballToCenter": 258,
+  "finaleIn": 256,
+  "pop": 270,
+  "end": 300
+}
