@@ -52,21 +52,21 @@
       "id": "b4",
       "file": "b4_web.wav",
       "at": 404,
-      "onset": 0.05,
+      "onset": 0.06,
       "text": "Entrá a alvarezcondarco.com, o al link en nuestra descripción."
     },
     {
       "id": "b5",
       "file": "b5_admisiones.wav",
       "at": 552,
-      "onset": 0.05,
+      "onset": 0.06,
       "text": "Andá a la sección Admisiones."
     },
     {
       "id": "b6",
       "file": "b6_datos.wav",
       "at": 642,
-      "onset": 0.09,
+      "onset": 0.07,
       "text": "Completá tus datos y envialo."
     },
     {
@@ -74,7 +74,7 @@
       "file": "b7_cierre.wav",
       "at": 770,
       "onset": 0.08,
-      "text": "Te esperamos. Un estilo en pos de la excelencia."
+      "text": "Te esperamos con un estilo en pos de la excelencia."
     }
   ],
   "cards": [

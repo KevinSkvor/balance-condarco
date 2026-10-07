@@ -11,7 +11,7 @@ export const Cierre: React.FC = () => {
 	const reveal = interpolate(f, [at, at + 20], [0, 1], {...clamp, easing: Easing.out(Easing.cubic)});
 	const escudo = sp(f, at + 30, {damping: 11, stiffness: 140});
 	const url = sp(f, at + 38, {damping: 13, stiffness: 150});
-	const lema = sp(f, at + 52, {damping: 20});
+	const lema = sp(f, at + 40, {damping: 20});
 
 	return (
 		<AbsoluteFill>
