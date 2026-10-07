@@ -1,0 +1,37 @@
+{
+  "fps": 30,
+  "width": 1080,
+  "height": 1920,
+  "durationInFrames": 900,
+  "bpm": 100,
+  "scenes": {
+    "hook": [0, 150],
+    "niveles": [150, 300],
+    "facil": [300, 392],
+    "pasos": [390, 752],
+    "cierre": [750, 900]
+  },
+  "vo": [
+    {"id": "b1", "file": "b1_inscripciones.wav", "at": 16, "onset": 0.30, "text": "Inscripciones abiertas en el Instituto Álvarez Condarco."},
+    {"id": "b2", "file": "b2_niveles.wav", "at": 160, "onset": 0.30, "text": "Para Jardín, Primaria y Secundaria. Tres niveles, un mismo colegio."},
+    {"id": "b3", "file": "b3_facil.wav", "at": 312, "onset": 0.38, "text": "Inscribirte es muy fácil."},
+    {"id": "b4", "file": "b4_web.wav", "at": 404, "onset": 0.50, "text": "Entrá a alvarezcondarco.com, o al link en nuestra descripción."},
+    {"id": "b5", "file": "b5_admisiones.wav", "at": 552, "onset": 0.70, "text": "Andá a la sección Admisiones."},
+    {"id": "b6", "file": "b6_datos.wav", "at": 642, "onset": 0.53, "text": "Completá tus datos y envialo."},
+    {"id": "b7", "file": "b7_cierre.wav", "at": 770, "onset": 0.30, "text": "Te esperamos. Un estilo en pos de la excelencia."}
+  ],
+  "cards": [168, 198, 228],
+  "step1": 390,
+  "urlTypeStart": 416,
+  "urlCharFrames": 1.6,
+  "hint": 466,
+  "step2": 540,
+  "cursorArrive": 580,
+  "admClick": 584,
+  "formIn": 598,
+  "step3": 630,
+  "fields": [648, 662, 676],
+  "sendClick": 694,
+  "sent": 700,
+  "cierreIn": 750
+}
