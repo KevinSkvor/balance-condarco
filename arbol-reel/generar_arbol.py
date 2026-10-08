@@ -5,34 +5,36 @@ from html import escape
 
 ROOT = "Reel de pesca"
 # (nombre, [hijos]) — los hijos de nivel 3 son piezas que se fijan a la pieza padre.
+# Conexiones obtenidas del análisis de contacto de los STEP (piezas que se tocan).
 TREE = [
     ("Main Body", [
-        ("Eje", ["Arandela plástica", "Arandela bronce"]),
-        ("Pivote 1", []),
-        ("Pivote 2", []),
-        ("Barreta", ["Arandela"]),
-        ("Barreta 2", ["Arandela ovalada"]),
+        ("Eje", ["Arandela ovalada"]),
+        ("Pivote 1", ["Arandela"]),
+        ("Pivote 2", ["Arandela plástica", "Arandela bronce"]),
         ("Guía resorte", ["Resorte"]),
+        ("Barreta", []),
+        ("Barreta 2", []),
         ("Tapa", []),
     ]),
     ("Soporte", [
-        ("Base Body", ["Tapa cuerpo"]),
-        ("Varilla", ["Arandela plástica x2"]),
-        ("Varilla con engranaje", ["Engranaje lineal"]),
-        ("Dentada", []),
-        ("Engranaje 2", []),
+        ("Base Body", []),
+        ("Engranaje lineal", []),
+        ("Varilla", ["Dentada"]),
+        ("Varilla con engranaje", []),
+        ("Engranaje 2", ["Arandela plástica x2"]),
+        ("Tapa cuerpo", []),
     ]),
     ("Manija", [
-        ("Manija", ["Tapa manija"]),
-        ("Agarre", []),
+        ("Manija", ["Agarre", "Tapa manija"]),
     ]),
     ("Tapa", [
-        ("Cuerpo principal", ["Tornillo x2"]),
-        ("Engranaje", ["Tuerca", "Arandela"]),
+        ("Cuerpo principal", ["Tuerca"]),
+        ("Arandela", ["Tornillo x2"]),
+        ("Engranaje", []),
         ("Chapa click", []),
     ]),
     ("Bobina", [
-        ("Bobina", ["Alambre", "Arandela x4", "Arandela espuma x3"]),
+        ("Bobina", ["Alambre", "Arandela x3", "Arandela espuma x3"]),
     ]),
 ]
 
