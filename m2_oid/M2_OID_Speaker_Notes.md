@@ -22,11 +22,11 @@ El diagrama ubica al estudio en la intersección. A la izquierda está la modern
 
 La línea de tiempo muestra cinco momentos. Arranca con la fundación en 2001, en el taller. Siguen una etapa de oficio y producción local, la consolidación con productos propios y la expansión reciente hacia la estrategia y la proyección global. `[Verificar hitos y fechas exactas]`
 
-Abajo están los tres productos que elegí como casos de análisis.
+Abajo están los tres productos que elegí como casos de análisis: Holway, Mate Nelo y el reel Puma.
 
 ## 04 · Holway (~25 s)
 
-El primer caso es Holway y su línea antropométrica. Acá el punto de partida es el cuerpo medido: la forma sale del dato ergonómico.
+El primer caso es Holway, un equipamiento antropométrico: calibres, cinta métrica y segmómetros para medir el cuerpo. Acá el punto de partida es el cuerpo medido, y la forma sale del dato y de la precisión del instrumento.
 
 Es el gesto más moderno de los tres, porque se apoya en la racionalidad, la estandarización y la función. Por eso el marcador queda cerca del polo moderno.
 
@@ -36,11 +36,11 @@ Mate Nelo va en sentido contrario. Toma un ritual cotidiano argentino y lo convi
 
 Es una lectura posmoderna, aunque la sostiene un oficio moderno de materiales y producción.
 
-## 06 · Triciclo (~20 s)
+## 06 · Reel Puma (~25 s)
 
-El Triciclo queda en el medio. Tiene una estructura técnica resuelta, pero puesta al servicio del juego, el color y la emoción.
+El tercer caso es el reel Puma, para pesca con mosca. Es una pieza mecanizada donde cada vaciado responde a la liviandad y la resistencia, un rigor técnico claramente moderno.
 
-En este producto función y experiencia conviven sin jerarquía.
+Pero no es un producto universal. Está pensado para una comunidad de nicho y se apoya en una marca con identidad propia, que es una lógica posmoderna. Por eso queda cerca del centro de la escala. `[Verificar material, cliente y año]`
 
 ## 07 · Modernidad vs. Posmodernidad (~30 s)
 
@@ -58,17 +58,17 @@ Destaco la cuarta. El prototipo de taller sigue siendo el corazón del proceso, 
 
 En el tiempo, el método cambió. Al principio dominaban la intuición, el oficio y el prototipo manual. Hoy se suman la investigación, el pensamiento sistémico y la visión de marca.
 
-La barra inferior muestra esa progresión: de oficio a proceso, de método a estrategia.
+Las dos tarjetas lo resumen: oficio antes, sistema hoy. La barra inferior muestra esa progresión, de oficio a proceso y de método a estrategia.
 
 ## 10 · Producción: local → global (~25 s)
 
-En producción, el recorrido va de adentro hacia afuera. El origen está en el taller propio; la escala, en proveedores e industria nacional; y la proyección, en un lenguaje y una marca que dialogan con mercados más amplios. `[Precisar mercados reales]`
+En producción, el recorrido va de adentro hacia afuera, y la foto de planta muestra el salto a la escala industrial. `[Verificar a qué planta o proveedor corresponde la imagen]` El origen está en el taller propio; la escala, en proveedores e industria nacional; y la proyección, en un lenguaje y una marca que dialogan con mercados más amplios. `[Precisar mercados reales]`
 
 Es la tensión local/global llevada a la producción concreta.
 
 ## 11 · Conclusión (~30 s)
 
-La conclusión parcial es que OID articula las tensiones, no las resuelve: taller y estrategia, local y global, función e identidad.
+La conclusión parcial es que OID articula las tensiones, no las resuelve: taller y estrategia, local y global, función e identidad. El futbolín lo muestra bien, porque une madera y acero, técnica y juego.
 
 El estudio opera en el punto medio. Usa un oficio moderno al servicio de un relato posmoderno, y eso lo vuelve un caso representativo del diseño latinoamericano del siglo XXI.
 

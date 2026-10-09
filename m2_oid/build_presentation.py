@@ -48,11 +48,14 @@ except Exception:
 IMAGES = {
     "holway": ["Holway_Antropometricos.png", "Holway_Antropometricos.jpg"],
     "mate": ["Mate_Nelo.png", "1790977233178_image.png", "Mate_Nelo.jpg"],
-    "triciclo": ["Triciclo.png", "Triciclo.jpg"],
+    "reel": ["Reel_Puma.png", "Reel_Puma.jpg"],
     "futbolin": ["Futbolin.png", "Futbolín.png", "Futbolin.jpg"],
-    "taller": ["OID_Taller.png", "OID_Taller.jpg"],
-    "estudio": ["OID_Estudio.png", "OID_Estudio.jpg"],
+    "produccion": ["OID_Produccion.jpg", "OID_Produccion.png"],
 }
+
+# Fotos de producto sobre fondo liso: se muestran completas ("contain") sobre
+# el color de fondo de la propia imagen, en lugar de recortarse.
+CONTAIN = {"holway", "mate"}
 
 
 # ---------------------------------------------------------------- utilidades
@@ -65,8 +68,8 @@ def find_image(key):
     return None
 
 
-def rimg(c, key, x, y, w, h, r=R, dark=False):
-    """Imagen recortada tipo 'cover' con bordes redondeados (o placeholder)."""
+def rimg(c, key, x, y, w, h, r=R, dark=False, pad=0.08):
+    """Imagen con bordes redondeados: 'cover' o 'contain' (o placeholder)."""
     path = find_image(key)
     c.saveState()
     p = c.beginPath()
@@ -75,7 +78,13 @@ def rimg(c, key, x, y, w, h, r=R, dark=False):
     if path:
         img = ImageReader(path)
         iw, ih = img.getSize()
-        s = max(w / iw, h / ih)
+        if key in CONTAIN:
+            r_, g_, b_ = img.getRGBData()[:3]
+            c.setFillColorRGB(r_ / 255, g_ / 255, b_ / 255)
+            c.rect(x, y, w, h, stroke=0, fill=1)
+            s = min(w * (1 - 2 * pad) / iw, h * (1 - 2 * pad) / ih)
+        else:
+            s = max(w / iw, h / ih)
         dw, dh = iw * s, ih * s
         c.drawImage(img, x + (w - dw) / 2, y + (h - dh) / 2, dw, dh, mask="auto")
     else:
@@ -255,7 +264,7 @@ def icon(c, kind, cx, cy, s=18, color=INK):
 def s01_portada(c):
     page(c, 1, "Proyecto Integrador · M2", dark=True)
     # imagen protagonista a la derecha
-    rimg(c, "holway", 470, 70, 426, 580, dark=True)
+    rimg(c, "holway", 470, 70, 426, 580, dark=True, pad=0.06)
     spaced(c, "Historia y Tendencias del Diseño", M, 520, size=10, color=G2)
     y = text(c, "ORDÓÑEZ\nINDUSTRIAL\nDESIGN", M, 470, size=50, font=BOLD,
              color=white, leading=52)
@@ -337,7 +346,7 @@ def s03_timeline(c):
     tw, th, gap = 262, 150, 22
     ty = 70
     spaced(c, "Productos emblemáticos", M, ty + th + 18, size=9)
-    for i, key in enumerate(["holway", "mate", "triciclo"]):
+    for i, key in enumerate(["holway", "mate", "reel"]):
         rimg(c, key, M + i * (tw + gap), ty, tw, th)
 
 
@@ -368,7 +377,7 @@ def product(c, n, key, num, name, kicker, chips, reading, pos):
 
 def s04_holway(c):
     product(c, 4, "holway", "01", "Holway",
-            "Línea antropométrica: el cuerpo como dato de proyecto.",
+            "Equipamiento antropométrico: instrumentos para medir el cuerpo.",
             ["Ergonomía", "Medida", "Serie", "Función"],
             "La forma nace de la medida del usuario: un gesto moderno de "
             "racionalidad y estandarización.", 0.25)
@@ -382,12 +391,12 @@ def s05_mate(c):
             "territorio. Lectura posmoderna con oficio moderno.", 0.75)
 
 
-def s06_triciclo(c):
-    product(c, 6, "triciclo", "03", "Triciclo",
-            "Juego, movimiento y emoción en un producto para la infancia.",
-            ["Juego", "Emoción", "Color", "Estructura"],
-            "Estructura técnica resuelta al servicio de una experiencia "
-            "lúdica: función y emoción conviven.", 0.55)
+def s06_reel(c):
+    product(c, 6, "reel", "03", "Reel Puma",
+            "Reel de pesca con mosca: precisión mecánica para una práctica de nicho.",
+            ["Precisión", "Mecanizado", "Ligereza", "Nicho"],
+            "Rigor técnico moderno al servicio de una comunidad específica y "
+            "de una marca con identidad propia.", 0.45)
 
 
 def s07_comparativa(c):
@@ -466,19 +475,25 @@ def s08_metodologia(c):
 def s09_evolucion(c):
     page(c, 9, "Evolución metodológica")
     title(c, "Del taller a la estrategia")
-    iw, ih = 360, 300
-    ly = 190
-    rimg(c, "taller", M, ly, iw, ih)
-    rimg(c, "estudio", W - M - iw, ly, iw, ih)
-    pill(c, "ANTES · TALLER", M + 16, ly + ih - 38, fill=white, fg=INK)
-    pill(c, "HOY · ESTRATEGIA", W - M - iw + 16, ly + ih - 38, fill=RED)
-    icon(c, "arrow", W / 2, ly + ih / 2, s=34, color=RED)
-    text(c, "Intuición, oficio y\nprototipo manual", M, ly - 34, size=14, color=G1,
-         leading=19)
-    text(c, "Investigación, sistema\ny visión de marca", W - M - iw, ly - 34, size=14,
-         color=G1, leading=19)
+    cw, ch = 360, 330
+    y = 170
+    cards = [
+        (M, INK, white, G3, "ANTES · TALLER", "Oficio",
+         "Intuición, oficio y\nprototipo manual", ["sketch", "proto"]),
+        (W - M - cw, RED, white, white, "HOY · ESTRATEGIA", "Sistema",
+         "Investigación, sistema\ny visión de marca", ["search", "globe"]),
+    ]
+    for x, bg, fg, sub, tag, word, desc, icons in cards:
+        c.setFillColor(bg)
+        c.roundRect(x, y, cw, ch, R, stroke=0, fill=1)
+        pill(c, tag, x + 24, y + ch - 46, fill=white, fg=INK)
+        for j, ic in enumerate(icons):
+            icon(c, ic, x + 52 + j * 70, y + ch - 120, s=26, color=fg)
+        text(c, word, x + 24, y + 110, size=44, font=BOLD, color=fg)
+        text(c, desc, x + 24, y + 70, size=15, color=sub, leading=20)
+    icon(c, "arrow", W / 2, y + ch / 2, s=34, color=RED)
     # barra de progresión
-    by = 86
+    by = 96
     steps = ["Oficio", "Proceso", "Método", "Estrategia"]
     bw = (W - 2 * M) / len(steps)
     for i, s in enumerate(steps):
@@ -492,61 +507,69 @@ def s09_evolucion(c):
 def s10_produccion(c):
     page(c, 10, "Producción")
     title(c, "Producción: de lo local a lo global")
-    cx, cy = 300, 320
+    cx, cy = 236, 330
     rings = [
-        (230, "Mercado global", G4),
-        (172, "Latinoamérica", HexColor("#DEDEDE")),
-        (114, "Argentina", G3),
-        (56, "Taller", INK),
+        (172, "Mercado global", G4),
+        (130, "Latinoamérica", HexColor("#DEDEDE")),
+        (88, "Argentina", G3),
+        (44, "Taller", INK),
     ]
     for rr, _, col in rings:
         c.setFillColor(col)
         c.circle(cx, cy, rr, stroke=0, fill=1)
     c.setFillColor(RED)
-    c.circle(cx, cy, 8, stroke=0, fill=1)
-    text(c, "Taller", cx, cy - 30, size=11, font=BOLD, color=white, align="center")
+    c.circle(cx, cy, 7, stroke=0, fill=1)
+    text(c, "Taller", cx, cy - 24, size=10, font=BOLD, color=white, align="center")
     for rr, label, _ in rings[:3]:
-        text(c, label, cx, cy + rr - 24, size=11, font=BOLD, color=G1, align="center")
-    # flecha de expansión
+        text(c, label, cx, cy + rr - 20, size=10, font=BOLD, color=G1, align="center")
     c.setStrokeColor(RED)
     c.setLineWidth(2)
-    c.line(cx + 12, cy + 12, cx + 175, cy + 175)
-    c.line(cx + 175, cy + 175, cx + 163, cy + 175)
-    c.line(cx + 175, cy + 175, cx + 175, cy + 163)
-    # puntos clave
-    x = 590
+    e = 128
+    c.line(cx + 10, cy + 10, cx + e, cy + e)
+    c.line(cx + e, cy + e, cx + e - 11, cy + e)
+    c.line(cx + e, cy + e, cx + e, cy + e - 11)
+    # foto de planta
+    ix, iw = 450, W - M - 450
+    ih = iw * 0.62
+    iy = 560 - ih
+    rimg(c, "produccion", ix, iy, iw, ih)
+    pill(c, "ESCALA INDUSTRIAL", ix + 16, iy + ih - 38, fill=white, fg=INK)
     items = [
-        ("01", "Origen", "Prototipo y oficio\nen el taller propio."),
-        ("02", "Escala", "Proveedores e industria\nnacional."),
-        ("03", "Proyección", "Lenguaje y marca\npensados para el mundo."),
+        ("01", "Origen", "Prototipo y\noficio en taller"),
+        ("02", "Escala", "Industria y\nproveedores"),
+        ("03", "Proyección", "Marca pensada\npara el mundo"),
     ]
-    y = 470
-    for num, h, d in items:
-        text(c, num, x, y, size=22, font=BOLD, color=RED)
-        text(c, h, x + 50, y, size=16, font=BOLD)
-        text(c, d, x + 50, y - 22, size=12, color=G1, leading=16)
-        y -= 120
+    colw = iw / 3
+    for i, (num, h, d) in enumerate(items):
+        x = ix + i * colw
+        text(c, num, x, 200, size=20, font=BOLD, color=RED)
+        text(c, h, x, 172, size=15, font=BOLD)
+        text(c, d, x, 150, size=11, color=G1, leading=15)
 
 
 def s11_conclusion(c):
     page(c, 11, "Conclusión")
-    title(c, "Articular tensiones, no resolverlas", width=470)
+    title(c, "Articular tensiones, no resolverlas", width=400)
     pairs = [("Taller", "Estrategia"), ("Local", "Global"), ("Función", "Identidad")]
-    x, w = M, 440
-    y = 430
+    x, w = M, 360
+    y = 440
     for a, b in pairs:
         c.setStrokeColor(G3)
         c.setLineWidth(2)
-        c.line(x + 100, y + 5, x + w - 100, y + 5)
+        c.line(x + 92, y + 5, x + w - 104, y + 5)
         c.setFillColor(RED)
-        c.circle(x + w / 2, y + 5, 7, stroke=0, fill=1)
-        text(c, a, x, y, size=18, font=BOLD)
-        text(c, b, x + w, y, size=18, font=BOLD, align="right")
+        c.circle(x + (w - 12) / 2, y + 5, 7, stroke=0, fill=1)
+        text(c, a, x, y, size=17, font=BOLD)
+        text(c, b, x + w, y, size=17, font=BOLD, align="right")
         y -= 70
     text(c, "OID opera en el punto medio: oficio moderno al servicio de "
-            "un relato posmoderno.", M, 170, size=17, color=INK, width=440,
+            "un relato posmoderno.", M, 190, size=17, color=INK, width=380,
          leading=23)
-    rimg(c, "futbolin", 560, 80, W - M - 560, 520)
+    ix, iw = 470, W - M - 470
+    ih = iw * 863 / 1112
+    rimg(c, "futbolin", ix, 340 - ih / 2 + 20, iw, ih)
+    text(c, "Futbolín OID: madera, acero y juego.", ix, 340 - ih / 2, size=10,
+         color=G2)
 
 
 def s12_m3(c):
@@ -591,7 +614,7 @@ def build():
     c.setTitle("Ordóñez Industrial Design — Entre el Taller y la Estrategia")
     c.setAuthor("Proyecto Integrador M2 · Historia y Tendencias del Diseño")
     for fn in [s01_portada, s02_pregunta, s03_timeline, s04_holway, s05_mate,
-               s06_triciclo, s07_comparativa, s08_metodologia, s09_evolucion,
+               s06_reel, s07_comparativa, s08_metodologia, s09_evolucion,
                s10_produccion, s11_conclusion, s12_m3]:
         fn(c)
         c.showPage()
