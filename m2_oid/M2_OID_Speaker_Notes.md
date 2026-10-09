@@ -21,7 +21,7 @@ El diagrama ubica al estudio en la intersección. A la izquierda está la modern
 
 ## 03 · Trayectoria 2001–2026 (~25 s)
 
-La línea de tiempo muestra cinco momentos. Arranca con la fundación en 2001, en el taller. Siguen una etapa de oficio y producción local, la consolidación con productos propios y la expansión reciente hacia la estrategia y la proyección global. `[Verificar hitos y fechas exactas]`
+La línea de tiempo muestra cinco momentos. Arranca con la fundación en 2001, en el taller. Siguen una etapa de oficio y producción local, hasta 2009; la consolidación con productos propios entre 2010 y 2019, cuando aparece el reel Puma; y la expansión de los últimos años hacia la estrategia y la proyección global.
 
 Abajo están los tres productos que elegí como casos de análisis: Holway, Mate Nelo y el reel Puma.
 
@@ -39,13 +39,13 @@ Es una lectura posmoderna, aunque la sostiene un oficio moderno de materiales y 
 
 ## 06 · Reel Puma (~25 s)
 
-El tercer caso es el reel Puma, para pesca con mosca. Es una pieza mecanizada donde cada vaciado responde a la liviandad y la resistencia, un rigor técnico claramente moderno.
+El tercer caso es el reel Puma, un reel de pesca con mosca diseñado en 2015 para Correntoso y premiado por su innovación. El foco estuvo en la mecánica: un sistema de freno potente, producido en aluminio mecanizado por CNC, una tecnología de alta precisión. Ese es su costado moderno.
 
-Pero no es un producto universal. Está pensado para una comunidad de nicho y se apoya en una marca con identidad propia, que es una lógica posmoderna. Por eso queda cerca del centro de la escala. `[Verificar material, cliente y año]`
+Pero el gran hueco central muestra el mecanismo y rompe con los parámetros estéticos conocidos del rubro: la técnica se convierte en imagen y en identidad. Por eso lo ubico en el centro de la escala, donde la modernidad y la posmodernidad se tocan.
 
 ## 07 · Modernidad vs. Posmodernidad (~30 s)
 
-Este es el marco teórico del Capítulo 1, ordenado en pares: función frente a significado, estandarización frente a diferenciación, lo universal frente a lo local, la industria frente a la marca. Resume el paso de "la forma sigue a la función" a "la forma sigue a la emoción". `[Citar autores del marco teórico, p. ej. corrientes de posguerra trabajadas en clase]`
+Este es el marco teórico del Capítulo 1, ordenado en pares: función frente a significado, estandarización frente a diferenciación, lo universal frente a lo local, la industria frente a la marca. Resume el paso de "la forma sigue a la función", de Sullivan (1896), a la crítica de Venturi (1966) y a la condición posmoderna que describe Lyotard (1979).
 
 OID aparece en el centro porque toma atributos de las dos columnas.
 
@@ -63,7 +63,7 @@ Las dos tarjetas lo resumen: oficio antes, sistema hoy. La barra inferior muestr
 
 ## 10 · Producción: local → global (~25 s)
 
-En producción, el recorrido va de adentro hacia afuera, y la foto de planta muestra el salto a la escala industrial. `[Verificar a qué planta o proveedor corresponde la imagen]` El origen está en el taller propio; la escala, en proveedores e industria nacional; y la proyección, en un lenguaje y una marca que dialogan con mercados más amplios. `[Precisar mercados reales]`
+En producción, el recorrido va de adentro hacia afuera, y la foto es el propio taller de OID: muestra que el oficio no quedó atrás, sino que creció a escala industrial. El origen está en el taller propio; la escala, en proveedores e industria nacional; y la proyección, en un lenguaje y una marca que dialogan con mercados más amplios. `[Precisar mercados reales]`
 
 Es la tensión local/global llevada a la producción concreta.
 

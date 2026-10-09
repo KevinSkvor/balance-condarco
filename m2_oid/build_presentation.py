@@ -326,9 +326,9 @@ def s03_timeline(c):
     c.line(x0, y0, x1, y0)
     milestones = [
         ("2001", "Fundación", "Taller y\nprimeros encargos"),
-        ("2000s", "Oficio", "Producción local,\nprototipo manual"),
-        ("2010s", "Consolidación", "Productos propios\ny clientes estables"),
-        ("2020s", "Expansión", "Estrategia, marca\ny proyección global"),
+        ("2002–09", "Oficio", "Producción local,\nprototipo manual"),
+        ("2010–19", "Consolidación", "Productos propios\ny Reel Puma (2015)"),
+        ("2020–25", "Expansión", "Estrategia, marca\ny proyección global"),
         ("2026", "Hoy", "Estudio entre\ntaller y estrategia"),
     ]
     step = (x1 - x0) / (len(milestones) - 1)
@@ -394,10 +394,11 @@ def s05_mate(c):
 
 def s06_reel(c):
     product(c, 6, "reel", "03", "Reel Puma",
-            "Reel de pesca con mosca: precisión mecánica para una práctica de nicho.",
-            ["Precisión", "Mecanizado", "Ligereza", "Nicho"],
-            "Rigor técnico moderno al servicio de una comunidad específica y "
-            "de una marca con identidad propia.", 0.45)
+            "Reel de pesca con mosca premiado por su innovación. "
+            "Cliente: Correntoso, 2015.",
+            ["Aluminio CNC", "Sistema de freno", "Innovación", "Premiado"],
+            "El gran vaciado central exhibe el mecanismo y rompe los códigos "
+            "estéticos del rubro: la técnica se vuelve imagen.", 0.5)
 
 
 def s07_comparativa(c):
@@ -438,6 +439,8 @@ def s07_comparativa(c):
     c.circle(mx, (top + bot) / 2, 30, stroke=0, fill=1)
     text(c, "OID", mx, (top + bot) / 2 - 6, size=16, font=BOLD, color=white,
          align="center")
+    text(c, "Sullivan (1896)  ·  Venturi (1966)  ·  Lyotard (1979)", M, 56,
+         size=9, color=G2)
 
 
 def s08_metodologia(c):
@@ -534,7 +537,7 @@ def s10_produccion(c):
     ih = iw * 0.62
     iy = 560 - ih
     rimg(c, "produccion", ix, iy, iw, ih)
-    pill(c, "ESCALA INDUSTRIAL", ix + 16, iy + ih - 38, fill=white, fg=INK)
+    pill(c, "TALLER OID", ix + 16, iy + ih - 38, fill=white, fg=INK)
     items = [
         ("01", "Origen", "Prototipo y\noficio en taller"),
         ("02", "Escala", "Industria y\nproveedores"),
