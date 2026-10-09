@@ -49,6 +49,7 @@ IMAGES = {
     "holway": ["Holway_Antropometricos.png", "Holway_Antropometricos.jpg"],
     "mate": ["Mate_Nelo.png", "1790977233178_image.png", "Mate_Nelo.jpg"],
     "reel": ["Reel_Puma.png", "Reel_Puma.jpg"],
+    "reel_h": ["Reel_Puma_miniatura.png", "Reel_Puma_horizontal.png"],
     "futbolin": ["Futbolin.png", "Futbolín.png", "Futbolin.jpg"],
     "produccion": ["OID_Produccion.jpg", "OID_Produccion.png"],
 }
@@ -273,7 +274,7 @@ def s01_portada(c):
     text(c, "Entre el Taller\ny la Estrategia", M, y - 52, size=28, color=G3, leading=34)
     text(c, "Modernidad y posmodernidad en el diseño\nindustrial argentino · 2001–2026",
          M, 150, size=12, color=G2, leading=17)
-    text(c, "[Nombre y apellido]  ·  Prof. [Nombre]", M, 100, size=11, font=BOLD, color=G3)
+    text(c, "Kevin Skvor  ·  Prof. Gaston Girod", M, 100, size=11, font=BOLD, color=G3)
 
 
 def s02_pregunta(c):
@@ -346,7 +347,7 @@ def s03_timeline(c):
     tw, th, gap = 262, 150, 22
     ty = 70
     spaced(c, "Productos emblemáticos", M, ty + th + 18, size=9)
-    for i, key in enumerate(["holway", "mate", "reel"]):
+    for i, key in enumerate(["holway", "mate", "reel_h"]):
         rimg(c, key, M + i * (tw + gap), ty, tw, th)
 
 
