@@ -6,6 +6,7 @@ import {Portada} from './Portada';
 import {SaludAdolescencia} from './salud/Salud';
 import TS from './salud/timeline.json';
 import {PortadaSalud} from './salud/PortadaSalud';
+import {HistoriaEncuesta, HistoriaPreguntas} from './historias/Historias';
 
 export const RemotionRoot: React.FC = () => (
 	<>
@@ -27,5 +28,7 @@ export const RemotionRoot: React.FC = () => (
 		/>
 		<Still id="Portada2027" component={Portada} width={T.width} height={T.height} />
 		<Still id="PortadaSalud" component={PortadaSalud} width={TS.width} height={TS.height} />
+		<Still id="HistoriaPreguntas" component={HistoriaPreguntas} width={1080} height={1920} />
+		<Still id="HistoriaEncuesta" component={HistoriaEncuesta} width={1080} height={1920} />
 	</>
 );
