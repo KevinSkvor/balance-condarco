@@ -9,7 +9,8 @@
     "audio-salud": "python3 audio/make_audio_salud.py",
     "render-salud": "npm run audio-salud && remotion render src/index.ts SaludAdolescencia out/salud-y-adolescencia.mp4",
     "audio-condarco": "python3 audio/make_audio_condarco.py",
-    "render-condarco": "npm run audio-condarco && remotion render src/index.ts NombreCondarco out/por-que-alvarez-condarco.mp4"
+    "render-condarco": "npm run audio-condarco && remotion render src/index.ts NombreCondarco out/por-que-alvarez-condarco.mp4",
+    "portada-condarco": "remotion still src/index.ts PortadaCondarco out/portada-por-que-alvarez-condarco.png --frame=1300"
   },
   "dependencies": {
     "@remotion/cli": "^4.0.534",

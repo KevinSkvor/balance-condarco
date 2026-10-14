@@ -17,7 +17,7 @@ const ease = (f: number, a: number, b: number, e: (t: number) => number = Easing
 	interpolate(f, [a, b], [0, 1], {...clamp, easing: e});
 const out = Easing.out(Easing.cubic);
 
-const PAPEL_VIEJO = '#f3e8cf';
+export const PAPEL_VIEJO = '#f3e8cf';
 
 // ───────────────────────── geometría del mapa (coords. de pantalla) ─────────────────────────
 
@@ -241,7 +241,7 @@ const camara = (f: number) => {
 };
 
 /** 7–50 s · El mapa: cordillera, niebla, misión, regreso, mapa dibujado y cruce del ejército. */
-const Mapa: React.FC = () => {
+export const Mapa: React.FC = () => {
 	const f = useCurrentFrame();
 	const start = K.sanMartin - 14;
 	if (f < start || f > K.hoy + 40) return null;
@@ -655,7 +655,7 @@ const Papel: React.FC = () => {
 	);
 };
 
-const Grano: React.FC = () => (
+export const Grano: React.FC = () => (
 	<AbsoluteFill style={{mixBlendMode: 'multiply', opacity: 0.1, pointerEvents: 'none'}}>
 		<svg width="100%" height="100%">
 			<filter id="papel">
