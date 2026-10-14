@@ -70,6 +70,7 @@ export const Titulo: React.FC<{
 									style={{
 										display: 'inline-block',
 										color: pi % 2 ? accent : color,
+										opacity: s < 0.01 ? 0 : 1,
 										transform: `translateY(${(1 - s) * 110}%)`,
 									}}
 								>

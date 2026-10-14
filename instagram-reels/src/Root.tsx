@@ -7,6 +7,8 @@ import {SaludAdolescencia} from './salud/Salud';
 import TS from './salud/timeline.json';
 import {PortadaSalud} from './salud/PortadaSalud';
 import {HistoriaEncuesta, HistoriaPreguntas} from './historias/Historias';
+import {NombreCondarco} from './condarco/Condarco';
+import TC from './condarco/timeline.json';
 
 export const RemotionRoot: React.FC = () => (
 	<>
@@ -25,6 +27,14 @@ export const RemotionRoot: React.FC = () => (
 			fps={TS.fps}
 			width={TS.width}
 			height={TS.height}
+		/>
+		<Composition
+			id="NombreCondarco"
+			component={NombreCondarco}
+			durationInFrames={TC.durationInFrames}
+			fps={TC.fps}
+			width={TC.width}
+			height={TC.height}
 		/>
 		<Still id="Portada2027" component={Portada} width={T.width} height={T.height} />
 		<Still id="PortadaSalud" component={PortadaSalud} width={TS.width} height={TS.height} />
