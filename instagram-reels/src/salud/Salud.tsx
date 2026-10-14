@@ -25,7 +25,7 @@ const Escena: React.FC<{range: number[]; children: React.ReactNode; fadeIn?: boo
 };
 
 /** Signo de pregunta dibujado a mano que se traza y flota. */
-const Signo: React.FC<{x: number; y: number; size: number; color: string; at: number; seed: number; gather?: number}> = ({x, y, size, color, at, seed, gather = 0}) => {
+export const Signo: React.FC<{x: number; y: number; size: number; color: string; at: number; seed: number; gather?: number}> = ({x, y, size, color, at, seed, gather = 0}) => {
 	const f = useCurrentFrame();
 	const draw = ease(f, at, at + 22, Easing.out(Easing.cubic));
 	const dot = sp(f, at + 18, {damping: 10, stiffness: 180});
