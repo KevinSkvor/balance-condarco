@@ -1,0 +1,29 @@
+{
+  "fps": 30,
+  "width": 1080,
+  "height": 1920,
+  "durationInFrames": 1230,
+  "scenes": {
+    "preguntas": [0, 152],
+    "espacio": [150, 402],
+    "charla": [400, 622],
+    "profesionales": [620, 782],
+    "respuesta": [780, 922],
+    "juntos": [920, 1102],
+    "cierre": [1100, 1230]
+  },
+  "vo": [
+    {"id": "s1", "file": "s1_preguntas.wav", "at": 12, "onset": 0.09,
+     "words": [["Crecer", 0.0], ["preguntas", 1.64], ["está", 2.94], ["hacerlas", 3.36]]},
+    {"id": "s2", "file": "s2_espacio.wav", "at": 162, "onset": 0.06,
+     "words": [["espacio", 3.82], ["preguntar", 4.48], ["escuchar", 5.46], ["cuidarse", 6.3]]},
+    {"id": "s3", "file": "s3_charla.wav", "at": 412, "onset": 0.09,
+     "words": [["licenciada", 1.04], ["Marina", 2.16], ["alimentación", 4.38], ["saludables", 5.78]]},
+    {"id": "s4", "file": "s4_profesionales.wav", "at": 636, "onset": 0.04,
+     "words": [["juicios", 0.22], ["información", 1.46], ["profesionales", 3.4]]},
+    {"id": "s5", "file": "s5_respuesta.wav", "at": 796, "onset": 0.08,
+     "words": [["Porque", 0.0], ["cada", 0.24], ["pregunta", 0.6], ["merece", 1.2], ["una", 1.66], ["respuesta", 1.78], ["seria", 2.14], ["y", 2.82], ["cuidada", 3.14]]},
+    {"id": "s6", "file": "s6_juntos.wav", "at": 936, "onset": 0.07,
+     "words": [["comienzo", 0.58], ["camino", 1.34], ["juntos", 2.36], ["escuela", 3.28], ["familias", 4.28]]}
+  ]
+}

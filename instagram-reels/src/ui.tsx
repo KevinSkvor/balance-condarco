@@ -35,7 +35,9 @@ export const Titulo: React.FC<{
 	accent?: string;
 	align?: 'left' | 'center';
 	stagger?: number;
-}> = ({at, parts, size, color = C.azul, accent = C.bordo, align = 'left', stagger = 3}) => {
+	/** Frame de entrada de cada palabra (para sincronizar con la voz); pisa `at`/`stagger`. */
+	wordAts?: number[];
+}> = ({at, parts, size, color = C.azul, accent = C.bordo, align = 'left', stagger = 3, wordAts}) => {
 	const f = useCurrentFrame();
 	let w = 0;
 	return (
@@ -60,9 +62,10 @@ export const Titulo: React.FC<{
 					.split(' ')
 					.filter(Boolean)
 					.map((word) => {
-						const s = sp(f, at + w++ * stagger, {damping: 16, stiffness: 140});
+						const idx = w++;
+						const s = sp(f, wordAts?.[idx] ?? at + idx * stagger, {damping: 16, stiffness: 140});
 						return (
-							<span key={`${pi}-${word}-${w}`} style={{display: 'inline-block', overflow: 'hidden', paddingBottom: size * 0.08, marginBottom: -size * 0.08}}>
+							<span key={`${pi}-${word}-${idx}`} style={{display: 'inline-block', overflow: 'hidden', paddingBottom: size * 0.08, marginBottom: -size * 0.08}}>
 								<span
 									style={{
 										display: 'inline-block',

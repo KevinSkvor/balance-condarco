@@ -5,7 +5,9 @@
     "audio": "python3 audio/make_audio.py",
     "studio": "remotion studio src/index.ts",
     "render": "npm run audio && remotion render src/index.ts Inscripciones2027 out/inscripciones-2027.mp4",
-    "typecheck": "tsc -p ."
+    "typecheck": "tsc -p .",
+    "audio-salud": "python3 audio/make_audio_salud.py",
+    "render-salud": "npm run audio-salud && remotion render src/index.ts SaludAdolescencia out/salud-y-adolescencia.mp4"
   },
   "dependencies": {
     "@remotion/cli": "^4.0.534",
