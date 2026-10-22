@@ -31,34 +31,92 @@ const Burbuja: React.FC<{text: string; style: React.CSSProperties; color: string
 	</div>
 );
 
-export const PostGranja: React.FC = () => (
+/** Marco común del carrusel: volanta, título, sol, firma y franja tricolor. */
+const Marco: React.FC<{titulo: React.ReactNode; volanta?: string; children: React.ReactNode; desliza?: boolean}> = ({titulo, volanta = 'JARDÍN · SALA DE 3', children, desliza}) => (
 	<AbsoluteFill style={{background: C.crema, fontFamily: SANS}}>
 		<SolQuieto />
 		<div style={{position: 'absolute', top: 64, left: 56, right: 220, display: 'flex', flexDirection: 'column', gap: 12}}>
-			<div style={{fontSize: 24, fontWeight: 700, letterSpacing: '0.14em', color: C.bordo}}>JARDÍN · SALA DE 3</div>
-			<h1 style={{margin: 0, fontFamily: DISPLAY, fontWeight: 700, fontSize: 84, lineHeight: 1.0, letterSpacing: '-0.02em', color: C.azul}}>
-				Un día en la <span style={{color: C.bordo}}>granja</span>
-			</h1>
+			<div style={{fontSize: 24, fontWeight: 700, letterSpacing: '0.14em', color: C.bordo}}>{volanta}</div>
+			<h1 style={{margin: 0, fontFamily: DISPLAY, fontWeight: 700, fontSize: 84, lineHeight: 1.0, letterSpacing: '-0.02em', color: C.azul}}>{titulo}</h1>
 		</div>
-
-		{/* los chicos sentados de espaldas, escuchando a la guía */}
-		<Foto src="img/granja/guia.jpg" pos="50% 100%" style={{left: 56, top: 290, width: 968, height: 600}} />
-		<Burbuja text="¡A escuchar!" color={C.celeste} ink={C.papel} style={{left: 84, top: 318}} />
-
-		{/* mirando la vaca · dando de comer a las cabras */}
-		<Foto src="img/granja/vaca.jpg" pos="50% 52%" style={{left: 56, top: 916, width: 474, height: 400}} />
-		<Burbuja text="¡Muuu!" color={C.sol} ink={C.tinta} style={{left: 76, top: 936}} />
-		<Foto src="img/granja/cabras.jpg" pos="50% 62%" style={{left: 550, top: 916, width: 474, height: 400}} />
-		<Burbuja text="¡Ñam!" color={C.bordo} ink={C.papel} style={{left: 820, top: 936}} />
-
+		{children}
 		<div style={{position: 'absolute', top: 1340, left: 56, display: 'flex', alignItems: 'center', gap: 14}}>
 			<Img src={staticFile('img/escudo.png')} style={{height: 60}} />
 			<div style={{fontFamily: DISPLAY, fontSize: 30, fontWeight: 700, color: C.azul}}>Instituto Álvarez Condarco</div>
 		</div>
+		{desliza && (
+			<div style={{position: 'absolute', top: 1342, right: 56, display: 'flex', alignItems: 'center', gap: 10, padding: '12px 26px', borderRadius: 999, background: C.azul, color: C.papel, fontSize: 28, fontWeight: 700}}>
+				Deslizá
+				<svg width={28} height={28} viewBox="0 0 24 24" fill="none" stroke={C.papel} strokeWidth={2.4} strokeLinecap="round" strokeLinejoin="round">
+					<path d="M5 12h14M13 6l6 6-6 6" />
+				</svg>
+			</div>
+		)}
 		<div style={{position: 'absolute', left: 0, right: 0, bottom: 0, display: 'flex', height: 16}}>
 			{[C.sol, C.celeste, C.bordo].map((c) => (
 				<div key={c} style={{flex: 1, background: c}} />
 			))}
 		</div>
 	</AbsoluteFill>
+);
+
+/** 1 · Portada del carrusel. */
+export const PostGranja: React.FC = () => (
+	<Marco desliza titulo={<>Un día en la <span style={{color: C.bordo}}>granja</span></>}>
+		{/* los chicos sentados de espaldas, escuchando a la guía */}
+		<Foto src="img/granja/guia.jpg" pos="50% 100%" style={{left: 56, top: 290, width: 968, height: 600}} />
+		<Burbuja text="¡A escuchar!" color={C.celeste} ink={C.papel} style={{left: 84, top: 318}} />
+		{/* mirando la vaca · dando de comer a las cabras */}
+		<Foto src="img/granja/vaca.jpg" pos="50% 52%" style={{left: 56, top: 916, width: 474, height: 400}} />
+		<Burbuja text="¡Muuu!" color={C.sol} ink={C.tinta} style={{left: 76, top: 936}} />
+		<Foto src="img/granja/cabras.jpg" pos="50% 62%" style={{left: 550, top: 916, width: 474, height: 400}} />
+		<Burbuja text="¡Ñam!" color={C.bordo} ink={C.papel} style={{left: 820, top: 936}} />
+	</Marco>
+);
+
+/** 2 · El camino, de la mano. */
+export const PostGranja2: React.FC = () => (
+	<Marco titulo={<>Caminamos de la <span style={{color: C.bordo}}>mano</span></>}>
+		<Foto src="img/granja/camino.jpg" pos="50% 62%" style={{left: 56, top: 290, width: 474, height: 1026}} />
+		<Foto src="img/granja/fila.jpg" pos="38% 70%" style={{left: 550, top: 290, width: 474, height: 1026}} />
+		<Burbuja text="¡Vamos!" color={C.sol} ink={C.tinta} style={{left: 80, top: 320}} />
+	</Marco>
+);
+
+const GRILLA: [string, string, string, string][] = [
+	['img/granja/chancho.jpg', '50% 65%', 'Chancho', C.bordo],
+	['img/granja/pato.jpg', '50% 55%', 'Pato', C.celeste],
+	['img/granja/oveja.jpg', '50% 40%', 'Oveja', C.sol],
+	['img/granja/caballo.jpg', '55% 55%', 'Caballo', C.celeste],
+	['img/granja/burro.jpg', '30% 45%', 'Burro', C.sol],
+	['img/granja/llama.jpg', '45% 35%', 'Llama', C.bordo],
+	['img/granja/llama-negra.jpg', '50% 40%', 'Llama', C.sol],
+	['img/granja/vaca.jpg', '50% 45%', 'Vaca', C.bordo],
+	['img/granja/comer.jpg', '50% 50%', 'Cabra', C.celeste],
+];
+
+/** 3 · Todos los animales que conocimos. */
+export const PostGranja3: React.FC = () => (
+	<Marco titulo={<>Conocimos a muchos <span style={{color: C.bordo}}>amigos</span></>}>
+		{GRILLA.map(([src, pos, nombre, color], i) => {
+			const x = 56 + (i % 3) * 329;
+			const y = 290 + Math.floor(i / 3) * 347;
+			const ink = color === C.sol ? C.tinta : C.papel;
+			return (
+				<React.Fragment key={i}>
+					<Foto src={src} pos={pos} style={{left: x, top: y, width: 310, height: 328, borderRadius: 22}} />
+					<div style={{position: 'absolute', left: x + 14, top: y + 328 - 62, padding: '6px 20px', borderRadius: 999, background: color, color: ink, fontFamily: DISPLAY, fontWeight: 700, fontSize: 30}}>{nombre}</div>
+				</React.Fragment>
+			);
+		})}
+	</Marco>
+);
+
+/** 4 · Cierre. */
+export const PostGranja4: React.FC = () => (
+	<Marco volanta="JARDÍN · SALA DE 3" titulo={<>¡Qué lindo es aprender <span style={{color: C.bordo}}>jugando</span>!</>}>
+		<div style={{position: 'absolute', left: 540 - 470, top: 370, width: 940, height: 940, borderRadius: '50%', background: C.sol, opacity: 0.35}} />
+		<Foto src="img/granja/camino-vaca.jpg" pos="50% 55%" style={{left: 140, top: 340, width: 800, height: 970, boxShadow: '0 24px 60px rgba(27,31,51,0.22)'}} />
+		<Burbuja text="¡Hasta la próxima!" color={C.celeste} ink={C.papel} style={{left: 110, top: 1180}} />
+	</Marco>
 );
