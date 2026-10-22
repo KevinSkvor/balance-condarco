@@ -12,7 +12,9 @@
     "render-condarco": "npm run audio-condarco && remotion render src/index.ts NombreCondarco out/por-que-alvarez-condarco.mp4",
     "portada-condarco": "remotion still src/index.ts PortadaCondarco out/portada-por-que-alvarez-condarco.png --frame=1300",
     "audio-granja": "python3 audio/make_audio_granja.py",
-    "render-granja": "npm run audio-granja && remotion render src/index.ts GranjaSala3 out/sala-3-granja.mp4"
+    "render-granja": "npm run audio-granja && remotion render src/index.ts GranjaSala3 out/sala-3-granja.mp4",
+    "audio-simulacro": "python3 audio/make_audio_simulacro.py",
+    "render-simulacro": "npm run audio-simulacro && remotion render src/index.ts Simulacro out/simulacro-evacuacion.mp4"
   },
   "dependencies": {
     "@remotion/cli": "^4.0.534",

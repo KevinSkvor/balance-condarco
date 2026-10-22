@@ -13,6 +13,8 @@ import {PortadaCondarco} from './condarco/PortadaCondarco';
 import {GranjaSala3} from './granja/Granja';
 import TG from './granja/timeline.json';
 import {PostGranja, PostGranja2, PostGranja3, PostGranja4} from './granja/PostGranja';
+import {Simulacro} from './simulacro/Simulacro';
+import TSim from './simulacro/timeline.json';
 
 export const RemotionRoot: React.FC = () => (
 	<>
@@ -41,6 +43,7 @@ export const RemotionRoot: React.FC = () => (
 			height={TC.height}
 		/>
 		<Composition id="GranjaSala3" component={GranjaSala3} durationInFrames={TG.durationInFrames} fps={TG.fps} width={TG.width} height={TG.height} />
+		<Composition id="Simulacro" component={Simulacro} durationInFrames={TSim.durationInFrames} fps={TSim.fps} width={TSim.width} height={TSim.height} />
 		<Still id="PostGranja" component={PostGranja} width={1080} height={1440} />
 		<Still id="PostGranja2" component={PostGranja2} width={1080} height={1440} />
 		<Still id="PostGranja3" component={PostGranja3} width={1080} height={1440} />
