@@ -1,6 +1,7 @@
 import React from 'react';
 import {AbsoluteFill, Img, staticFile} from 'remotion';
 import {C, DISPLAY, SANS} from '../lib';
+import {Granero} from './Granja';
 
 /**
  * Publicación de feed 3:4 (1080×1440) de la salida de Sala de 3.
@@ -112,11 +113,26 @@ export const PostGranja3: React.FC = () => (
 	</Marco>
 );
 
-/** 4 · Cierre. */
+/** 4 · Cierre ilustrado: el granero del reel, sin repetir fotos. */
 export const PostGranja4: React.FC = () => (
-	<Marco volanta="JARDÍN · SALA DE 3" titulo={<>¡Qué lindo es aprender <span style={{color: C.bordo}}>jugando</span>!</>}>
-		<div style={{position: 'absolute', left: 540 - 470, top: 370, width: 940, height: 940, borderRadius: '50%', background: C.sol, opacity: 0.35}} />
-		<Foto src="img/granja/camino-vaca.jpg" pos="50% 55%" style={{left: 140, top: 340, width: 800, height: 970, boxShadow: '0 24px 60px rgba(27,31,51,0.22)'}} />
-		<Burbuja text="¡Hasta la próxima!" color={C.celeste} ink={C.papel} style={{left: 110, top: 1180}} />
+	<Marco titulo={<>¡Qué lindo es aprender <span style={{color: C.bordo}}>jugando</span>!</>}>
+		<div style={{position: 'absolute', left: 540 - 400, top: 360, width: 800, height: 800, borderRadius: '50%', background: C.doradoClaro}} />
+		<div style={{position: 'absolute', top: 470, width: '100%', display: 'flex', justifyContent: 'center', transform: 'scale(1.35)'}}>
+			<Granero progress={1} />
+		</div>
+		{/* cerca */}
+		<svg width={1080} height={200} style={{position: 'absolute', left: 0, top: 1000}}>
+			{Array.from({length: 9}, (_, i) => {
+				const x = 30 + i * 130;
+				return <path key={i} d={`M${x} 160 V30 l18 -20 l18 20 V160`} fill={C.papel} stroke={C.bordo} strokeWidth={5} strokeLinejoin="round" />;
+			})}
+			<rect x={0} y={60} width={1080} height={16} rx={8} fill={C.bordo} />
+			<rect x={0} y={115} width={1080} height={16} rx={8} fill={C.bordo} />
+		</svg>
+		<Burbuja text="¡Muuu!" color={C.sol} ink={C.tinta} style={{left: 90, top: 420}} />
+		<Burbuja text="¡Beee!" color={C.celeste} ink={C.papel} style={{left: 760, top: 560}} />
+		<Burbuja text="¡Oinc!" color={C.bordo} ink={C.papel} style={{left: 120, top: 880}} />
+		<Burbuja text="¡Cuac!" color={C.sol} ink={C.tinta} style={{left: 780, top: 900}} />
+		<div style={{position: 'absolute', top: 1220, width: '100%', textAlign: 'center', fontFamily: DISPLAY, fontWeight: 700, fontSize: 52, color: C.azul}}>¡Hasta la próxima, granja!</div>
 	</Marco>
 );

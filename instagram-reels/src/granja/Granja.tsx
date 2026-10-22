@@ -144,7 +144,7 @@ const Huella: React.FC<{x: number; y: number; rot: number; o: number}> = ({x, y,
 );
 
 /** Granero de línea que se dibuja. */
-const Granero: React.FC<{progress: number}> = ({progress}) => {
+export const Granero: React.FC<{progress: number}> = ({progress}) => {
 	const paths = ['M60 360 V170 L230 60 L400 170 V360 Z', 'M150 360 V250 H310 V360', 'M150 250 L310 360', 'M310 250 L150 360', 'M190 160 H270 V215 H190 Z', 'M20 360 H440'];
 	return (
 		<svg width={460} height={400} viewBox="0 0 460 400">
