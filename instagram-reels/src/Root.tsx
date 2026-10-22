@@ -12,6 +12,7 @@ import TC from './condarco/timeline.json';
 import {PortadaCondarco} from './condarco/PortadaCondarco';
 import {GranjaSala3} from './granja/Granja';
 import TG from './granja/timeline.json';
+import {PostGranja} from './granja/PostGranja';
 
 export const RemotionRoot: React.FC = () => (
 	<>
@@ -40,6 +41,7 @@ export const RemotionRoot: React.FC = () => (
 			height={TC.height}
 		/>
 		<Composition id="GranjaSala3" component={GranjaSala3} durationInFrames={TG.durationInFrames} fps={TG.fps} width={TG.width} height={TG.height} />
+		<Still id="PostGranja" component={PostGranja} width={1080} height={1440} />
 		<Still id="Portada2027" component={Portada} width={T.width} height={T.height} />
 		<Still id="PortadaSalud" component={PortadaSalud} width={TS.width} height={TS.height} />
 		<Still id="HistoriaPreguntas" component={HistoriaPreguntas} width={1080} height={1920} />
