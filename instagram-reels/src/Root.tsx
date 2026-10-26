@@ -16,6 +16,7 @@ import {PostGranja, PostGranja2, PostGranja3, PostGranja4} from './granja/PostGr
 import {Simulacro} from './simulacro/Simulacro';
 import TSim from './simulacro/timeline.json';
 import {AvisoSpam} from './historias/AvisoSpam';
+import {HistoriaInscripciones} from './historias/HistoriaInscripciones';
 
 export const RemotionRoot: React.FC = () => (
 	<>
@@ -53,6 +54,7 @@ export const RemotionRoot: React.FC = () => (
 		<Still id="PortadaSalud" component={PortadaSalud} width={TS.width} height={TS.height} />
 		<Still id="HistoriaPreguntas" component={HistoriaPreguntas} width={1080} height={1920} />
 		<Composition id="PortadaCondarco" component={PortadaCondarco} durationInFrames={TC.durationInFrames} fps={TC.fps} width={1080} height={1920} />
+		<Still id="HistoriaInscripciones" component={HistoriaInscripciones} width={1080} height={1920} />
 		<Still id="AvisoSpam" component={AvisoSpam} width={1080} height={1920} />
 		<Still id="HistoriaEncuesta" component={HistoriaEncuesta} width={1080} height={1920} />
 	</>
