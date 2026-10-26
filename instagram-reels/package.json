@@ -13,6 +13,8 @@
     "portada-condarco": "remotion still src/index.ts PortadaCondarco out/portada-por-que-alvarez-condarco.png --frame=1300",
     "audio-granja": "python3 audio/make_audio_granja.py",
     "render-granja": "npm run audio-granja && remotion render src/index.ts GranjaSala3 out/sala-3-granja.mp4",
+    "audio-recorrido": "python3 audio/make_audio_recorrido.py",
+    "render-recorrido": "npm run audio-recorrido && remotion render src/index.ts RecorridoCole out/recorrido-inscripciones-2027.mp4",
     "audio-simulacro": "python3 audio/make_audio_simulacro.py",
     "render-simulacro": "npm run audio-simulacro && remotion render src/index.ts Simulacro out/simulacro-evacuacion.mp4"
   },

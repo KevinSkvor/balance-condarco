@@ -16,6 +16,8 @@ import {PostGranja, PostGranja2, PostGranja3, PostGranja4} from './granja/PostGr
 import {Simulacro} from './simulacro/Simulacro';
 import TSim from './simulacro/timeline.json';
 import {AvisoSpam} from './historias/AvisoSpam';
+import {RecorridoCole} from './recorrido/Recorrido';
+import TR from './recorrido/timeline.json';
 import {HistoriaInscripciones} from './historias/HistoriaInscripciones';
 
 export const RemotionRoot: React.FC = () => (
@@ -46,6 +48,7 @@ export const RemotionRoot: React.FC = () => (
 		/>
 		<Composition id="GranjaSala3" component={GranjaSala3} durationInFrames={TG.durationInFrames} fps={TG.fps} width={TG.width} height={TG.height} />
 		<Composition id="Simulacro" component={Simulacro} durationInFrames={TSim.durationInFrames} fps={TSim.fps} width={TSim.width} height={TSim.height} />
+		<Composition id="RecorridoCole" component={RecorridoCole} durationInFrames={TR.durationInFrames} fps={TR.fps} width={TR.width} height={TR.height} />
 		<Still id="PostGranja" component={PostGranja} width={1080} height={1440} />
 		<Still id="PostGranja2" component={PostGranja2} width={1080} height={1440} />
 		<Still id="PostGranja3" component={PostGranja3} width={1080} height={1440} />
