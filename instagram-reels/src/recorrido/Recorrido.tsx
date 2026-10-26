@@ -164,7 +164,7 @@ const TOMAS: {src: string; fallback: string; frase: string[]; lugar: string; niv
 	{src: 'img/edificio/patio-juegos.jpg', fallback: 'aula', frase: ['Acá juegan ', 'los más chicos'], lugar: 'Patio de juegos', nivel: 'Jardín', bg: C.sol, ink: C.tinta, x: [75, 55]},
 	{src: 'img/edificio/biblioteca.jpg', fallback: 'biblioteca', frase: ['Acá descubren ', 'los libros'], lugar: 'Biblioteca', nivel: 'Primaria', bg: C.celeste, ink: C.papel, x: [20, 45]},
 	{src: 'img/edificio/computacion.jpg', fallback: 'computacion', frase: ['Acá aprenden ', 'tecnología'], lugar: 'Sala de computación', nivel: 'Secundaria', bg: C.bordo, ink: C.papel, x: [25, 50]},
-	{src: 'img/edificio/escenario.jpg', fallback: 'escenario', frase: ['Y acá se animan a subir ', 'al escenario'], lugar: 'Salón de actos', nivel: 'Todo el cole', bg: C.azul, ink: C.papel, x: [30, 50]},
+	{src: 'img/edificio/escenario.jpg', fallback: 'escenario', frase: ['Y acá se animan a subir ', 'al escenario'], lugar: 'Salón de actos', nivel: 'Todo el cole', bg: C.azul, ink: C.papel, x: [38, 50]},
 ];
 
 /** 5.1–13.3 s · "Acá juegan los más chicos, acá descubren los libros, acá aprenden tecnología y acá se animan a subir al escenario." */
