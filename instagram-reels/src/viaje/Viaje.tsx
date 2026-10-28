@@ -33,7 +33,7 @@ const Escena: React.FC<{range: number[]; children: React.ReactNode}> = ({range, 
 };
 
 /** Papel de cuaderno: renglones suaves sobre crema. */
-const Papel: React.FC = () => (
+export const Papel: React.FC = () => (
 	<AbsoluteFill style={{background: C.crema}}>
 		<AbsoluteFill style={{backgroundImage: `repeating-linear-gradient(180deg, transparent 0 62px, ${C.linea} 62px 64px)`, opacity: 0.6}} />
 	</AbsoluteFill>
@@ -42,7 +42,7 @@ const Papel: React.FC = () => (
 // ───────────────────────── polaroids ─────────────────────────
 
 /** Foto o video con marco de polaroid que cae girando y se asienta. */
-const Polaroid: React.FC<{
+export const Polaroid: React.FC<{
 	at: number;
 	left: number;
 	top: number;
@@ -91,7 +91,7 @@ const Polaroid: React.FC<{
 
 // ───────────────────────── íconos dibujados ─────────────────────────
 
-const Sol: React.FC<{s: number}> = ({s}) => (
+export const Sol: React.FC<{s: number}> = ({s}) => (
 	<svg width={84} height={84} viewBox="-50 -50 100 100" style={{transform: `scale(${s}) rotate(${(1 - s) * -90}deg)`}}>
 		{Array.from({length: 8}, (_, i) => (
 			<line key={i} x1={0} y1={-30} x2={0} y2={-44} stroke={C.sol} strokeWidth={7} strokeLinecap="round" transform={`rotate(${i * 45})`} />
@@ -99,7 +99,7 @@ const Sol: React.FC<{s: number}> = ({s}) => (
 		<circle r={22} fill={C.sol} />
 	</svg>
 );
-const Luna: React.FC<{s: number}> = ({s}) => (
+export const Luna: React.FC<{s: number}> = ({s}) => (
 	<svg width={84} height={84} viewBox="-50 -50 100 100" style={{transform: `scale(${s}) rotate(${(1 - s) * 60}deg)`}}>
 		<path d="M10 -36 A38 38 0 1 0 36 10 A30 30 0 1 1 10 -36 Z" fill={C.azul} />
 		<circle cx={30} cy={-30} r={4} fill={C.dorado} />

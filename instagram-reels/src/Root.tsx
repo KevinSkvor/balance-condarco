@@ -21,6 +21,7 @@ import TR from './recorrido/timeline.json';
 import {PortadaRecorrido} from './recorrido/PortadaRecorrido';
 import {ViajeAtlantis} from './viaje/Viaje';
 import TV from './viaje/timeline.json';
+import {PortadaViaje} from './viaje/PortadaViaje';
 import {HistoriaInscripciones} from './historias/HistoriaInscripciones';
 
 export const RemotionRoot: React.FC = () => (
@@ -54,6 +55,7 @@ export const RemotionRoot: React.FC = () => (
 		<Composition id="RecorridoCole" component={RecorridoCole} durationInFrames={TR.durationInFrames} fps={TR.fps} width={TR.width} height={TR.height} />
 		<Still id="PortadaRecorrido" component={PortadaRecorrido} width={1080} height={1920} />
 		<Composition id="ViajeAtlantis" component={ViajeAtlantis} durationInFrames={TV.durationInFrames} fps={TV.fps} width={TV.width} height={TV.height} />
+		<Still id="PortadaViaje" component={PortadaViaje} width={1080} height={1920} />
 		<Still id="PostGranja" component={PostGranja} width={1080} height={1440} />
 		<Still id="PostGranja2" component={PostGranja2} width={1080} height={1440} />
 		<Still id="PostGranja3" component={PostGranja3} width={1080} height={1440} />
