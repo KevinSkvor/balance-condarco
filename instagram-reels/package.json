@@ -15,6 +15,8 @@
     "render-granja": "npm run audio-granja && remotion render src/index.ts GranjaSala3 out/sala-3-granja.mp4",
     "audio-recorrido": "python3 audio/make_audio_recorrido.py",
     "render-recorrido": "npm run audio-recorrido && remotion render src/index.ts RecorridoCole out/recorrido-inscripciones-2027.mp4",
+    "audio-viaje": "python3 audio/make_audio_viaje.py",
+    "render-viaje": "npm run audio-viaje && remotion render src/index.ts ViajeAtlantis out/viaje-nueva-atlantis.mp4",
     "audio-simulacro": "python3 audio/make_audio_simulacro.py",
     "render-simulacro": "npm run audio-simulacro && remotion render src/index.ts Simulacro out/simulacro-evacuacion.mp4"
   },
