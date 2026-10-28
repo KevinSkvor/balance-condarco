@@ -8,7 +8,7 @@ import {Granero} from './Granja';
  * Sólo fotos sin caras: los chicos de espaldas, con el nombre del colegio en el buzo.
  */
 
-const Foto: React.FC<{src: string; style: React.CSSProperties; pos: string}> = ({src, style, pos}) => (
+export const Foto: React.FC<{src: string; style: React.CSSProperties; pos: string}> = ({src, style, pos}) => (
 	<div style={{position: 'absolute', borderRadius: 28, overflow: 'hidden', ...style}}>
 		<Img src={staticFile(src)} style={{width: '100%', height: '100%', objectFit: 'cover', objectPosition: pos, display: 'block'}} />
 	</div>
@@ -26,14 +26,14 @@ const SolQuieto: React.FC = () => (
 	</svg>
 );
 
-const Burbuja: React.FC<{text: string; style: React.CSSProperties; color: string; ink: string}> = ({text, style, color, ink}) => (
+export const Burbuja: React.FC<{text: string; style: React.CSSProperties; color: string; ink: string}> = ({text, style, color, ink}) => (
 	<div style={{position: 'absolute', padding: '12px 30px 16px', borderRadius: 999, background: color, color: ink, fontFamily: DISPLAY, fontWeight: 700, fontSize: 50, transform: 'rotate(-6deg)', boxShadow: '0 10px 24px rgba(27,31,51,0.2)', ...style}}>
 		{text}
 	</div>
 );
 
 /** Marco común del carrusel: volanta, título, sol, firma y franja tricolor. */
-const Marco: React.FC<{titulo: React.ReactNode; volanta?: string; children: React.ReactNode; desliza?: boolean}> = ({titulo, volanta = 'JARDÍN · SALA DE 3', children, desliza}) => (
+export const Marco: React.FC<{titulo: React.ReactNode; volanta?: string; children: React.ReactNode; desliza?: boolean}> = ({titulo, volanta = 'JARDÍN · SALA DE 3', children, desliza}) => (
 	<AbsoluteFill style={{background: C.crema, fontFamily: SANS}}>
 		<SolQuieto />
 		<div style={{position: 'absolute', top: 64, left: 56, right: 220, display: 'flex', flexDirection: 'column', gap: 12}}>
