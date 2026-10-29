@@ -61,7 +61,7 @@ const Ilustracion: React.FC<{name: string; color: string}> = ({name, color}) => 
  * Foto a pantalla completa con paneo horizontal: las fotos son apaisadas, así que en
  * vertical el paneo recorre todo el ancho en lugar de mostrar sólo el centro.
  */
-const Pan: React.FC<{
+export const Pan: React.FC<{
 	src: string;
 	fallback?: string;
 	at: number;
@@ -92,7 +92,7 @@ const Pan: React.FC<{
 };
 
 /** Degradé oscuro arriba para que el texto blanco se lea sobre cualquier foto. */
-const Velo: React.FC<{alto?: number; abajo?: boolean}> = ({alto = 900, abajo}) => (
+export const Velo: React.FC<{alto?: number; abajo?: boolean}> = ({alto = 900, abajo}) => (
 	<div
 		style={{
 			position: 'absolute',
@@ -106,7 +106,7 @@ const Velo: React.FC<{alto?: number; abajo?: boolean}> = ({alto = 900, abajo}) =
 );
 
 /** Corte tipo "barrido": la toma nueva entra de costado con desenfoque de movimiento. */
-const Barrido: React.FC<{at: number; children: React.ReactNode}> = ({at, children}) => {
+export const Barrido: React.FC<{at: number; children: React.ReactNode}> = ({at, children}) => {
 	const f = useCurrentFrame();
 	if (f < at) return null;
 	const s = ease(f, at, at + 8, Easing.out(Easing.quad));
