@@ -25,6 +25,7 @@ import {PortadaViaje} from './viaje/PortadaViaje';
 import {PostOsitos, PostOsitos2, PostOsitos3} from './ositos/PostOsitos';
 import {MuseoCiencias} from './museo/Museo';
 import TM from './museo/timeline.json';
+import {PortadaMuseo} from './museo/PortadaMuseo';
 import {HistoriaInscripciones} from './historias/HistoriaInscripciones';
 
 export const RemotionRoot: React.FC = () => (
@@ -63,6 +64,7 @@ export const RemotionRoot: React.FC = () => (
 		<Still id="PostOsitos2" component={PostOsitos2} width={1080} height={1440} />
 		<Still id="PostOsitos3" component={PostOsitos3} width={1080} height={1440} />
 		<Composition id="MuseoCiencias" component={MuseoCiencias} durationInFrames={TM.durationInFrames} fps={TM.fps} width={TM.width} height={TM.height} />
+		<Still id="PortadaMuseo" component={PortadaMuseo} width={1080} height={1920} />
 		<Still id="PostGranja" component={PostGranja} width={1080} height={1440} />
 		<Still id="PostGranja2" component={PostGranja2} width={1080} height={1440} />
 		<Still id="PostGranja3" component={PostGranja3} width={1080} height={1440} />
