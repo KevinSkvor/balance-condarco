@@ -37,6 +37,20 @@ ROTULO = {
     "entrega": "8/10/2026", "formato": "A2",
 }
 
+# Versión de avance (python3 generar_arbol.py --avance): niveles 1 y 2 completos,
+# tercer nivel solo en la Carcasa y sin fecha de entrega.
+import sys
+AVANCE = "--avance" in sys.argv
+if AVANCE:
+    def podar(n, depth=0):
+        kids = n[2]
+        if depth == 2 and n[0] != "A1.1.1":
+            kids = []
+        return (n[0], n[1], [podar(k, depth + 1) for k in kids])
+    TREE = podar(TREE)
+    ROTULO["entrega"] = ""
+NOMBRE = "arbol_aspiradora_avance" if AVANCE else "arbol_aspiradora"
+
 W, H = 1680, 1188
 ROW, GROUP_GAP = 40, 40
 COLS = [60, 400, 760, 1100]
@@ -118,5 +132,5 @@ svg = (f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBo
        f'font-family="{FONT}"><rect width="{W}" height="{H}" fill="#fff"/>'
        f'<rect x="20" y="20" width="{W-40}" height="{H-40}" fill="none" stroke="#bbb"/>'
        + "".join(out) + "</svg>")
-open("arbol_aspiradora.svg", "w", encoding="utf-8").write(svg)
+open(NOMBRE + ".svg", "w", encoding="utf-8").write(svg)
 print("ok")
