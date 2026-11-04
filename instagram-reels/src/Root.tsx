@@ -24,6 +24,8 @@ import TV from './viaje/timeline.json';
 import {PortadaViaje} from './viaje/PortadaViaje';
 import {PostOsitos, PostOsitos2, PostOsitos3} from './ositos/PostOsitos';
 import {MuseoCiencias} from './museo/Museo';
+import {CampadiaSala5} from './campadia/Campadia';
+import TCa from './campadia/timeline.json';
 import {PostCampadia, PostCampadia2, PostCampadia3, PostCampadia4, PostCampadia5} from './campadia/PostCampadia';
 import TM from './museo/timeline.json';
 import {PortadaMuseo} from './museo/PortadaMuseo';
@@ -73,6 +75,7 @@ export const RemotionRoot: React.FC = () => (
 		<Still id="PostCampadia3" component={PostCampadia3} width={1080} height={1440} />
 		<Still id="PostCampadia4" component={PostCampadia4} width={1080} height={1440} />
 		<Still id="PostCampadia5" component={PostCampadia5} width={1080} height={1440} />
+		<Composition id="CampadiaSala5" component={CampadiaSala5} durationInFrames={TCa.durationInFrames} fps={TCa.fps} width={TCa.width} height={TCa.height} />
 		<Still id="PostGranja" component={PostGranja} width={1080} height={1440} />
 		<Still id="PostGranja2" component={PostGranja2} width={1080} height={1440} />
 		<Still id="PostGranja3" component={PostGranja3} width={1080} height={1440} />
