@@ -32,7 +32,7 @@ const Escena: React.FC<{range: number[]; children: React.ReactNode}> = ({range, 
 };
 
 /** Carpa dibujada: los dos paños se despliegan desde el palo central. */
-const Carpa: React.FC<{p: number; size: number}> = ({p, size}) => (
+export const Carpa: React.FC<{p: number; size: number}> = ({p, size}) => (
 	<svg width={size} height={size * 0.8} viewBox="-200 -320 400 320" style={{overflow: 'visible'}}>
 		<path d={`M0 -300 L${-190 * p} 0 L${190 * p} 0 Z`} fill={C.bordo} />
 		<path d={`M0 -300 L${-60 * p} 0 L${60 * p} 0 Z`} fill={C.noche} opacity={0.85} />
@@ -44,7 +44,7 @@ const Carpa: React.FC<{p: number; size: number}> = ({p, size}) => (
 );
 
 /** Llamas que bailan. */
-const Llama: React.FC<{size: number; s: number}> = ({size, s}) => {
+export const Llama: React.FC<{size: number; s: number}> = ({size, s}) => {
 	const f = useCurrentFrame();
 	const w = Math.sin(f / 3) * 0.06;
 	return (
