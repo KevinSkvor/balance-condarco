@@ -25,6 +25,9 @@ import {PortadaViaje} from './viaje/PortadaViaje';
 import {PostOsitos, PostOsitos2, PostOsitos3} from './ositos/PostOsitos';
 import {MuseoCiencias} from './museo/Museo';
 import {CampadiaSala5} from './campadia/Campadia';
+import {MusicaOlimpiadas} from './musica/Musica';
+import TMu from './musica/timeline.json';
+import {PostMusica, PostMusica2, PostMusica3, PostMusica4, PostMusica5} from './musica/PostMusica';
 import TCa from './campadia/timeline.json';
 import {PortadaCampadia} from './campadia/PortadaCampadia';
 import {PostCampadia, PostCampadia2, PostCampadia3, PostCampadia4, PostCampadia5} from './campadia/PostCampadia';
@@ -78,6 +81,12 @@ export const RemotionRoot: React.FC = () => (
 		<Still id="PostCampadia5" component={PostCampadia5} width={1080} height={1440} />
 		<Composition id="CampadiaSala5" component={CampadiaSala5} durationInFrames={TCa.durationInFrames} fps={TCa.fps} width={TCa.width} height={TCa.height} />
 		<Still id="PortadaCampadia" component={PortadaCampadia} width={1080} height={1920} />
+		<Still id="PostMusica" component={PostMusica} width={1080} height={1440} />
+		<Still id="PostMusica2" component={PostMusica2} width={1080} height={1440} />
+		<Still id="PostMusica3" component={PostMusica3} width={1080} height={1440} />
+		<Still id="PostMusica4" component={PostMusica4} width={1080} height={1440} />
+		<Still id="PostMusica5" component={PostMusica5} width={1080} height={1440} />
+		<Composition id="MusicaOlimpiadas" component={MusicaOlimpiadas} durationInFrames={TMu.durationInFrames} fps={TMu.fps} width={TMu.width} height={TMu.height} />
 		<Still id="PostGranja" component={PostGranja} width={1080} height={1440} />
 		<Still id="PostGranja2" component={PostGranja2} width={1080} height={1440} />
 		<Still id="PostGranja3" component={PostGranja3} width={1080} height={1440} />

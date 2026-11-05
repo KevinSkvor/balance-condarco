@@ -21,6 +21,8 @@
     "render-museo": "npm run audio-museo && remotion render src/index.ts MuseoCiencias out/museo-ciencias-naturales.mp4",
     "audio-campadia": "python3 audio/make_audio_campadia.py",
     "render-campadia": "npm run audio-campadia && remotion render src/index.ts CampadiaSala5 out/campadia-sala-5.mp4",
+    "audio-musica": "python3 audio/make_audio_musica.py",
+    "render-musica": "npm run audio-musica && remotion render src/index.ts MusicaOlimpiadas out/olimpiadas-musica.mp4",
     "audio-simulacro": "python3 audio/make_audio_simulacro.py",
     "render-simulacro": "npm run audio-simulacro && remotion render src/index.ts Simulacro out/simulacro-evacuacion.mp4"
   },

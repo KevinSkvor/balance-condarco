@@ -1,0 +1,3 @@
+{"fps": 30, "width": 1080, "height": 1920, "durationInFrames": 700, "bpm": 120,
+ "scenes": {"gancho": [0, 90], "muni": [90, 210], "ensayo": [210, 330], "escenario": [330, 450], "medalla": [450, 540], "grupo": [540, 630], "cierre": [630, 700]},
+ "vo": []}
