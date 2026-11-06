@@ -3,6 +3,7 @@
 Uso:
     python3 build_banner.py                 # banner con recuadro para el QR
     python3 build_banner.py --qr URL        # banner con el QR generado desde URL
+    (versión entregada: --qr https://www.instagram.com/p/DfaihTSIJVz/)
 
 Salidas: M3_OID_Banner_A2.pdf y post/OID_post_01..03.png (1080 x 1350 px).
 """
