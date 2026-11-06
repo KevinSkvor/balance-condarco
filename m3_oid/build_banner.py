@@ -121,7 +121,7 @@ def banner(url=None):
         spaced(c, k, L, yy, size=10, color=G2, tracking=1.6)
         text(c, v, L + 120, yy, size=15, font=BOLD if k == "Estudiante" else REG)
         yy -= 34
-    text(c, "Imágenes: Oid (2024). Brochure institucional.", L, MG + 22, size=9, color=G2)
+    text(c, "Imágenes: Oid (2024). Folleto institucional.", L, MG + 22, size=9, color=G2)
     c.save()
     print("OK ->", out)
 

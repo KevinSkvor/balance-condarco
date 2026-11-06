@@ -136,7 +136,7 @@ def s04_marco(c):
         ("Moderno", INK, white, G3, ["Función y buena forma", "Racionalidad productiva", "Bauhaus · Ulm"],
          "Maldonado (1993) · Bürdek (1994)"),
         ("Posmoderno histórico", RED, white, white, ["Signo, color, ironía, cita", "Doble codificación", "Radical Design · Memphis (1981)"],
-         "Venturi (1966) · Jencks (1977) · Sottsass"),
+         "Venturi (1966/1978) · Jencks (1977/1980)"),
         ("Contemporáneo", white, INK, G1, ["CNC · impresión 3D · IoT", "UX · sustentabilidad", "Pueden servir a la modernidad"],
          "Beducci (2015) · Battista (2015)"),
     ]
@@ -298,7 +298,7 @@ def s08_hallazgo(c):
     text(c, "“Buenos diseños, buenos negocios.”", M, 280, size=22, color=G3)
     text(c, "Oid (2024)", M, 254, size=11, color=G2)
     text(c, "El diseño se legitima por su rendimiento, no por un proyecto social: "
-            "la performatividad que Lyotard (1987) describe como rasgo de la condición posmoderna.",
+            "la performatividad que Lyotard (1979/1987) describe como rasgo de la condición posmoderna.",
          M, 180, size=14, color=G3, width=560, leading=19)
 
 
@@ -396,13 +396,13 @@ def s12_gracias(c):
         "Bonsiepe, G. (1985). El diseño de la periferia. Gustavo Gili.",
         "Bürdek, B. E. (1994). Diseño. Historia, teoría y práctica del diseño industrial. Gustavo Gili.",
         "Fernández, S. y Bonsiepe, G. (2008). Historia del diseño en América Latina y el Caribe. Blucher.",
-        "Jencks, C. (1980). El lenguaje de la arquitectura posmoderna. Gustavo Gili.",
-        "Lyotard, J.-F. (1987). La condición postmoderna. Cátedra.",
+        "Jencks, C. (1980 [1977]). El lenguaje de la arquitectura posmoderna. Gustavo Gili.",
+        "Lyotard, J.-F. (1987 [1979]). La condición postmoderna. Cátedra.",
         "Maldonado, T. (1993). El diseño industrial reconsiderado. Gustavo Gili.",
-        "Oid -Ordóñez Industrial Design-. (2024). Brochure institucional. ordonezid.com",
+        "Oid -Ordóñez Industrial Design-. (2024). Folleto institucional. ordonezid.com",
         "Red Dot. (2023). Anthropometric Instruments Set. red-dot.org",
         "Sparke, P. (2010). Diseño y cultura. Gustavo Gili.",
-        "Venturi, R. (1978). Complejidad y contradicción en la arquitectura. Gustavo Gili.",
+        "Venturi, R. (1978 [1966]). Complejidad y contradicción en la arquitectura. Gustavo Gili.",
     ]
     spaced(c, "Referencias principales", M, 440, size=9, color=RED)
     y = 410
