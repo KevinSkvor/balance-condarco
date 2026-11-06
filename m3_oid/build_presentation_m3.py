@@ -213,7 +213,7 @@ def s06_corpus(c):
         spectrum(c, x + 4, 180, cw - 8, pos, left="Moderno", right="Posmoderno")
     text(c, "Se descartó el triciclo: es un trabajo académico de 2000, anterior a la fundación.",
          M, 96, size=11.5, color=G1)
-    source(c, "Oid (2024); Red Dot (2023); ficha de proyecto Puma")
+    source(c, "Oid (2020; 2024); Red Dot (2023)")
 
 
 def mark(c, x, y, kind):
