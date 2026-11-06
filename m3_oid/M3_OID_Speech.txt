@@ -1,0 +1,75 @@
+ORDÓÑEZ INDUSTRIAL DESIGN | ENTRE EL TALLER Y LA ESTRATEGIA
+Speech M3 · Presenta: Kevin Skvor · Docente: Prof. Gastón Girod
+Duración: 6 minutos aprox. (unas 850 palabras)
+
+01 · PORTADA (~15 s)
+
+Buenas tardes, soy Kevin Skvor. Presento el cierre de mi Proyecto Integrador sobre Ordóñez Industrial Design, OID, un estudio argentino de diseño industrial. En esta etapa sumo el capítulo 3, con el análisis de los casos, y las conclusiones de la investigación.
+
+02 · PREGUNTA E HIPÓTESIS (~35 s)
+
+La pregunta guía sigue siendo la misma: cómo articula OID la tensión entre modernidad y posmodernidad en el diseño industrial argentino, entre 2001 y 2026.
+
+Lo que cambió es la hipótesis. En el M2 planteaba que el estudio había pasado de una etapa moderna a una posmoderna. El análisis mostró otra cosa: OID no pasa de un paradigma al otro, sino que los distribuye en niveles. En el objeto sigue siendo moderno, mientras que en el discurso y en la gestión es posmoderno.
+
+03 · POR QUÉ OID (~40 s)
+
+Una de las devoluciones fue que no explicaba por qué OID es un caso emblemático y que muchos datos no tenían fuente. Ahora cada dato tiene la suya. El estudio se funda en 2001, el año de la crisis. Después recibe validaciones en tres escalas. En lo nacional, el primer premio INNOVAR en 2007 y el Sello de Buen Diseño en 2016. En lo regional, la selección para el libro ABC del Diseño Industrial Latinoamericano en 2019. En lo internacional, el Red Dot en 2023.
+
+Pero también tomé distancia. Solo el Red Dot pude verificarlo en una fuente externa, y esa fuente muestra que el diseño fue compartido con Rapids, un estudio de Hong Kong, algo que el folleto de OID no dice. Además, la línea de tiempo institucional incluye trabajos de la UBA anteriores a la fundación.
+
+04 · QUÉ ES POSMODERNO (~40 s)
+
+La otra corrección fue al marco teórico. En el M2 asociaba la posmodernidad con la impresión 3D, la experiencia de usuario o la sustentabilidad. Eso es contemporáneo, no posmoderno.
+
+El posmodernismo en diseño tiene una historia precisa: Venturi y su crítica a la pureza moderna, Jencks y la doble codificación, el Radical Design italiano y Memphis con Sottsass en 1981, con color, ironía y cita. Lo que lo define es la dimensión comunicativa del objeto. La tecnología, en cambio, puede estar perfectamente al servicio de objetivos modernos.
+
+05 · METODOLOGÍA OID (~25 s)
+
+Corregí también las fases de la metodología según lo que declara el propio estudio: concepto, diseño, prototipado, desarrollo y producción.
+
+El dato clave está en la última fase, donde OID ofrece gestión de producción local y en China. El taller sigue presente en el prototipado, pero la estrategia crece en la producción gestionada.
+
+06 · EL CORPUS (~45 s)
+
+El capítulo 3 analiza tres productos de tres momentos distintos. Descarté el triciclo porque es un trabajo académico del año 2000, anterior a la fundación del estudio.
+
+El primero es el reel Puma, premiado en 2007 y diseñado para Correntoso. Es una pieza de aluminio mecanizado por CNC con un gran vaciado central que muestra el mecanismo: la técnica se vuelve imagen.
+
+El segundo es el Mate Nelo, con el Sello de Buen Diseño en 2016. Toma el ritual del mate y lo convierte en una serie de colores para un público joven: la tradición se vuelve marca.
+
+El tercero es el set de instrumentos Holway, Red Dot 2023: aluminio anodizado, calibración y legibilidad. Es la buena forma clásica, premiada.
+
+07 · MATRIZ (~35 s)
+
+Analicé los tres casos con una matriz de cinco variables. En la forma, los materiales y la función, los tres son modernos, y la tecnología, como el CNC o el anodizado, refuerza esa precisión.
+
+Lo posmoderno aparece en la dimensión comunicativa y en el mercado. Ninguno de los tres es posmoderno en el sentido histórico: no hay ironía, ornamento ni cita.
+
+08 · HALLAZGO (~30 s)
+
+El hallazgo central se puede decir en una frase: el objeto es moderno y el discurso es posmoderno.
+
+OID resume su propuesta como "buenos diseños, buenos negocios". El diseño ya no se legitima por un proyecto social, como en el funcionalismo o en Papanek, sino por su rendimiento económico. Es la performatividad que Lyotard describe como rasgo de la condición posmoderna.
+
+09 · DEL TALLER A LA RED (~35 s)
+
+Esto se ve también en la estructura del estudio. Tiene sedes en Boise, Buenos Aires y Hong Kong, produce en el país y en China, y en el Red Dot aparece un co-diseño con Hong Kong.
+
+Si releemos a Bonsiepe y su idea del diseño de la periferia, OID es una variante actual: un estudio argentino que exporta proyecto al mundo, mientras la fabricación ocurre en otra parte.
+
+10 · CONCLUSIONES (~40 s)
+
+Llego a tres conclusiones. Primero, OID trabaja en niveles, no en etapas: mantiene la modernidad en el objeto y suma la posmodernidad en el discurso y la gestión. Segundo, la estrategia no reemplaza al taller: lo administra a través de una red global. Tercero, es un caso de periferia que exporta diseño.
+
+La respuesta a la pregunta guía, entonces, es que OID articula la tensión distribuyéndola, no resolviéndola.
+
+11 · CIERRE DE LA INVESTIGACIÓN (~35 s)
+
+El trabajo tiene límites. Las fuentes son sobre todo institucionales y no hice entrevistas propias. Por eso quedan como líneas futuras una entrevista a Ignacio Ordóñez, el estudio de la producción tercerizada y la comparación con otros estudios surgidos después de 2001.
+
+Lo que me llevo de la materia es que no todo lo nuevo es posmoderno, que hay que distinguir lo que una empresa dice de lo que sus objetos muestran y que cada afirmación necesita una fuente.
+
+12 · GRACIAS (~10 s)
+
+Muchas gracias. Quedo atento a sus preguntas y devoluciones.
