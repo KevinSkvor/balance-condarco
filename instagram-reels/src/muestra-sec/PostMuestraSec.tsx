@@ -15,19 +15,19 @@ type Placa = {src: string; w: number; h: number; pos?: string; chip: string; tex
 
 const PLACAS: Placa[] = [
 	{src: '10-publico-familias.jpg', w: 1600, h: 1200, chip: '¡Bienvenidos!', texto: <>Una sala llena de <B>familias</B></>},
-	{src: '03-pasillo-globos.jpg', w: 900, h: 1600, pos: '50% 40%', chip: 'Color', texto: <>Pasillos llenos de <B>color</B></>},
-	{src: '05-you-belong.jpg', w: 900, h: 1600, pos: '50% 45%', chip: 'In English', texto: <>Acá, todos <B>pertenecemos</B></>},
-	{src: '06-bookflix.jpg', w: 1600, h: 900, chip: 'Lectura', texto: <><B>Bookflix</B> y <B>Bookstagram</B>: recomendamos libros</>},
+	{src: '03-pasillo-globos.jpg', w: 900, h: 1600, pos: '50% 40%', chip: 'Book Day', texto: <>Pasillos llenos de <B>cuentos</B></>},
+	{src: '05-you-belong.jpg', w: 900, h: 1600, pos: '50% 45%', chip: '1.º a 3.º año', texto: <>Acá, todos <B>pertenecemos</B></>},
+	{src: '06-bookflix.jpg', w: 1600, h: 900, chip: 'Book Day', texto: <><B>Bookflix</B> y <B>Bookstagram</B>: recomendamos libros</>},
 	{src: '04-mesa-ciencias.jpg', w: 1600, h: 900, chip: 'Ciencia', texto: <>Experimentos y un <B>sistema solar</B> hecho a mano</>},
-	{src: '12-paises.jpg', w: 1600, h: 1200, chip: 'El mundo', texto: <>Un viaje por el <B>mundo</B>: banderas, sabores y trajes</>},
-	{src: '07-acto-natacion.jpg', w: 1200, h: 1600, pos: '50% 50%', chip: 'Nuestro año', texto: <>Repasamos el <B>año</B> juntos</>},
+	{src: '12-paises.jpg', w: 1600, h: 1200, chip: '2.º A y B', texto: <>Feria de los <B>países</B>: banderas, sabores y trajes</>},
+	{src: '07-acto-natacion.jpg', w: 1200, h: 1600, pos: '50% 50%', chip: 'Video institucional', texto: <>Repasamos el <B>año</B> juntos</>},
 	{src: '08-publico-alumnos.jpg', w: 1200, h: 1600, pos: '50% 62%', chip: 'Juntos', texto: <>Todo el Secundario, <B>juntos</B></>},
 	{src: '13-lectura.jpg', w: 900, h: 1600, pos: '50% 35%', chip: 'Voz propia', texto: <>Palabras propias, en <B>voz alta</B></>},
 	{src: '09-teatro.jpg', w: 1200, h: 1600, pos: '50% 62%', chip: 'Teatro', texto: <>¡Arriba el <B>telón</B>!</>},
 	{src: '11-baile.jpg', w: 1600, h: 900, chip: 'Baile', texto: <>¡A <B>bailar</B>!</>},
 	{src: '14-orquesta.jpg', w: 1600, h: 1200, chip: 'Música', texto: <>Música en <B>vivo</B>, frente a todos</>},
-	{src: '16-banda.jpg', w: 1200, h: 1600, pos: '50% 62%', chip: 'Banda', texto: <>Guitarra, bombo, teclado… ¡y <B>voces</B>!</>},
-	{src: '15-cierre-celulares.jpg', w: 1600, h: 900, chip: '¡Final!', texto: <>Un cierre a pura <B>emoción</B></>},
+	{src: '16-banda.jpg', w: 1200, h: 1600, pos: '50% 62%', chip: 'Condarqueños y Plan B', texto: <>¡Nuestras <B>bandas</B> premiadas!</>},
+	{src: '15-cierre-celulares.jpg', w: 1600, h: 900, chip: '2.º y 3.º año', texto: <>Cuadro musical: el <B>celular</B>, con responsabilidad</>},
 ];
 
 const CHIPS: [string, string][] = [
@@ -130,7 +130,7 @@ export const PostMuestraSecFin: React.FC = () => (
 			<div style={{fontFamily: DISPLAY, fontWeight: 700, fontSize: 84, lineHeight: 1.05, color: C.azul}}>
 				¡Gracias, <span style={{color: C.bordo}}>familias</span>!
 			</div>
-			<div style={{fontSize: 36, lineHeight: 1.4, color: C.tintaSuave}}>Y felicitaciones, chicos, por todo lo que hicieron este año.</div>
+			<div style={{fontSize: 36, lineHeight: 1.4, color: C.tintaSuave}}>Cada proyecto refleja el compromiso, la creatividad y el esfuerzo compartido. ¡Sigamos creciendo juntos!</div>
 		</div>
 	</Base>
 );
