@@ -1,7 +1,8 @@
 """Música para la historia en video de la Muestra 2026: ukelele, glockenspiel y percusión suave.
 
-Sólo numpy. Duración fija de la historia (364 cuadros a 30 fps). Re mayor, 112 BPM,
-arranca con el glockenspiel, entra el rasguido y cierra con un acorde y campanita en la placa final.
+Sólo numpy. Re mayor, 112 BPM, con la misma grilla que src/muestra/HistoriaVideo.tsx:
+dos tiempos de entrada, video hasta el tiempo 10, una foto cada dos tiempos y placa final en el tiempo 22.
+Arranca con el glockenspiel, entra el rasguido, un golpe suave en cada foto y acorde con campanita al final.
 
 Uso:  python3 audio/make_audio_historia_muestra.py   ->  public/muestra/musica-historia.wav
 """
@@ -14,11 +15,12 @@ import numpy as np
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 SR = 44100
 FPS = 30
-FRAMES = 364
-FINAL = 314  # cuadro en que aparece la placa con el escudo
+BEAT = 60 / 112
+en_tiempo = lambda n: round((2 * BEAT + n * BEAT) * FPS)
+FINAL = en_tiempo(22)  # cuadro en que aparece la placa con el escudo
+FRAMES = FINAL + 50
 N = int(SR * FRAMES / FPS)
 TOTAL = N / SR
-BEAT = 60 / 112
 rng = np.random.default_rng(7)
 mix = np.zeros((2, N))
 rev = np.zeros((2, N))
@@ -131,6 +133,11 @@ while True:
         if n:
             place(glock(n), ts, pan=-0.3, gain=0.16, r=0.4)
     bar += 1
+for k in range(6):  # golpe suave en cada foto del resumen
+    tc = en_tiempo(10 + 2 * k) / FPS
+    place(glock(86 + [0, 2, 4, 2, 4, 7][k], 0.8), tc, pan=0.3, gain=0.07, r=0.5)
+    t = tv(0.25)
+    place((rng.uniform(-1, 1, len(t)) - lowpass(rng.uniform(-1, 1, len(t)), 6)) * np.sin(np.pi * t / 0.25) ** 2, tc - 0.18, gain=0.06)
 for i, n in enumerate([74, 78, 81]):  # entrada
     place(glock(n), i * BEAT * 0.66, pan=-0.3, gain=0.15, r=0.4)
 place(strum([62, 66, 69, 74], True, 1.0, 2.0), fin, gain=0.55, r=0.5)
