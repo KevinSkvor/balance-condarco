@@ -7,7 +7,7 @@ import {C, DISPLAY, SANS} from '../lib';
  * Libres las zonas de la interfaz: arriba ~220 px y abajo ~300 px (para stickers).
  */
 
-const Foto: React.FC<{src: string; pos?: string; style: React.CSSProperties; rot?: number}> = ({src, pos = '50% 50%', style, rot = 0}) => (
+export const Foto: React.FC<{src: string; pos?: string; style: React.CSSProperties; rot?: number}> = ({src, pos = '50% 50%', style, rot = 0}) => (
 	<div style={{position: 'absolute', padding: 14, background: C.papel, borderRadius: 30, boxShadow: '0 18px 44px rgba(19,32,90,0.22)', transform: `rotate(${rot}deg)`, ...style}}>
 		<div style={{width: '100%', height: '100%', borderRadius: 20, overflow: 'hidden'}}>
 			<Img src={staticFile(src)} style={{width: '100%', height: '100%', objectFit: 'cover', objectPosition: pos, display: 'block'}} />
@@ -15,7 +15,7 @@ const Foto: React.FC<{src: string; pos?: string; style: React.CSSProperties; rot
 	</div>
 );
 
-const Encabezado: React.FC<{children: React.ReactNode}> = ({children}) => (
+export const Encabezado: React.FC<{children: React.ReactNode}> = ({children}) => (
 	<div style={{position: 'absolute', top: 230, left: 64, right: 64, display: 'flex', flexDirection: 'column', gap: 10}}>
 		<div style={{display: 'flex', alignItems: 'center', gap: 14}}>
 			<Img src={staticFile('img/escudo.png')} style={{height: 58}} />
@@ -25,13 +25,13 @@ const Encabezado: React.FC<{children: React.ReactNode}> = ({children}) => (
 	</div>
 );
 
-const Chip: React.FC<{text: string; bg: string; ink: string; style: React.CSSProperties}> = ({text, bg, ink, style}) => (
+export const Chip: React.FC<{text: string; bg: string; ink: string; style: React.CSSProperties}> = ({text, bg, ink, style}) => (
 	<div style={{position: 'absolute', padding: '10px 28px 14px', borderRadius: 999, background: bg, color: ink, fontFamily: DISPLAY, fontWeight: 700, fontSize: 40, boxShadow: '0 10px 24px rgba(19,32,90,0.25)', whiteSpace: 'nowrap', ...style}}>
 		{text}
 	</div>
 );
 
-const Tricolor: React.FC = () => (
+export const Tricolor: React.FC = () => (
 	<div style={{position: 'absolute', left: 0, right: 0, bottom: 0, display: 'flex', height: 20}}>
 		{[C.sol, C.celeste, C.bordo].map((c) => (
 			<div key={c} style={{flex: 1, background: c}} />
