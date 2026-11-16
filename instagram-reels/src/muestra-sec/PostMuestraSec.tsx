@@ -127,17 +127,17 @@ const PlacaFoto: React.FC<{i: number}> = ({i}) => {
 export const PLACAS_MUESTRA_SEC = PLACAS.length;
 export const PostMuestraSecFoto: React.FC<{i: number}> = ({i}) => <PlacaFoto i={i} />;
 
-/** Cierre. */
+/** Cierre: escudo y la frase del folleto de la muestra. */
 export const PostMuestraSecFin: React.FC = () => (
 	<Base n={`${PLACAS.length + 2}/${PLACAS.length + 2}`}>
-		<div style={{position: 'absolute', left: 540 - 300, top: 260, width: 600, height: 600, borderRadius: '50%', background: C.doradoClaro, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-			<Img src={staticFile('img/escudo.png')} style={{width: 360}} />
+		<div style={{position: 'absolute', left: 540 - 230, top: 150, width: 460, height: 460, borderRadius: '50%', background: C.doradoClaro, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+			<Img src={staticFile('img/escudo.png')} style={{width: 290}} />
 		</div>
-		<div style={{position: 'absolute', left: 56, right: 56, top: 950, textAlign: 'center', display: 'flex', flexDirection: 'column', gap: 18}}>
-			<div style={{fontFamily: DISPLAY, fontWeight: 700, fontSize: 84, lineHeight: 1.05, color: C.azul}}>
-				¡Gracias, <span style={{color: C.bordo}}>familias</span>!
-			</div>
-			<div style={{fontSize: 36, lineHeight: 1.4, color: C.tintaSuave}}>Cada proyecto refleja el compromiso, la creatividad y el esfuerzo compartido. ¡Sigamos creciendo juntos!</div>
+		<div style={{position: 'absolute', left: 70, right: 70, top: 680, textAlign: 'center', fontFamily: DISPLAY, fontWeight: 600, fontSize: 46, lineHeight: 1.3, color: C.azul}}>
+			Cada proyecto, cada experiencia y cada aprendizaje reflejan el <span style={{color: C.bordo}}>compromiso</span>, la <span style={{color: C.bordo}}>creatividad</span> y el <span style={{color: C.bordo}}>esfuerzo compartido</span> de quienes formamos parte de esta institución.
+		</div>
+		<div style={{position: 'absolute', left: 70, right: 70, top: 1150, textAlign: 'center', fontFamily: DISPLAY, fontWeight: 700, fontSize: 54, lineHeight: 1.15, color: C.bordo}}>
+			Sigamos formando comunidad y creciendo juntos.
 		</div>
 	</Base>
 );
