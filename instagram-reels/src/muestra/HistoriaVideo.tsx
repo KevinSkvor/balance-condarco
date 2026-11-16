@@ -1,9 +1,9 @@
 import React from 'react';
-import {AbsoluteFill, Easing, Img, OffthreadVideo, interpolate, staticFile, useCurrentFrame} from 'remotion';
+import {AbsoluteFill, Audio, Easing, Img, OffthreadVideo, interpolate, staticFile, useCurrentFrame} from 'remotion';
 import {C, DISPLAY, SANS, clamp, sp} from '../lib';
 
 /**
- * Historia en video (1080×1920, ~12 s): el circuito de la Muestra 2026 con el sonido real,
+ * Historia en video (1080×1920, ~12 s): el circuito de la Muestra 2026 con música y el sonido real de fondo,
  * títulos que entran arriba y una placa final con el escudo.
  */
 export const VIDEO_FRAMES = 314;
@@ -20,7 +20,8 @@ export const HistoriaVideoMuestra: React.FC = () => {
 	const disco = ease(f, VIDEO_FRAMES, VIDEO_FRAMES + 20);
 	return (
 		<AbsoluteFill style={{background: C.noche, fontFamily: SANS}}>
-			<OffthreadVideo src={staticFile('video/muestra/circuito.mp4')} volume={(fr) => interpolate(fr, [0, 8, VIDEO_FRAMES - 14, VIDEO_FRAMES], [0, 1, 1, 0], clamp)} style={{width: '100%', height: '100%', objectFit: 'cover', transform: `scale(${1.02 + 0.05 * ease(f, 0, VIDEO_FRAMES)})`}} />
+			<Audio src={staticFile('muestra/musica-historia.wav')} />
+			<OffthreadVideo src={staticFile('video/muestra/circuito.mp4')} volume={(fr) => interpolate(fr, [0, 8, VIDEO_FRAMES - 14, VIDEO_FRAMES], [0, 0.3, 0.3, 0], clamp)} style={{width: '100%', height: '100%', objectFit: 'cover', transform: `scale(${1.02 + 0.05 * ease(f, 0, VIDEO_FRAMES)})`}} />
 			<div style={{position: 'absolute', left: 0, right: 0, top: 0, height: 760, background: 'linear-gradient(180deg, rgba(11,20,64,0.82) 0%, rgba(11,20,64,0.45) 60%, rgba(11,20,64,0) 100%)'}} />
 			<div style={{position: 'absolute', top: 250, left: 64, right: 64, display: 'flex', flexDirection: 'column', gap: 12}}>
 				<div style={{display: 'flex', alignItems: 'center', gap: 14, opacity: Math.min(1, t1 * 2)}}>
