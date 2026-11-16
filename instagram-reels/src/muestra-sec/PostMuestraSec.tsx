@@ -11,17 +11,15 @@ import {C, DISPLAY, SANS} from '../lib';
 /** Palabra destacada en bordó. */
 const B: React.FC<{children: React.ReactNode}> = ({children}) => <span style={{color: C.bordo, fontWeight: 700}}>{children}</span>;
 
-type Placa = {src: string; src2?: string; w: number; h: number; pos?: string; chip?: string; texto: React.ReactNode; chico?: boolean};
+type Placa = {src: string; src2?: string; w: number; h: number; pos?: string; chip?: string; texto?: React.ReactNode; chico?: boolean};
 
 const PLACAS: Placa[] = [
 	{src: '07-acto-natacion.jpg', w: 1200, h: 1600, pos: '50% 50%', chip: 'Video institucional', texto: <>Repasamos el <B>año</B> juntos</>},
 	{src: '10-publico-familias.jpg', w: 1600, h: 1200, chip: '¡Bienvenidos!', texto: <>Una sala llena de <B>familias</B></>},
 	{src: '03-pasillo-globos.jpg', w: 900, h: 1600, pos: '50% 40%', chip: 'Book Day', texto: <>Pasillos llenos de <B>cuentos</B></>},
-	{src: '05-you-belong.jpg', w: 900, h: 1600, pos: '50% 45%', chip: '1.º a 3.º año', texto: <>Acá, todos <B>pertenecemos</B></>},
-	{src: '06-bookflix.jpg', w: 1600, h: 900, chip: 'Book Day', texto: <><B>Bookflix</B> y <B>Bookstagram</B></>},
-	{src: '12-paises.jpg', w: 1600, h: 1200, texto: <>Feria de los <B>países</B></>},
+	{src: '05-you-belong.jpg', w: 900, h: 1600, pos: '50% 45%', texto: <>Acá, todos <B>pertenecemos</B></>},
 	{src: '17-paises2.jpg', w: 1200, h: 1600, pos: '50% 55%', texto: <>Conociendo la <B>cultura</B> de cada país</>},
-	{src: '08-publico-alumnos.jpg', w: 1200, h: 1600, pos: '50% 62%', chip: 'Juntos', texto: <>Todo el Secundario, <B>juntos</B></>},
+	{src: '08-publico-alumnos.jpg', w: 1200, h: 1600, pos: '50% 62%', chip: 'Juntos'},
 	{src: '13-lectura.jpg', w: 900, h: 1600, pos: '50% 35%', chip: '¡Medalla de oro!', chico: true, texto: <>Poesía ganadora de la <B>medalla de oro</B> en las Olimpíadas Malvinenses</>},
 	{src: '09-teatro.jpg', w: 1200, h: 1600, pos: '50% 62%', chip: '6.º año', texto: <>Muestra del <B>concert</B> con los alumnos de{'\u00a0'}6.º{'\u00a0'}año</>, chico: true},
 	{src: '14-orquesta.jpg', w: 1600, h: 1200, chip: 'Música', texto: <>Música en <B>vivo</B></>},
