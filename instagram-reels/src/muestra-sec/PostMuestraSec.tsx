@@ -78,6 +78,9 @@ const Foto: React.FC<{src: string; ancho: number; alto: number; pos?: string; to
 export const PostMuestraSec: React.FC = () => (
 	<Base>
 		<Foto src="01-cartel.jpg" ancho={1000} alto={900} pos="50% 62%" top={120} />
+		<div style={{position: 'absolute', top: 96, right: 40, padding: '12px 32px 16px', borderRadius: 999, background: C.sol, color: C.tinta, fontFamily: DISPLAY, fontWeight: 700, fontSize: 48, boxShadow: '0 10px 24px rgba(19,32,90,0.25)', transform: 'rotate(4deg)'}}>
+			Parte 1
+		</div>
 		<div style={{position: 'absolute', left: 56, right: 56, top: 1060, display: 'flex', flexDirection: 'column', gap: 6}}>
 			<div style={{fontFamily: DISPLAY, fontWeight: 700, fontSize: 92, lineHeight: 1, letterSpacing: '-0.02em', color: C.azul}}>
 				¡Muestra <span style={{color: C.bordo}}>2026</span>!
