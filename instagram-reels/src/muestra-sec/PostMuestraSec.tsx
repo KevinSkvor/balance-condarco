@@ -11,23 +11,20 @@ import {C, DISPLAY, SANS} from '../lib';
 /** Palabra destacada en bordó. */
 const B: React.FC<{children: React.ReactNode}> = ({children}) => <span style={{color: C.bordo, fontWeight: 700}}>{children}</span>;
 
-type Placa = {src: string; w: number; h: number; pos?: string; chip: string; texto: React.ReactNode};
+type Placa = {src: string; w: number; h: number; pos?: string; chip?: string; texto: React.ReactNode; chico?: boolean};
 
 const PLACAS: Placa[] = [
+	{src: '07-acto-natacion.jpg', w: 1200, h: 1600, pos: '50% 50%', chip: 'Video institucional', texto: <>Repasamos el <B>año</B> juntos</>},
 	{src: '10-publico-familias.jpg', w: 1600, h: 1200, chip: '¡Bienvenidos!', texto: <>Una sala llena de <B>familias</B></>},
 	{src: '03-pasillo-globos.jpg', w: 900, h: 1600, pos: '50% 40%', chip: 'Book Day', texto: <>Pasillos llenos de <B>cuentos</B></>},
 	{src: '05-you-belong.jpg', w: 900, h: 1600, pos: '50% 45%', chip: '1.º a 3.º año', texto: <>Acá, todos <B>pertenecemos</B></>},
-	{src: '06-bookflix.jpg', w: 1600, h: 900, chip: 'Book Day', texto: <><B>Bookflix</B> y <B>Bookstagram</B>: recomendamos libros</>},
-	{src: '04-mesa-ciencias.jpg', w: 1600, h: 900, chip: 'Ciencia', texto: <>Experimentos y un <B>sistema solar</B> hecho a mano</>},
-	{src: '12-paises.jpg', w: 1600, h: 1200, chip: '2.º A y B', texto: <>Feria de los <B>países</B>: banderas, sabores y trajes</>},
-	{src: '07-acto-natacion.jpg', w: 1200, h: 1600, pos: '50% 50%', chip: 'Video institucional', texto: <>Repasamos el <B>año</B> juntos</>},
+	{src: '06-bookflix.jpg', w: 1600, h: 900, chip: 'Book Day', texto: <><B>Bookflix</B> y <B>Bookstagram</B></>},
+	{src: '12-paises.jpg', w: 1600, h: 1200, texto: <>Feria de los <B>países</B></>},
 	{src: '08-publico-alumnos.jpg', w: 1200, h: 1600, pos: '50% 62%', chip: 'Juntos', texto: <>Todo el Secundario, <B>juntos</B></>},
-	{src: '13-lectura.jpg', w: 900, h: 1600, pos: '50% 35%', chip: 'Voz propia', texto: <>Palabras propias, en <B>voz alta</B></>},
-	{src: '09-teatro.jpg', w: 1200, h: 1600, pos: '50% 62%', chip: 'Teatro', texto: <>¡Arriba el <B>telón</B>!</>},
-	{src: '11-baile.jpg', w: 1600, h: 900, chip: 'Baile', texto: <>¡A <B>bailar</B>!</>},
-	{src: '14-orquesta.jpg', w: 1600, h: 1200, chip: 'Música', texto: <>Música en <B>vivo</B>, frente a todos</>},
-	{src: '16-banda.jpg', w: 1200, h: 1600, pos: '50% 62%', chip: 'Condarqueños y Plan B', texto: <>¡Nuestras <B>bandas</B> premiadas!</>},
-	{src: '15-cierre-celulares.jpg', w: 1600, h: 900, chip: '2.º y 3.º año', texto: <>Cuadro musical: el <B>celular</B>, con responsabilidad</>},
+	{src: '13-lectura.jpg', w: 900, h: 1600, pos: '50% 35%', chip: '¡Medalla de oro!', chico: true, texto: <>Poesía ganadora de la <B>medalla de oro</B> en las Olimpíadas Malvinenses</>},
+	{src: '09-teatro.jpg', w: 1200, h: 1600, pos: '50% 62%', chip: '6.º año', texto: <>Muestra del <B>concert</B> con los alumnos de{'\u00a0'}6.º{'\u00a0'}año</>, chico: true},
+	{src: '14-orquesta.jpg', w: 1600, h: 1200, chip: 'Música', texto: <>Música en <B>vivo</B></>},
+	{src: '15-cierre-celulares.jpg', w: 1600, h: 900, chip: 'Cuadro musical', texto: <>Reflexión sobre el uso responsable del <B>celular</B></>},
 ];
 
 const CHIPS: [string, string][] = [
@@ -103,14 +100,14 @@ const PlacaFoto: React.FC<{i: number}> = ({i}) => {
 	const rot = i % 2 ? 1 : -1;
 	const [bg, ink] = CHIPS[i % 3];
 	const vertical = ancho < 900;
-	const textoTop = TOP + alto + 44;
+	const textoTop = TOP + alto + (p.chico ? 34 : 44);
 	return (
 		<Base n={`${i + 2}/${PLACAS.length + 2}`}>
 			<Foto src={p.src} ancho={ancho} alto={alto} pos={p.pos} top={TOP} rot={rot} />
-			<div style={{position: 'absolute', top: TOP - 22, [i % 2 ? 'right' : 'left']: vertical ? (1080 - ancho) / 2 - 30 : 40, padding: '10px 28px 14px', borderRadius: 999, background: bg, color: ink, fontFamily: DISPLAY, fontWeight: 700, fontSize: 40, boxShadow: '0 10px 24px rgba(19,32,90,0.25)', transform: `rotate(${-rot * 3}deg)`, whiteSpace: 'nowrap'}}>
+			{p.chip && <div style={{position: 'absolute', top: TOP - 22, [i % 2 ? 'right' : 'left']: vertical ? (1080 - ancho) / 2 - 30 : 40, padding: '10px 28px 14px', borderRadius: 999, background: bg, color: ink, fontFamily: DISPLAY, fontWeight: 700, fontSize: 40, boxShadow: '0 10px 24px rgba(19,32,90,0.25)', transform: `rotate(${-rot * 3}deg)`, whiteSpace: 'nowrap'}}>
 				{p.chip}
-			</div>
-			<div style={{position: 'absolute', left: 56, right: 56, top: Math.min(textoTop, 1240), textAlign: 'center', fontFamily: DISPLAY, fontWeight: 600, fontSize: 56, lineHeight: 1.12, color: C.azul}}>
+			</div>}
+			<div style={{position: 'absolute', left: 56, right: 56, top: Math.min(textoTop, 1240), textAlign: 'center', fontFamily: DISPLAY, fontWeight: 600, fontSize: p.chico ? 46 : 56, lineHeight: 1.12, color: C.azul}}>
 				{p.texto}
 			</div>
 		</Base>
