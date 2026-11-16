@@ -32,6 +32,7 @@ import {HISTORIA_VIDEO_FRAMES, HistoriaVideoMuestra} from './muestra/HistoriaVid
 import {HISTORIA_RONDA_FRAMES, HistoriaRonda} from './muestra/HistoriaRonda';
 import {RESUMEN_FRAMES, ResumenMuestra} from './muestra/ResumenMuestra';
 import {AVES_FRAMES, AvesSala5} from './aves/Aves';
+import {PLACAS_MUESTRA_SEC, PostMuestraSec, PostMuestraSecFin, PostMuestraSecFoto} from './muestra-sec/PostMuestraSec';
 import {PortadaAves} from './aves/PortadaAves';
 import {PostMuestra, PostMuestra2, PostMuestra3, PostMuestra4, PostMuestra5} from './muestra/PostMuestra';
 import TMu from './musica/timeline.json';
@@ -109,6 +110,11 @@ export const RemotionRoot: React.FC = () => (
 		<Composition id="ResumenMuestra" component={ResumenMuestra} durationInFrames={RESUMEN_FRAMES} fps={30} width={1080} height={1920} />
 		<Composition id="AvesSala5" component={AvesSala5} durationInFrames={AVES_FRAMES} fps={30} width={1080} height={1920} />
 		<Still id="PortadaAves" component={PortadaAves} width={1080} height={1920} />
+		<Still id="PostMuestraSec" component={PostMuestraSec} width={1080} height={1440} />
+		{Array.from({length: PLACAS_MUESTRA_SEC}, (_, i) => (
+			<Still key={i} id={`PostMuestraSec${i + 2}`} component={PostMuestraSecFoto} defaultProps={{i}} width={1080} height={1440} />
+		))}
+		<Still id="PostMuestraSecFin" component={PostMuestraSecFin} width={1080} height={1440} />
 		<Still id="PostGranja" component={PostGranja} width={1080} height={1440} />
 		<Still id="PostGranja2" component={PostGranja2} width={1080} height={1440} />
 		<Still id="PostGranja3" component={PostGranja3} width={1080} height={1440} />
