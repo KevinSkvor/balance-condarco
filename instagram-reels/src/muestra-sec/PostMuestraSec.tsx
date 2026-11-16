@@ -11,7 +11,7 @@ import {C, DISPLAY, SANS} from '../lib';
 /** Palabra destacada en bordó. */
 const B: React.FC<{children: React.ReactNode}> = ({children}) => <span style={{color: C.bordo, fontWeight: 700}}>{children}</span>;
 
-type Placa = {src: string; w: number; h: number; pos?: string; chip?: string; texto: React.ReactNode; chico?: boolean};
+type Placa = {src: string; src2?: string; w: number; h: number; pos?: string; chip?: string; texto: React.ReactNode; chico?: boolean};
 
 const PLACAS: Placa[] = [
 	{src: '07-acto-natacion.jpg', w: 1200, h: 1600, pos: '50% 50%', chip: 'Video institucional', texto: <>Repasamos el <B>año</B> juntos</>},
@@ -25,7 +25,7 @@ const PLACAS: Placa[] = [
 	{src: '13-lectura.jpg', w: 900, h: 1600, pos: '50% 35%', chip: '¡Medalla de oro!', chico: true, texto: <>Poesía ganadora de la <B>medalla de oro</B> en las Olimpíadas Malvinenses</>},
 	{src: '09-teatro.jpg', w: 1200, h: 1600, pos: '50% 62%', chip: '6.º año', texto: <>Muestra del <B>concert</B> con los alumnos de{'\u00a0'}6.º{'\u00a0'}año</>, chico: true},
 	{src: '14-orquesta.jpg', w: 1600, h: 1200, chip: 'Música', texto: <>Música en <B>vivo</B></>},
-	{src: '15-cierre-celulares.jpg', w: 1600, h: 900, chip: 'Cuadro musical', texto: <>Reflexión sobre el uso responsable del <B>celular</B></>},
+	{src: '15-cierre-celulares.jpg', src2: '18-celular2.jpg', w: 1600, h: 900, chip: 'Cuadro musical', texto: <>Reflexión sobre el uso responsable del <B>celular</B></>},
 ];
 
 const CHIPS: [string, string][] = [
@@ -101,10 +101,19 @@ const PlacaFoto: React.FC<{i: number}> = ({i}) => {
 	const rot = i % 2 ? 1 : -1;
 	const [bg, ink] = CHIPS[i % 3];
 	const vertical = ancho < 900;
-	const textoTop = TOP + alto + (p.chico ? 34 : 44);
+	const doble = Boolean(p.src2);
+	const altoDoble = 470;
+	const textoTop = doble ? TOP + 2 * altoDoble + 40 + 36 : TOP + alto + (p.chico ? 34 : 44);
 	return (
 		<Base n={`${i + 2}/${PLACAS.length + 2}`}>
-			<Foto src={p.src} ancho={ancho} alto={alto} pos={p.pos} top={TOP} rot={rot} />
+			{doble ? (
+				<>
+					<Foto src={p.src} ancho={1000} alto={altoDoble} pos={p.pos} top={TOP} rot={-0.8} />
+					<Foto src={p.src2!} ancho={1000} alto={altoDoble} pos="50% 55%" top={TOP + altoDoble + 30} rot={0.8} />
+				</>
+			) : (
+				<Foto src={p.src} ancho={ancho} alto={alto} pos={p.pos} top={TOP} rot={rot} />
+			)}
 			{p.chip && <div style={{position: 'absolute', top: TOP - 22, [i % 2 ? 'right' : 'left']: vertical ? (1080 - ancho) / 2 - 30 : 40, padding: '10px 28px 14px', borderRadius: 999, background: bg, color: ink, fontFamily: DISPLAY, fontWeight: 700, fontSize: 40, boxShadow: '0 10px 24px rgba(19,32,90,0.25)', transform: `rotate(${-rot * 3}deg)`, whiteSpace: 'nowrap'}}>
 				{p.chip}
 			</div>}
