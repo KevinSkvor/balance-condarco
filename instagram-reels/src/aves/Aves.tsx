@@ -38,7 +38,7 @@ export const AVES_FRAMES = enTiempo(T_FINAL + 4);
 const ease = (f: number, a: number, b: number) => interpolate(f, [a, b], [0, 1], {...clamp, easing: Easing.out(Easing.cubic)});
 
 /** Pajarito dibujado que aletea. */
-const Pajarito: React.FC<{size: number; color?: string}> = ({size, color = C.sol}) => {
+export const Pajarito: React.FC<{size: number; color?: string}> = ({size, color = C.sol}) => {
 	const f = useCurrentFrame();
 	const ala = Math.sin(f / 2.2) * 28;
 	return (

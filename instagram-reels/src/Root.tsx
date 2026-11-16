@@ -32,6 +32,7 @@ import {HISTORIA_VIDEO_FRAMES, HistoriaVideoMuestra} from './muestra/HistoriaVid
 import {HISTORIA_RONDA_FRAMES, HistoriaRonda} from './muestra/HistoriaRonda';
 import {RESUMEN_FRAMES, ResumenMuestra} from './muestra/ResumenMuestra';
 import {AVES_FRAMES, AvesSala5} from './aves/Aves';
+import {PortadaAves} from './aves/PortadaAves';
 import {PostMuestra, PostMuestra2, PostMuestra3, PostMuestra4, PostMuestra5} from './muestra/PostMuestra';
 import TMu from './musica/timeline.json';
 import {PostMusica, PostMusica2, PostMusica3, PostMusica4, PostMusica5} from './musica/PostMusica';
@@ -107,6 +108,7 @@ export const RemotionRoot: React.FC = () => (
 		<Composition id="HistoriaRonda" component={HistoriaRonda} durationInFrames={HISTORIA_RONDA_FRAMES} fps={30} width={1080} height={1920} />
 		<Composition id="ResumenMuestra" component={ResumenMuestra} durationInFrames={RESUMEN_FRAMES} fps={30} width={1080} height={1920} />
 		<Composition id="AvesSala5" component={AvesSala5} durationInFrames={AVES_FRAMES} fps={30} width={1080} height={1920} />
+		<Still id="PortadaAves" component={PortadaAves} width={1080} height={1920} />
 		<Still id="PostGranja" component={PostGranja} width={1080} height={1440} />
 		<Still id="PostGranja2" component={PostGranja2} width={1080} height={1440} />
 		<Still id="PostGranja3" component={PostGranja3} width={1080} height={1440} />
