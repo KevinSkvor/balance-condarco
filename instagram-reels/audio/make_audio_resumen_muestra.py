@@ -1,7 +1,7 @@
-"""Música del resumen en video de la Muestra 2026 (~25 s): ukelele, glockenspiel y percusión suave.
+"""Música del resumen en video de la Muestra 2026 (~16 s): ukelele, glockenspiel y percusión suave.
 
 Sólo numpy. Re mayor, 112 BPM, con la misma grilla que src/muestra/ResumenMuestra.tsx:
-dos tiempos de entrada, video del circuito, 6 fotos de dos tiempos, video de la ronda, 6 fotos más y placa final.
+dos tiempos de entrada, video del circuito, 3 fotos de tres tiempos, video de la ronda, 2 fotos más y placa final.
 Arranca con el glockenspiel, entra el rasguido, la ronda tiene un puente más abierto y cierra con acorde y campanita.
 
 Uso:  python3 audio/make_audio_resumen_muestra.py   ->  public/muestra/musica-resumen.wav
@@ -17,9 +17,10 @@ SR = 44100
 FPS = 30
 BEAT = 60 / 112
 en_tiempo = lambda n: round((2 * BEAT + n * BEAT) * FPS)
-T_FOTOS_A, T_RONDA, T_FOTOS_B, T_FINAL = 8, 20, 30, 42  # tiempos, iguales a ResumenMuestra.tsx
+T_FOTOS_A, T_RONDA, T_FOTOS_B, T_FINAL = 5, 14, 20, 26  # tiempos, iguales a ResumenMuestra.tsx
+PASO = 3  # tiempos por foto
 FINAL = en_tiempo(T_FINAL)  # cuadro en que aparece la placa con el escudo
-FRAMES = FINAL + 54
+FRAMES = FINAL + 45
 N = int(SR * FRAMES / FPS)
 TOTAL = N / SR
 rng = np.random.default_rng(7)
@@ -136,7 +137,7 @@ while True:
         if n:
             place(glock(n), ts, pan=-0.3, gain=0.16, r=0.4)
     bar += 1
-cortes = [en_tiempo(T_FOTOS_A + 2 * k) for k in range(6)] + [en_tiempo(T_RONDA)] + [en_tiempo(T_FOTOS_B + 2 * k) for k in range(6)]
+cortes = [en_tiempo(T_FOTOS_A + PASO * k) for k in range(3)] + [en_tiempo(T_RONDA)] + [en_tiempo(T_FOTOS_B + PASO * k) for k in range(2)]
 for k, c in enumerate(cortes):  # golpe suave en cada corte
     tc = c / FPS
     place(glock(86 + [0, 2, 4, 2, 4, 7, 9][k % 7], 0.8), tc, pan=0.3, gain=0.07, r=0.5)

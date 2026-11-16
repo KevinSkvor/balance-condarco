@@ -3,9 +3,9 @@ import {AbsoluteFill, Audio, Easing, Img, OffthreadVideo, Sequence, interpolate,
 import {C, DISPLAY, SANS, clamp, sp} from '../lib';
 
 /**
- * Historia en video (1080×1920, ~25 s) que resume toda la Muestra 2026 de Primaria:
- * video del circuito → 6 fotos → video de la gran ronda → 6 fotos → placa final.
- * Cada foto dura dos tiempos de la música (112 BPM); la grilla coincide con
+ * Historia en video (1080×1920, ~16 s) que resume la Muestra 2026 de Primaria, corta y clara:
+ * video del circuito → 3 fotos → video de la gran ronda → 2 fotos → placa final.
+ * Cada foto dura tres tiempos de la música (112 BPM); la grilla coincide con
  * audio/make_audio_resumen_muestra.py.
  */
 const BEAT_S = 60 / 112;
@@ -13,31 +13,24 @@ export const enTiempo = (n: number) => Math.round((2 * BEAT_S + n * BEAT_S) * 30
 
 type Foto = [src: string, pos: string, caption: string, bg: string, ink: string];
 const FOTOS_A: Foto[] = [
-	['img/muestra/arbol.jpg', '50% 70%', '¡Nivel Primario!', C.celeste, C.papel],
-	['img/muestra/corren-familias.jpg', '50% 55%', '¡A correr juntos!', C.sol, C.tinta],
+	['img/muestra/corren-familias.jpg', '50% 55%', '¡A jugar!', C.sol, C.tinta],
 	['img/muestra/mesas.jpg', '50% 60%', '¡A crear!', C.bordo, C.papel],
-	['img/muestra/collage.jpg', '50% 45%', 'Arte en equipo', C.celeste, C.papel],
-	['img/muestra/banda-ronda.jpg', '55% 50%', 'Música en ronda', C.sol, C.tinta],
-	['img/muestra/guitarra.jpg', '50% 50%', '¡A puro ritmo!', C.bordo, C.papel],
+	['img/muestra/banda-ronda.jpg', '55% 50%', '¡A cantar!', C.celeste, C.papel],
 ];
 const FOTOS_B: Foto[] = [
-	['img/muestra/mantas.jpg', '45% 60%', 'En familia', C.celeste, C.papel],
-	['img/muestra/colores.jpg', '45% 50%', 'Con las seños', C.sol, C.tinta],
-	['img/muestra/campo.jpg', '50% 55%', 'Juegos y desafíos', C.bordo, C.papel],
-	['img/muestra/teclado.jpg', '50% 55%', '¡Banda en vivo!', C.celeste, C.papel],
-	['img/muestra/banderines.jpg', '50% 55%', 'Trabajo en equipo', C.sol, C.tinta],
-	['img/muestra/sol.jpg', '50% 55%', '¡Qué día!', C.bordo, C.papel],
+	['img/muestra/mantas.jpg', '45% 60%', 'En familia', C.sol, C.tinta],
+	['img/muestra/arbol.jpg', '50% 70%', '¡Todos juntos!', C.bordo, C.papel],
 ];
 
 // grilla en tiempos (beats) de la música
-const T_CIRCUITO = 8; // el video del circuito ocupa los primeros tiempos
+const PASO = 3; // tiempos por foto
+const T_CIRCUITO = 5; // el video del circuito ocupa los primeros tiempos
 const T_FOTOS_A = T_CIRCUITO;
-const T_RONDA = T_FOTOS_A + 2 * FOTOS_A.length;
-const T_FOTOS_B = T_RONDA + 10;
-const T_FINAL = T_FOTOS_B + 2 * FOTOS_B.length;
-export const RESUMEN = {T_CIRCUITO, T_FOTOS_A, T_RONDA, T_FOTOS_B, T_FINAL, nA: FOTOS_A.length, nB: FOTOS_B.length};
+const T_RONDA = T_FOTOS_A + PASO * FOTOS_A.length;
+const T_FOTOS_B = T_RONDA + 6;
+const T_FINAL = T_FOTOS_B + PASO * FOTOS_B.length;
 const FINAL = enTiempo(T_FINAL);
-export const RESUMEN_FRAMES = FINAL + 54;
+export const RESUMEN_FRAMES = FINAL + 45;
 
 const ease = (f: number, a: number, b: number) => interpolate(f, [a, b], [0, 1], {...clamp, easing: Easing.out(Easing.cubic)});
 
@@ -72,7 +65,7 @@ const FotoResumen: React.FC<{foto: Foto; at: number; k: number}> = ({foto: [src,
 
 const Fotos: React.FC<{fotos: Foto[]; desde: number}> = ({fotos, desde}) => {
 	const f = useCurrentFrame();
-	const cortes = fotos.map((_, k) => enTiempo(desde + 2 * k));
+	const cortes = fotos.map((_, k) => enTiempo(desde + PASO * k));
 	const k = cortes.filter((c) => f >= c).length - 1;
 	if (k < 0) return null;
 	return (
@@ -102,7 +95,7 @@ export const ResumenMuestra: React.FC = () => {
 			<Sequence from={0} durationInFrames={a0 + 2} layout="none">
 				<AbsoluteFill>
 					<OffthreadVideo src={staticFile('video/muestra/circuito.mp4')} volume={vol(a0)} style={{width: '100%', height: '100%', objectFit: 'cover', transform: `scale(${1.02 + 0.05 * ease(f, 0, a0)})`}} />
-					<Chip text="¡Todos al circuito!" bg={C.celeste} ink={C.papel} at={60} side="left" top={1520} />
+					<Chip text="¡Al circuito!" bg={C.celeste} ink={C.papel} at={20} side="left" top={1520} />
 				</AbsoluteFill>
 			</Sequence>
 
@@ -119,7 +112,6 @@ export const ResumenMuestra: React.FC = () => {
 						</div>
 					</div>
 					<Chip text="La gran ronda" bg={C.sol} ink={C.tinta} at={8} side="left" top={1420} />
-					<Chip text="¡todos de la mano!" bg={C.bordo} ink={C.papel} at={60} side="right" top={1520} />
 				</AbsoluteFill>
 			</Sequence>
 			{f >= r0 && <AbsoluteFill style={{background: C.papel, opacity: 0.5 * (1 - ease(f, r0, r0 + 6))}} />}
