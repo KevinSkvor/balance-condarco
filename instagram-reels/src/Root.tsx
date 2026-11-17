@@ -32,6 +32,7 @@ import {HISTORIA_VIDEO_FRAMES, HistoriaVideoMuestra} from './muestra/HistoriaVid
 import {HISTORIA_RONDA_FRAMES, HistoriaRonda} from './muestra/HistoriaRonda';
 import {RESUMEN_FRAMES, ResumenMuestra} from './muestra/ResumenMuestra';
 import {AVES_FRAMES, AvesSala5} from './aves/Aves';
+import {CONCERT_FRAMES, ConcertSecundario} from './concert/Concert';
 import {PLACAS_MUESTRA_SEC, PostMuestraSec, PostMuestraSecFin, PostMuestraSecFoto} from './muestra-sec/PostMuestraSec';
 import {PortadaAves} from './aves/PortadaAves';
 import {PostMuestra, PostMuestra2, PostMuestra3, PostMuestra4, PostMuestra5} from './muestra/PostMuestra';
@@ -115,6 +116,7 @@ export const RemotionRoot: React.FC = () => (
 			<Still key={i} id={`PostMuestraSec${i + 2}`} component={PostMuestraSecFoto} defaultProps={{i}} width={1080} height={1440} />
 		))}
 		<Still id="PostMuestraSecFin" component={PostMuestraSecFin} width={1080} height={1440} />
+		<Composition id="ConcertSecundario" component={ConcertSecundario} durationInFrames={CONCERT_FRAMES} fps={30} width={1080} height={1920} />
 		<Still id="PostGranja" component={PostGranja} width={1080} height={1440} />
 		<Still id="PostGranja2" component={PostGranja2} width={1080} height={1440} />
 		<Still id="PostGranja3" component={PostGranja3} width={1080} height={1440} />
