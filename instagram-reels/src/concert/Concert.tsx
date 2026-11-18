@@ -4,13 +4,16 @@ import {C, DISPLAY, SANS, clamp} from '../lib';
 
 /**
  * Reel del concert (Mamma Mia) de la Muestra Anual 2026 de Secundaria.
- * Cortes con los mejores momentos de los videos, con su sonido original.
+ * Cortes con los mejores momentos de los videos, con su sonido original: canciones, escenas habladas en inglés y bailes.
  * El video apaisado va grande al centro, sobre el mismo video desenfocado; sólo una etiqueta "Secundario".
  */
 
-// [video, desde (s), duración (s)]
+// [video, desde (s), duración (s)]: canción de la boda como gancho, escenas habladas en inglés y los bailes
 const CORTES: [string, number, number][] = [
-	['c3', 0, 8],
+	['c3', 0, 8], // "I do, I do, I do"
+	['c1', 29.3, 11], // "I have to tell you something…"
+	['c1', 58.3, 5.5], // "You are my mother… I love you so much"
+	['c2', 28.6, 6.6], // "…let's not get married." "What?"
 	['c3', 20, 7.5],
 	['c3', 52, 8],
 	['c4', 0, 9],
