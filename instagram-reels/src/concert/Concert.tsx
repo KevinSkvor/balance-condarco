@@ -5,7 +5,7 @@ import {C, DISPLAY, SANS, clamp} from '../lib';
 /**
  * Reel del concert (Mamma Mia) de la Muestra Anual 2026 de Secundaria.
  * Cortes con los mejores momentos de los videos, con su sonido original: canciones, escenas habladas en inglés y bailes.
- * El video apaisado va grande al centro, sobre el mismo video desenfocado; sólo una etiqueta "Secundario".
+ * El video apaisado va grande al centro, sobre el mismo video desenfocado; sólo una etiqueta con el nombre de la obra.
  */
 
 // [video, desde (s), duración (s)]: canción de la boda como gancho, escenas habladas en inglés y los bailes
@@ -58,7 +58,7 @@ export const ConcertSecundario: React.FC = () => {
 			<div style={{position: 'absolute', top: 300, left: 0, right: 0, display: 'flex', justifyContent: 'center', opacity: chip * (1 - fin), transform: `translateY(${(1 - chip) * 20}px)`}}>
 				<div style={{display: 'flex', alignItems: 'center', gap: 14, padding: '12px 34px 16px', borderRadius: 999, background: C.bordo, color: C.papel, fontFamily: DISPLAY, fontWeight: 700, fontSize: 48, boxShadow: '0 10px 24px rgba(0,0,0,0.35)'}}>
 					<Img src={staticFile('img/escudo.png')} style={{height: 54}} />
-					Secundario
+					Mamma Mia!
 				</div>
 			</div>
 			<AbsoluteFill style={{background: C.crema, opacity: fin, alignItems: 'center', justifyContent: 'center'}}>
