@@ -102,15 +102,15 @@ const Inicio: React.FC = () => {
 const Chicos: React.FC = () => {
 	const f = useCurrentFrame();
 	const [a, b] = S.chicos;
-	const n0 = W('a2', '120') - 4;
-	const n = Math.round(interpolate(f, [n0, n0 + 24], [0, 127], {...clamp, easing: Easing.out(Easing.cubic)}));
+	const n0 = W('a2', '100') - 4;
+	const n = Math.round(interpolate(f, [n0, n0 + 24], [0, 100], {...clamp, easing: Easing.out(Easing.cubic)}));
 	const corte = W('a2', 'desde') - 4;
 	return (
 		<AbsoluteFill style={{background: C.noche}}>
 			<Fotos fotos={[['pasillo', '50 50'], ['aula-secundaria', '50 55']]} cortes={[a, corte]} fin={b} />
 			<Velo alto={900} />
 			<div style={{position: 'absolute', top: 250, left: 56, right: 56, display: 'flex', flexDirection: 'column', gap: 6}}>
-				<div style={{fontFamily: DISPLAY, fontWeight: 700, fontSize: 220, lineHeight: 0.95, color: C.sol, textShadow: '0 8px 40px rgba(11,20,64,0.6)', opacity: f >= n0 ? 1 : 0}}>{n}</div>
+				<div style={{fontFamily: DISPLAY, fontWeight: 700, fontSize: 220, lineHeight: 0.95, color: C.sol, textShadow: '0 8px 40px rgba(11,20,64,0.6)', opacity: f >= n0 ? 1 : 0}}>+{n}</div>
 				<Titulo at={W('a2', 'chicos') - 3} size={84}>
 					alumnos rindieron
 				</Titulo>
@@ -125,7 +125,7 @@ const Chicos: React.FC = () => {
 };
 
 const NIVELES: [string, string, number, string, string][] = [
-	// [texto, palabra, aparición, fondo, tinta]
+	// [texto, palabra con la que aparece, aparición de esa palabra, fondo, tinta]
 	['Preparatorio II', 'preparatorio', 0, C.sol, C.tinta],
 	['Children 1', '1', 0, C.celeste, C.papel],
 	['Children 2', '2', 0, C.celeste, C.papel],
@@ -136,9 +136,13 @@ const NIVELES: [string, string, number, string, string][] = [
 	['Pre-Adol. 3', '3', 1, ROJO, C.papel],
 ];
 
+/** Los niveles aparecen de a uno, grandes, y cada grupo va sobre su propia foto. */
 const Niveles: React.FC = () => {
+	const f = useCurrentFrame();
 	const [a, b] = S.niveles;
-	const cortes = [a, W('a3', 'children') - 4, W('a3', 'pre') - 4, W('a3', '2', 1) - 4];
+	const ats = NIVELES.map(([, w, n]) => W('a3', w, n) - 2);
+	const cortes = [a, W('a3', 'children') - 4, W('a3', 'pre') - 4, W('a3', '1', 1) - 4];
+	const k = ats.filter((t) => f >= t).length - 1;
 	return (
 		<AbsoluteFill style={{background: C.noche}}>
 			<Fotos
@@ -152,19 +156,19 @@ const Niveles: React.FC = () => {
 				fin={b}
 			/>
 			<Velo alto={700} />
-			<div style={{position: 'absolute', left: 0, right: 0, bottom: 0, height: 900, background: 'linear-gradient(0deg, rgba(11,20,64,0.9) 0%, rgba(11,20,64,0.6) 60%, rgba(11,20,64,0) 100%)'}} />
+			<div style={{position: 'absolute', left: 0, right: 0, bottom: 0, height: 700, background: 'linear-gradient(0deg, rgba(11,20,64,0.85) 0%, rgba(11,20,64,0) 100%)'}} />
 			<div style={{position: 'absolute', top: 250, left: 56, right: 56}}>
 				<Titulo at={a + 2} size={100}>
 					Los <span style={{color: C.sol}}>niveles</span>
 				</Titulo>
 			</div>
-			<div style={{position: 'absolute', left: 40, right: 40, top: 1160, display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 16}}>
-				{NIVELES.map(([t, w, n, bg, ink]) => (
-					<Chip key={t} at={W('a3', w, n) - 2} bg={bg} ink={ink} size={42}>
-						{t}
+			{k >= 0 && (
+				<div key={k} style={{position: 'absolute', left: 0, right: 0, top: 1380, display: 'flex', justifyContent: 'center'}}>
+					<Chip at={ats[k]} bg={NIVELES[k][3]} ink={NIVELES[k][4]} size={72}>
+						{NIVELES[k][0]}
 					</Chip>
-				))}
-			</div>
+				</div>
+			)}
 		</AbsoluteFill>
 	);
 };
