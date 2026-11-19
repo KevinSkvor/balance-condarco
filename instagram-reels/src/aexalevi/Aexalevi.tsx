@@ -110,8 +110,8 @@ const Chicos: React.FC = () => {
 			<Fotos fotos={[['pasillo', '50 50'], ['aula-secundaria', '50 55']]} cortes={[a, corte]} fin={b} />
 			<Velo alto={900} />
 			<div style={{position: 'absolute', top: 250, left: 56, right: 56, display: 'flex', flexDirection: 'column', gap: 6}}>
-				<div style={{fontFamily: DISPLAY, fontWeight: 700, fontSize: 220, lineHeight: 0.95, color: C.sol, textShadow: '0 8px 40px rgba(11,20,64,0.6)', opacity: f >= n0 ? 1 : 0}}>+{n}</div>
-				<Titulo at={W('a2', 'chicos') - 3} size={84}>
+				<div style={{fontFamily: DISPLAY, fontWeight: 700, fontSize: 130, lineHeight: 0.95, color: C.sol, textShadow: '0 8px 40px rgba(11,20,64,0.6)', opacity: f >= n0 ? 1 : 0}}>+{n}</div>
+				<Titulo at={W('a2', 'chicos') - 3} size={72}>
 					alumnos rindieron
 				</Titulo>
 			</div>
