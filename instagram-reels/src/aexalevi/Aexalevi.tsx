@@ -203,7 +203,7 @@ const Suerte: React.FC = () => {
 			<Fotos fotos={[['aula-chicos', '50 50']]} cortes={[a]} fin={b} />
 			<Velo alto={900} />
 			<div style={{position: 'absolute', top: 260, left: 56, right: 56}}>
-				<Titulo at={W('a5', 'muchas') - 3} size={120}>
+				<Titulo at={W('a5', 'mucha') - 3} size={120}>
 					¡Mucha <span style={{color: C.sol}}>suerte</span>, chicos!
 				</Titulo>
 			</div>
