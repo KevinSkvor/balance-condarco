@@ -34,6 +34,7 @@ import {RESUMEN_FRAMES, ResumenMuestra} from './muestra/ResumenMuestra';
 import {AVES_FRAMES, AvesSala5} from './aves/Aves';
 import {CONCERT_FRAMES, ConcertSecundario} from './concert/Concert';
 import {ExamenAexalevi} from './aexalevi/Aexalevi';
+import {PostOte, PostOte2, PostOte3, PostOte4} from './ote/PostOte';
 import TAx from './aexalevi/timeline.json';
 import {PLACAS_MUESTRA_SEC, PostMuestraSec, PostMuestraSecFin, PostMuestraSecFoto} from './muestra-sec/PostMuestraSec';
 import {PortadaAves} from './aves/PortadaAves';
@@ -120,6 +121,10 @@ export const RemotionRoot: React.FC = () => (
 		<Still id="PostMuestraSecFin" component={PostMuestraSecFin} width={1080} height={1440} />
 		<Composition id="ConcertSecundario" component={ConcertSecundario} durationInFrames={CONCERT_FRAMES} fps={30} width={1080} height={1920} />
 		<Composition id="ExamenAexalevi" component={ExamenAexalevi} durationInFrames={TAx.durationInFrames} fps={TAx.fps} width={TAx.width} height={TAx.height} />
+		<Still id="PostOte" component={PostOte} width={1080} height={1440} />
+		<Still id="PostOte2" component={PostOte2} width={1080} height={1440} />
+		<Still id="PostOte3" component={PostOte3} width={1080} height={1440} />
+		<Still id="PostOte4" component={PostOte4} width={1080} height={1440} />
 		<Still id="PostGranja" component={PostGranja} width={1080} height={1440} />
 		<Still id="PostGranja2" component={PostGranja2} width={1080} height={1440} />
 		<Still id="PostGranja3" component={PostGranja3} width={1080} height={1440} />
