@@ -69,7 +69,6 @@ const Invitacion: React.FC<{alto: number; compacto?: boolean}> = ({alto, compact
 				<Img src={staticFile('img/escudo.png')} style={{width: compacto ? 120 : 150}} />
 				<div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 14}}>
 					<div style={{fontSize: 26, fontWeight: 600, letterSpacing: '0.34em', color: C.tintaSuave}}>INSTITUTO ÁLVAREZ CONDARCO</div>
-					<div style={{fontSize: 30, fontStyle: 'italic', color: C.tintaSuave}}>tiene el agrado de invitarlos a la</div>
 				</div>
 				<div style={{textAlign: 'center', fontFamily: DISPLAY, fontWeight: 600, color: C.azul, lineHeight: 1.0}}>
 					<div style={{fontSize: compacto ? 104 : 120, letterSpacing: '-0.01em'}}>Despedida</div>

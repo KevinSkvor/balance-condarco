@@ -17,7 +17,8 @@ SR = 44100
 FPS = 30
 BEAT_F = 18
 BEAT = BEAT_F / FPS
-FRAMES = BEAT_F * 28
+INTRO = 5  # tiempos del sobre que se abre (igual que INTRO en DespedidaAnimada.tsx)
+FRAMES = BEAT_F * (28 + INTRO)
 N = int(SR * FRAMES / FPS)
 TOTAL = N / SR
 rng = np.random.default_rng(12)
@@ -84,8 +85,8 @@ def kick():
 # Re mayor: D – Bm – G – A, un acorde por compás de 4 tiempos
 PROG = [(38, [62, 66, 69]), (35, [59, 62, 66]), (43, [59, 62, 67]), (45, [61, 64, 69])]
 ARP = [0, 1, 2, 1, 2, 1, 0, 1]
-fin = BEAT * 18  # "¡Los esperamos!"
-ritmo = BEAT * 10  # desde los datos entra un pulso suave
+fin = BEAT * (18 + INTRO)  # "¡Los esperamos!"
+ritmo = BEAT * (10 + INTRO)  # desde los datos entra un pulso suave
 bar = 0
 while bar * 4 * BEAT < TOTAL - 0.5:
     t0 = bar * 4 * BEAT
@@ -102,8 +103,15 @@ while bar * 4 * BEAT < TOTAL - 0.5:
 apariciones = [0, 2, 4, 6, 8, 9, 10, 12, 14, 16, 17]
 notas = [74, 78, 81, 86, 85, 88, 83, 86, 81, 85, 90]
 for b, n in zip(apariciones, notas):
-    place(celesta(n), b * BEAT, pan=0.25, gain=0.16, r=0.6)
-place(shimmer(1.4), 2 * BEAT - 0.3, gain=0.1)  # brillo del escudo
+    place(celesta(n), (b + INTRO) * BEAT, pan=0.25, gain=0.16, r=0.6)
+place(shimmer(1.4), (2 + INTRO) * BEAT - 0.3, gain=0.1)  # brillo del escudo
+# intro: llega el sobre, se rompe el lacre, se abre la solapa y sale la tarjeta
+place(shimmer(0.6), 0.0, gain=0.14)
+place(celesta(86, 1.2), 10 / FPS, gain=0.14, r=0.5)
+place(shimmer(0.5), 24 / FPS, gain=0.12)
+for i, n in enumerate([74, 78, 81, 86]):
+    place(celesta(n, 1.6), 44 / FPS + i * 0.08, pan=-0.3 + i * 0.2, gain=0.12, r=0.6)
+place(shimmer(1.0), 66 / FPS, gain=0.12)
 # final: acorde abierto, cascada de celesta y brillo con el confeti
 place(cuerdas([62, 66, 69, 74], TOTAL - fin, attack=0.3, release=0.2), fin, gain=0.5, r=0.6)
 for i, n in enumerate([74, 78, 81, 86, 90, 93, 98]):

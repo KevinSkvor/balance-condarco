@@ -1,11 +1,12 @@
 import React from 'react';
-import {AbsoluteFill, Audio, Easing, Img, interpolate, staticFile, useCurrentFrame} from 'remotion';
+import {AbsoluteFill, Audio, Easing, Img, Sequence, interpolate, staticFile, useCurrentFrame} from 'remotion';
 import {C, DISPLAY, SANS, clamp, sp} from '../lib';
 
 /**
  * Invitación animada (historia 1080×1920, ~17 s) a la despedida de fin de año 2026.
- * Estilo delicado: papel crema y oro. Cada elemento entra en un tiempo de la música
- * (100 BPM, 18 cuadros por tiempo; ver audio/make_audio_despedida.py):
+ * Estilo delicado: papel crema y oro. Arranca como tarjeta digital: llega un sobre azul con lacre,
+ * se abre la solapa y sale la tarjeta, que crece hasta ocupar la pantalla. Después cada elemento
+ * entra con rebote en un tiempo de la música (100 BPM, 18 cuadros por tiempo; ver audio/make_audio_despedida.py):
  * marco que se dibuja → ramitas → escudo con brillo → nombre del colegio → "Despedida" letra a letra
  * → datos de a uno → "¡Los esperamos!" con lluvia de confeti.
  */
@@ -26,7 +27,9 @@ const T = {
 	sep2: BEAT * 17,
 	esperamos: BEAT * 18,
 };
-export const DESPEDIDA_FRAMES = BEAT * 28;
+/** Intro: el sobre llega, se abre y sale la tarjeta (5 tiempos). */
+const INTRO = BEAT * 5;
+export const DESPEDIDA_FRAMES = INTRO + BEAT * 28;
 
 const ease = (f: number, a: number, b: number, e: (t: number) => number = Easing.out(Easing.cubic)) => interpolate(f, [a, b], [0, 1], {...clamp, easing: e});
 
@@ -120,11 +123,12 @@ const Letras: React.FC<{texto: string; at: number; paso: number; style: React.CS
 	);
 };
 
+/** Aparición con rebote (escala con sobrepaso), como en las tarjetas digitales animadas. */
 const Aparece: React.FC<{at: number; top: number; children: React.ReactNode; desde?: number}> = ({at, top, children, desde = 40}) => {
 	const f = useCurrentFrame();
-	const s = ease(f, at, at + 18);
+	const s = sp(f, at, {damping: 9, stiffness: 170});
 	return (
-		<div style={{position: 'absolute', top, left: 80, right: 80, textAlign: 'center', opacity: s, transform: `translateY(${(1 - s) * desde}px)`, filter: `blur(${(1 - s) * 8}px)`}}>
+		<div style={{position: 'absolute', top, left: 80, right: 80, textAlign: 'center', opacity: Math.min(1, s * 2.5), transform: `translateY(${(1 - Math.min(s, 1)) * desde}px) scale(${0.55 + 0.45 * s})`}}>
 			{children}
 		</div>
 	);
@@ -158,7 +162,8 @@ const Dato: React.FC<{titulo: string; children: React.ReactNode}> = ({titulo, ch
 	</>
 );
 
-export const DespedidaAnimada: React.FC = () => {
+/** Contenido animado de la tarjeta; su cuadro 0 es el momento en que la tarjeta ya ocupa la pantalla. */
+const Tarjeta: React.FC = () => {
 	const f = useCurrentFrame();
 	const escudo = sp(f, T.escudo, {damping: 12, stiffness: 120});
 	const brillo = ease(f, T.escudo + 14, T.escudo + 40, Easing.inOut(Easing.sin));
@@ -167,7 +172,6 @@ export const DespedidaAnimada: React.FC = () => {
 	const respira = 1 + 0.02 * Math.sin((f - T.esperamos) / 8) * ease(f, T.esperamos, T.esperamos + 20);
 	return (
 		<AbsoluteFill style={{background: C.crema, fontFamily: SANS}}>
-			<Audio src={staticFile('despedida/musica.wav')} />
 			<AbsoluteFill style={{background: 'radial-gradient(circle at 50% 38%, #ffffff 0%, rgba(255,255,255,0) 65%)'}} />
 			<Polvo />
 			<Marco />
@@ -183,12 +187,9 @@ export const DespedidaAnimada: React.FC = () => {
 			</div>
 
 			<div style={{position: 'absolute', top: 530, left: 0, right: 0, textAlign: 'center', fontSize: 28, fontWeight: 600, letterSpacing: `${0.6 - 0.26 * nombre}em`, color: C.tintaSuave, opacity: nombre}}>INSTITUTO ÁLVAREZ CONDARCO</div>
-			<Aparece at={T.colegio + 14} top={580} desde={16}>
-				<div style={{fontSize: 34, fontStyle: 'italic', color: C.tintaSuave}}>tiene el agrado de invitarlos a la</div>
-			</Aparece>
 
-			<Letras texto="Despedida" at={T.despedida} paso={3} style={{position: 'absolute', top: 660, left: 0, right: 0, fontFamily: DISPLAY, fontWeight: 600, fontSize: 150, color: C.azul, letterSpacing: '-0.01em', lineHeight: 1}} />
-			<Letras texto="de fin de año" at={T.finDeAnio} paso={2} style={{position: 'absolute', top: 830, left: 0, right: 0, fontFamily: DISPLAY, fontWeight: 600, fontSize: 84, color: C.bordo, lineHeight: 1}} />
+			<Letras texto="Despedida" at={T.despedida} paso={3} style={{position: 'absolute', top: 630, left: 0, right: 0, fontFamily: DISPLAY, fontWeight: 600, fontSize: 150, color: C.azul, letterSpacing: '-0.01em', lineHeight: 1}} />
+			<Letras texto="de fin de año" at={T.finDeAnio} paso={2} style={{position: 'absolute', top: 805, left: 0, right: 0, fontFamily: DISPLAY, fontWeight: 600, fontSize: 84, color: C.bordo, lineHeight: 1}} />
 
 			<Separador at={T.sep1} top={970} />
 
@@ -225,6 +226,92 @@ export const DespedidaAnimada: React.FC = () => {
 					<div key={c} style={{flex: 1, background: c, transform: `scaleX(${ease(f, T.esperamos + i * 4, T.esperamos + 14 + i * 4)})`, transformOrigin: 'left'}} />
 				))}
 			</div>
+		</AbsoluteFill>
+	);
+};
+
+const W = 760; // sobre
+const H = 500;
+const ENV_TOP = 1000;
+
+/** Posición vertical del sobre: entra desde abajo y, cuando la tarjeta crece, se va por abajo. */
+const sobreY = (f: number) => {
+	const llega = sp(f, 0, {damping: 13, stiffness: 110});
+	const sale = ease(f, 66, 88, Easing.in(Easing.cubic));
+	return ENV_TOP + (1 - llega) * 1100 + sale * 1100;
+};
+
+/** Sobre azul con solapa que se abre y lacre bordó con el escudo. */
+const Sobre: React.FC<{capa: 'fondo' | 'frente'}> = ({capa}) => {
+	const f = useCurrentFrame();
+	const abre = ease(f, 24, 44, Easing.inOut(Easing.cubic));
+	const lacre = sp(f, 10, {damping: 8, stiffness: 220}) * (1 - ease(f, 24, 32));
+	const y = sobreY(f);
+	const box: React.CSSProperties = {position: 'absolute', left: 540 - W / 2, top: y, width: W, height: H};
+	if (capa === 'fondo') {
+		return (
+			<div style={{...box, perspective: 1400}}>
+				<div style={{position: 'absolute', inset: 0, background: '#0f1b4d', borderRadius: 14}} />
+				{/* solapa abierta: queda detrás de la tarjeta */}
+				{abre > 0.5 && (
+					<div style={{position: 'absolute', left: 0, top: 0, width: W, height: H * 0.62, transformOrigin: 'top', transform: `rotateX(${abre * 180}deg)`, background: C.azul, clipPath: 'polygon(0 0, 100% 0, 50% 100%)', borderTop: `3px solid ${C.dorado}`}} />
+				)}
+			</div>
+		);
+	}
+	return (
+		<div style={{...box, perspective: 1400}}>
+			{/* bolsillo delantero */}
+			<div style={{position: 'absolute', inset: 0, background: C.azul, borderRadius: 14, clipPath: `polygon(0 0, 50% 52%, 100% 0, 100% 100%, 0 100%)`, boxShadow: '0 30px 60px rgba(0,0,0,0.35)'}} />
+			<svg width={W} height={H} style={{position: 'absolute', inset: 0}}>
+				<path d={`M 6 6 L ${W / 2} ${H * 0.52} L ${W - 6} 6`} stroke={C.dorado} strokeWidth={2.5} fill="none" />
+				<rect x={6} y={6} width={W - 12} height={H - 12} rx={10} fill="none" stroke={C.dorado} strokeWidth={1.5} opacity={0.7} />
+			</svg>
+			{/* solapa cerrada */}
+			{abre <= 0.5 && (
+				<div style={{position: 'absolute', left: 0, top: 0, width: W, height: H * 0.62, transformOrigin: 'top', transform: `rotateX(${abre * 180}deg)`, background: '#1a2a70', clipPath: 'polygon(0 0, 100% 0, 50% 100%)'}} />
+			)}
+			{/* lacre */}
+			<div style={{position: 'absolute', left: W / 2 - 70, top: H * 0.62 - 90, width: 140, height: 140, borderRadius: '50%', background: C.bordo, boxShadow: `0 0 0 6px ${C.dorado}, 0 10px 24px rgba(0,0,0,0.4)`, display: 'flex', alignItems: 'center', justifyContent: 'center', transform: `scale(${lacre})`, opacity: Math.min(1, lacre * 2)}}>
+				<div style={{width: 96, height: 96, borderRadius: '50%', background: C.crema, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+					<Img src={staticFile('img/escudo.png')} style={{width: 70}} />
+				</div>
+			</div>
+		</div>
+	);
+};
+
+export const DespedidaAnimada: React.FC = () => {
+	const f = useCurrentFrame();
+	// la tarjeta sale del sobre (cuadros 44–66) y crece hasta ocupar la pantalla (66–INTRO)
+	const sube = ease(f, 44, 66, Easing.out(Easing.cubic));
+	const crece = ease(f, 66, INTRO, Easing.inOut(Easing.cubic));
+	const k = 0.5 + 0.5 * crece;
+	const llegaY = ENV_TOP + (1 - sp(f, 0, {damping: 13, stiffness: 110})) * 1100;
+	const yCaja = llegaY + 40 - sube * 620;
+	const top = yCaja * (1 - crece);
+	const intro = f < INTRO;
+	// mientras está en el sobre, la tarjeta sólo se ve por encima del borde inferior del sobre
+	const borde = sobreY(f) + H - 30;
+	const oculto = intro ? Math.max(0, 1920 - (borde - top) / k) : 0;
+	return (
+		<AbsoluteFill style={{background: `radial-gradient(circle at 50% 40%, #24347f 0%, ${C.noche} 75%)`, fontFamily: SANS, overflow: 'hidden'}}>
+			<Audio src={staticFile('despedida/musica.wav')} />
+			{intro && <Polvo />}
+			{intro && <Sobre capa="fondo" />}
+			<div style={{position: 'absolute', left: 540 - 540 * k, top, width: 1080, height: 1920, transform: `scale(${k})`, transformOrigin: 'top left', boxShadow: intro ? '0 30px 80px rgba(0,0,0,0.45)' : undefined, borderRadius: intro ? 20 : 0, overflow: 'hidden', clipPath: `inset(0 0 ${oculto}px 0)`}}>
+				{intro ? (
+					<AbsoluteFill style={{background: C.crema}}>
+						<div style={{position: 'absolute', inset: 44, border: `2.5px solid ${C.dorado}`, borderRadius: 6}} />
+						<Img src={staticFile('img/escudo.png')} style={{position: 'absolute', top: 270, left: 445, width: 190, opacity: 0.25}} />
+					</AbsoluteFill>
+				) : (
+					<Sequence from={INTRO} layout="none">
+						<Tarjeta />
+					</Sequence>
+				)}
+			</div>
+			{intro && <Sobre capa="frente" />}
 		</AbsoluteFill>
 	);
 };
