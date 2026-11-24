@@ -77,7 +77,7 @@ export const PostJornada: React.FC = () => (
 			<div style={{fontFamily: DISPLAY, fontWeight: 700, fontSize: 92, lineHeight: 1, letterSpacing: '-0.02em', color: C.azul}}>
 				Jornada <span style={{color: C.bordo}}>docente</span>
 			</div>
-			<div style={{fontSize: 34, lineHeight: 1.35, color: C.tintaSuave}}>Nivel Secundario · Nuevo Régimen Académico</div>
+			<div style={{fontSize: 34, lineHeight: 1.35, color: C.tintaSuave}}>Nivel Secundario</div>
 		</div>
 		<div style={{position: 'absolute', top: 1352, right: 56, display: 'flex', alignItems: 'center', gap: 10, padding: '12px 26px', borderRadius: 999, background: C.bordo, color: C.papel, fontSize: 28, fontWeight: 700}}>
 			Deslizá
