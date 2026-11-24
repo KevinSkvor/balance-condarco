@@ -10,7 +10,7 @@ import {C, DISPLAY, SANS} from '../lib';
 
 const DATOS = {
 	dia: 'Viernes 18 de diciembre',
-	hora: '20 h',
+	hora: '20 hs.',
 	lugar: 'El Galpón de Tacuara',
 	direccion: 'Av. Ángel T. de Alvear 2470 · Don Torcuato',
 };
@@ -79,7 +79,7 @@ const Invitacion: React.FC<{alto: number; compacto?: boolean}> = ({alto, compact
 				<div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', gap: compacto ? 26 : 40, textAlign: 'center'}}>
 					<Dato titulo="CUÁNDO">
 						{DATOS.dia}
-						<div style={{fontSize: 36, fontWeight: 500, color: C.tintaSuave, marginTop: 6}}>a partir de las {DATOS.hora}</div>
+						<div style={{fontSize: 36, fontWeight: 500, color: C.tintaSuave, marginTop: 6}}>a las {DATOS.hora}</div>
 					</Dato>
 					<Dato titulo="DÓNDE">
 						{DATOS.lugar}
