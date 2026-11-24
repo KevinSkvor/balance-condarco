@@ -36,6 +36,7 @@ import {CONCERT_FRAMES, ConcertSecundario} from './concert/Concert';
 import {ExamenAexalevi} from './aexalevi/Aexalevi';
 import {PostOte, PostOte2, PostOte3, PostOte4} from './ote/PostOte';
 import {DespedidaFeed, DespedidaHistoria} from './despedida/Despedida';
+import {DespedidaDelicadaFeed, DespedidaDelicadaHistoria} from './despedida/DespedidaDelicada';
 import TAx from './aexalevi/timeline.json';
 import {PLACAS_MUESTRA_SEC, PostMuestraSec, PostMuestraSecFin, PostMuestraSecFoto} from './muestra-sec/PostMuestraSec';
 import {PortadaAves} from './aves/PortadaAves';
@@ -128,6 +129,8 @@ export const RemotionRoot: React.FC = () => (
 		<Still id="PostOte4" component={PostOte4} width={1080} height={1440} />
 		<Still id="DespedidaHistoria" component={DespedidaHistoria} width={1080} height={1920} />
 		<Still id="DespedidaFeed" component={DespedidaFeed} width={1080} height={1440} />
+		<Still id="DespedidaDelicadaHistoria" component={DespedidaDelicadaHistoria} width={1080} height={1920} />
+		<Still id="DespedidaDelicadaFeed" component={DespedidaDelicadaFeed} width={1080} height={1440} />
 		<Still id="PostGranja" component={PostGranja} width={1080} height={1440} />
 		<Still id="PostGranja2" component={PostGranja2} width={1080} height={1440} />
 		<Still id="PostGranja3" component={PostGranja3} width={1080} height={1440} />
