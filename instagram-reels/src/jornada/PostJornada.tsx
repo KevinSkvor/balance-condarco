@@ -13,12 +13,13 @@ const B: React.FC<{children: React.ReactNode}> = ({children}) => <span style={{c
 
 type Placa = {src: string; src2?: string; w: number; h: number; pos?: string; chip?: string; texto?: React.ReactNode; chico?: boolean};
 
+// palabra de cada foto, debajo de la imagen
 const PLACAS: Placa[] = [
-	{src: 'fila.jpg', w: 1280, h: 960},
-	{src: 'grupo-charla.jpg', w: 1449, h: 2576, pos: '50% 58%'},
-	{src: 'grupos.jpg', w: 1449, h: 2576, pos: '50% 50%'},
-	{src: 'grupo-ventana.jpg', w: 1449, h: 2576, pos: '50% 50%'},
-	{src: 'presentacion-2.jpg', w: 1280, h: 960},
+	{src: 'fila.jpg', w: 1280, h: 960, texto: <>Nuevo Régimen <B>Académico</B></>},
+	{src: 'grupo-charla.jpg', w: 1449, h: 2576, pos: '50% 58%', texto: <>En <B>equipo</B></>},
+	{src: 'grupos.jpg', w: 1449, h: 2576, pos: '50% 50%', texto: <>Trabajo en <B>grupos</B></>},
+	{src: 'grupo-ventana.jpg', w: 1449, h: 2576, pos: '50% 50%', texto: <B>Acuerdos</B>},
+	{src: 'presentacion-2.jpg', w: 1280, h: 960, texto: <B>Formación</B>},
 ];
 
 const CHIPS: [string, string][] = [
