@@ -14,11 +14,11 @@ const B: React.FC<{children: React.ReactNode}> = ({children}) => <span style={{c
 type Placa = {src: string; src2?: string; w: number; h: number; pos?: string; chip?: string; texto?: React.ReactNode; chico?: boolean};
 
 const PLACAS: Placa[] = [
-	{src: 'fila.jpg', w: 1280, h: 960, chip: 'Nuevo Régimen Académico', texto: <>Analizamos juntos el <B>nuevo Régimen Académico</B></>},
-	{src: 'grupo-charla.jpg', w: 1449, h: 2576, pos: '50% 58%', chip: 'En equipo', texto: <>Intercambio de <B>miradas y experiencias</B></>},
-	{src: 'grupos.jpg', w: 1449, h: 2576, pos: '50% 50%', chip: 'Trabajo en grupos', texto: <>Pensando <B>propuestas</B> para nuestras aulas</>},
-	{src: 'grupo-ventana.jpg', w: 1449, h: 2576, pos: '50% 50%', chip: 'Acuerdos', texto: <>Construyendo <B>acuerdos</B> institucionales</>},
-	{src: 'presentacion-2.jpg', w: 1280, h: 960, chip: 'Formación', texto: <>Seguimos <B>aprendiendo</B> para acompañar mejor a nuestros alumnos</>, chico: true},
+	{src: 'fila.jpg', w: 1280, h: 960},
+	{src: 'grupo-charla.jpg', w: 1449, h: 2576, pos: '50% 58%'},
+	{src: 'grupos.jpg', w: 1449, h: 2576, pos: '50% 50%'},
+	{src: 'grupo-ventana.jpg', w: 1449, h: 2576, pos: '50% 50%'},
+	{src: 'presentacion-2.jpg', w: 1280, h: 960},
 ];
 
 const CHIPS: [string, string][] = [
@@ -77,7 +77,7 @@ export const PostJornada: React.FC = () => (
 			<div style={{fontFamily: DISPLAY, fontWeight: 700, fontSize: 92, lineHeight: 1, letterSpacing: '-0.02em', color: C.azul}}>
 				Jornada <span style={{color: C.bordo}}>docente</span>
 			</div>
-			<div style={{fontSize: 34, lineHeight: 1.35, color: C.tintaSuave}}>Nuestros profes del Nivel Secundario trabajaron sobre el nuevo Régimen Académico.</div>
+			<div style={{fontSize: 34, lineHeight: 1.35, color: C.tintaSuave}}>Nivel Secundario · Nuevo Régimen Académico</div>
 		</div>
 		<div style={{position: 'absolute', top: 1352, right: 56, display: 'flex', alignItems: 'center', gap: 10, padding: '12px 26px', borderRadius: 999, background: C.bordo, color: C.papel, fontSize: 28, fontWeight: 700}}>
 			Deslizá
@@ -127,10 +127,9 @@ export const PostJornadaFin: React.FC = () => (
 			<Img src={staticFile('img/escudo.png')} style={{width: 290}} />
 		</div>
 		<div style={{position: 'absolute', left: 70, right: 70, top: 680, textAlign: 'center', fontFamily: DISPLAY, fontWeight: 600, fontSize: 46, lineHeight: 1.3, color: C.azul}}>
-			Gracias a nuestro <span style={{color: C.bordo}}>equipo docente</span> por su <span style={{color: C.bordo}}>compromiso</span> y por seguir pensando la escuela que queremos para nuestros alumnos.
+			Gracias a nuestro <span style={{color: C.bordo}}>equipo docente</span> por su <span style={{color: C.bordo}}>compromiso</span>.
 		</div>
 		<div style={{position: 'absolute', left: 70, right: 70, top: 1150, textAlign: 'center', fontFamily: DISPLAY, fontWeight: 700, fontSize: 54, lineHeight: 1.15, color: C.bordo}}>
-			Juntos, construimos cada día.
 		</div>
 	</Base>
 );
