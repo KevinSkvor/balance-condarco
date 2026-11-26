@@ -34,6 +34,8 @@ import {RESUMEN_FRAMES, ResumenMuestra} from './muestra/ResumenMuestra';
 import {AVES_FRAMES, AvesSala5} from './aves/Aves';
 import {CONCERT_FRAMES, ConcertSecundario} from './concert/Concert';
 import {ExamenAexalevi} from './aexalevi/Aexalevi';
+import {ExamenOral} from './oral/Oral';
+import TOr from './oral/timeline.json';
 import {PostOte, PostOte2, PostOte3, PostOte4} from './ote/PostOte';
 import {DespedidaFeed, DespedidaHistoria} from './despedida/Despedida';
 import {DespedidaDelicadaFeed, DespedidaDelicadaHistoria} from './despedida/DespedidaDelicada';
@@ -139,6 +141,7 @@ export const RemotionRoot: React.FC = () => (
 			<Still key={`j${i}`} id={`PostJornada${i + 2}`} component={PostJornadaFoto} defaultProps={{i}} width={1080} height={1440} />
 		))}
 		<Still id="PostJornadaFin" component={PostJornadaFin} width={1080} height={1440} />
+		<Composition id="ExamenOral" component={ExamenOral} durationInFrames={TOr.durationInFrames} fps={TOr.fps} width={TOr.width} height={TOr.height} />
 		<Still id="PostGranja" component={PostGranja} width={1080} height={1440} />
 		<Still id="PostGranja2" component={PostGranja2} width={1080} height={1440} />
 		<Still id="PostGranja3" component={PostGranja3} width={1080} height={1440} />
