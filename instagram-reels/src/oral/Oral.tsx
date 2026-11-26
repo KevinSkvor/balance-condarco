@@ -125,7 +125,7 @@ const Felicitaciones: React.FC = () => {
 	const [a, b] = S.felicitaciones;
 	return (
 		<AbsoluteFill style={{background: C.noche}}>
-			<Fotos fotos={[['aula', '50 55', <><span style={{color: C.sol}}>Juntos</span></>], ['seno', '50 55', <><span style={{color: C.sol}}>Orgullo</span></>], ['corren', '50 55', <>¡Lo <span style={{color: C.sol}}>logramos</span>!</>]]} cortes={[a, a + 44, a + 84]} fin={b} />
+			<Fotos fotos={[['aula', '50 55', <><span style={{color: C.sol}}>Animarse</span></>], ['seno', '50 55', <><span style={{color: C.sol}}>Superación</span></>], ['corren', '50 55', <>¡Lo <span style={{color: C.sol}}>logramos</span>!</>]]} cortes={[a, a + 44, a + 84]} fin={b} />
 			<Mini n="07" at={a + 50} lado="izq" />
 			<Mini n="01" at={a + 90} />
 		</AbsoluteFill>
