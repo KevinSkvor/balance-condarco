@@ -266,8 +266,10 @@ for i, n in enumerate([86, 90, 93]):
 place(chime(86, 1.6), sec(4), gain=0.12, rev=0.5, to="sfx")  # entra el logo
 for sc in ["examinadores", "paso", "felicitaciones"]:
     place(whoosh(0.4), sec(T["scenes"][sc][0]) - 0.2, gain=0.14, to="sfx")
-for vid, w in [("o1", "exalevi"), ("o2", "examinadores"), ("o3", "idioma"), ("o4", "orgullosos")]:
+for vid, w in [("o1", "exalevi"), ("o2", "examinadores"), ("o3", "idioma")]:
     place(soft_pop(1.1), word(vid, w) - 4 / FPS, gain=0.14, rev=0.3, to="sfx")  # stickers
+for k in (50, 90):
+    place(soft_pop(1.2), sec(T["scenes"]["felicitaciones"][0] + k), gain=0.14, rev=0.3, to="sfx")
 
 # ───────────────────────────── locución ─────────────────────────────
 
