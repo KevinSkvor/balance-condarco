@@ -10,11 +10,11 @@ import {C, DISPLAY, SANS, clamp, sp} from '../lib';
  */
 
 const BEAT = (60 / 124) * 30; // cuadros por tiempo
-type Toma = {beats: number; foto?: string; video?: string; desde?: number; vol?: number; volanta?: string; titulo?: React.ReactNode; apaisada?: boolean};
+type Toma = {beats: number; foto?: string; video?: string; desde?: number; vol?: number; volanta?: string; titulo?: React.ReactNode; apaisada?: boolean; logo?: boolean};
 
 const TOMAS: Toma[] = [
 	// 1 · la sorpresa preparada (sin nadie)
-	{beats: 8, video: 'aula-eco', desde: 0.5, volanta: 'ÚLTIMO DÍA DE CLASES', titulo: <>Desayuno <span style={{color: C.sol}}>sorpresa</span></>},
+	{beats: 8, video: 'aula-eco', desde: 0.5, logo: true, titulo: <>Desayuno <span style={{color: C.sol}}>sorpresa</span></>},
 	{beats: 4, foto: 'aula-soc', titulo: <>Promo <span style={{color: C.sol}}>26</span></>},
 	{beats: 6, video: 'aula-soc', desde: 9, volanta: 'PREPARADO CON AMOR', titulo: <>por las <span style={{color: C.sol}}>familias</span></>},
 	{beats: 4, foto: 'bandera-eco', titulo: <>6.º <span style={{color: C.sol}}>Economía</span></>},
@@ -42,14 +42,21 @@ const fr = (b: number) => Math.round(b * BEAT);
 
 const ease = (f: number, a: number, b: number) => interpolate(f, [a, b], [0, 1], {...clamp, easing: Easing.out(Easing.cubic)});
 
-const Texto: React.FC<{volanta?: string; titulo?: React.ReactNode}> = ({volanta, titulo}) => {
+const Texto: React.FC<{volanta?: string; titulo?: React.ReactNode; logo?: boolean}> = ({volanta, titulo, logo}) => {
 	const f = useCurrentFrame();
 	const s = sp(f, 3, {damping: 12, stiffness: 170});
 	if (!titulo && !volanta) return null;
 	return (
 		<>
-			<div style={{position: 'absolute', left: 0, right: 0, top: 0, height: 760, background: 'linear-gradient(180deg, rgba(11,20,64,0.8) 0%, rgba(11,20,64,0.4) 60%, rgba(11,20,64,0) 100%)'}} />
-			<div style={{position: 'absolute', top: 260, left: 56, right: 56, textAlign: 'center', opacity: Math.min(1, s * 2), transform: `translateY(${(1 - Math.min(s, 1)) * 40}px) scale(${0.85 + 0.15 * s})`}}>
+			<div style={{position: 'absolute', left: 0, right: 0, top: 0, height: 900, background: 'linear-gradient(180deg, rgba(11,20,64,0.8) 0%, rgba(11,20,64,0.4) 60%, rgba(11,20,64,0) 100%)'}} />
+			<div style={{position: 'absolute', top: 230, left: 56, right: 56, textAlign: 'center', opacity: Math.min(1, s * 2), transform: `translateY(${(1 - Math.min(s, 1)) * 40}px) scale(${0.85 + 0.15 * s})`}}>
+				{logo && (
+					<div style={{display: 'flex', justifyContent: 'center', marginBottom: 26}}>
+						<div style={{width: 230, height: 230, borderRadius: '50%', background: C.papel, boxShadow: '0 16px 40px rgba(0,0,0,0.4)', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+							<Img src={staticFile('img/escudo.png')} style={{width: 160}} />
+						</div>
+					</div>
+				)}
 				{volanta && <div style={{fontFamily: SANS, fontWeight: 700, fontSize: 32, letterSpacing: '0.16em', color: C.sol, marginBottom: 14}}>{volanta}</div>}
 				{titulo && <div style={{fontFamily: DISPLAY, fontWeight: 700, fontSize: 104, lineHeight: 1.02, letterSpacing: '-0.02em', color: C.papel, textShadow: '0 6px 30px rgba(11,20,64,0.6)'}}>{titulo}</div>}
 			</div>
@@ -59,7 +66,7 @@ const Texto: React.FC<{volanta?: string; titulo?: React.ReactNode}> = ({volanta,
 
 const Media: React.FC<{t: Toma; n: number}> = ({t, n}) => {
 	const f = useCurrentFrame();
-	const z = 1.12 - 0.08 * ease(f, 0, n);
+	const z = 1.04 - 0.04 * ease(f, 0, n); // zoom mínimo para no perder nitidez
 	const pulso = 1 + 0.02 * Math.exp(-((f % Math.round(BEAT)) / BEAT) * 6);
 	const src = t.foto ? staticFile(`img/egresados/${t.foto}.jpg`) : staticFile(`video/egresados/${t.video}.mp4`);
 	const el = (style: React.CSSProperties, muted = false) =>
@@ -86,9 +93,9 @@ const Toma: React.FC<{t: Toma; n: number}> = ({t, n}) => {
 	const entra = ease(f, 0, 7);
 	const flash = 1 - ease(f, 0, 6);
 	return (
-		<AbsoluteFill style={{transform: `translateX(${(1 - entra) * 100}%)`, filter: `blur(${(1 - entra) * 14}px)`}}>
+		<AbsoluteFill style={{transform: `translateX(${(1 - entra) * 100}%)`, filter: entra < 1 ? `blur(${(1 - entra) * 10}px)` : undefined}}>
 			<Media t={t} n={n} />
-			<Texto volanta={t.volanta} titulo={t.titulo} />
+			<Texto volanta={t.volanta} titulo={t.titulo} logo={t.logo} />
 			<AbsoluteFill style={{background: C.papel, opacity: flash * 0.45}} />
 		</AbsoluteFill>
 	);
